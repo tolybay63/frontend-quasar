@@ -308,8 +308,9 @@ export default {
                 this.selected = []
                 this.loadData();
               },
-              () => {
-                notifyInfo(this.$t("hasChild"));
+              (error) => {
+                console.error(error);
+                //notifyInfo(this.$t("hasChild"));
               }
             );
         });
