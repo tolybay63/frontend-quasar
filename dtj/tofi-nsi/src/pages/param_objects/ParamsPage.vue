@@ -1,7 +1,7 @@
 <template>
   <div class="no-padding no-margin">
     <q-table
-      style="height: calc(100vh - 280px); width: 100%"
+      class="my-sticky-header-table"
       color="primary" dense
       card-class="bg-amber-1 text-brown"
       row-key="id"
@@ -14,20 +14,23 @@
       :loading="loading"
       selection="single"
       v-model:selected="selected"
-      :rows-per-page-options="[0]"
+      :rows-per-page-options="[25, 50, 0]"
     >
-      <template #bottom-row>
-        <q-td colspan="100%" v-if="selected.length > 0">
-          <span class="text-blue"> {{ $t("selectedRow") }}: </span>
-          <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
-        </q-td>
-        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
-          {{ $t("infoRow") }}
-        </q-td>
-      </template>
 
       <template v-slot:top>
+        <div class="col-first">
+          <q-td colspan="100%" v-if="selected.length > 0">
+            <span class="text-blue"> {{ $t("selectedRow") }}: </span>
+            <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
+          </q-td>
+          <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
+            {{ $t("infoRow") }}
+          </q-td>
+        </div>
 
+        <q-space/>
+
+        <div class="col-second q-mr-xl">
         <q-btn v-if="hasTarget('nsi:ol:ins')"
                icon="post_add" dense
                color="secondary"
@@ -60,9 +63,9 @@
             {{ $t("deletingRecord") }}
           </q-tooltip>
         </q-btn>
+        </div>
 
-        <q-space/>
-
+        <div class="col-last">
         <q-input
           dense class="q-mr-lg"
           debounce="300"
@@ -75,6 +78,8 @@
             <q-icon name="search"/>
           </template>
         </q-input>
+        </div>
+
       </template>
 
       <template #loading>
@@ -294,6 +299,27 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="sass">
+.my-sticky-header-table
+  /* height or max-height is important */
+  height: calc(100vh - 280px)
 
+  /* bg color is important for th; just specify one */
+  background-color: #bdbdbd
+
+  thead tr th
+    position: sticky
+    z-index: 1
+  thead tr:first-child th
+    top: 0
+
+  /* this is when the loading indicator appears */
+  &.q-table--loading thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+
+  /* prevent scrolling behind sticky top row on focus */
+  tbody
+    /* height of all previous header rows */
+    scroll-margin-top: 48px
 </style>

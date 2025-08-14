@@ -1,8 +1,8 @@
-
+<!--  style="height: calc(100vh - 140px); width: 100%" -->
 <template>
   <div class="no-padding no-margin">
     <q-table
-      style="height: calc(100vh - 140px); width: 100%"
+      class="my-sticky-header-table"
       color="primary" dense
       card-class="bg-amber-1 text-brown"
       row-key="obj"
@@ -16,9 +16,9 @@
       :loading="loading"
       selection="single"
       v-model:selected="selected"
-      :rows-per-page-options="[0]"
+      :rows-per-page-options="[25, 50, 0]"
     >
-      <template #bottom-row>
+      <template #top-row>
         <q-td colspan="100%" v-if="selected.length > 0">
           <span class="text-blue"> {{ $t("selectedRow") }}: </span>
           <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
@@ -278,7 +278,7 @@ export default {
     },
 
     infoSelected(row) {
-      return " " + row.TechCard
+      return " " + row.fullName
     },
 
   },
@@ -334,6 +334,26 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="sass">
+.my-sticky-header-table
+  /* height or max-height is important */
+  height: calc(100vh - 140px)
+  /* bg color is important for th; just specify one */
+  background-color: #bdbdbd
 
+  thead tr th
+    position: sticky
+    z-index: 1
+  thead tr:first-child th
+    top: 0
+
+  /* this is when the loading indicator appears */
+  &.q-table--loading thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+
+  /* prevent scrolling behind sticky top row on focus */
+  tbody
+    /* height of all previous header rows */
+    scroll-margin-top: 48px
 </style>
