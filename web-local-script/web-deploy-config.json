@@ -1,0 +1,67 @@
+{
+    "DevServer": {
+        "IP": "127.0.0.1",
+        "RootPath": "D:\\jc-projects\\frontend-quasar"
+    },
+    "ProdServer": {
+        "IP": "127.0.0.1",
+        "RootPath": "C:\\dtj\\web"
+    },
+    "WebServices": [
+        {
+            "Name": "dtj-app",
+            "DevPath": "dtj\\dtj-app",
+            "ProdPath": "dtj"
+        },
+        {
+            "Name": "tofi-nsi",
+            "DevPath": "dtj\\tofi-nsi",
+            "ProdPath": "nsi"
+        },
+        {
+            "Name": "tofi-plan",
+            "DevPath": "dtj\\tofi-plan",
+            "ProdPath": "plan"
+        },
+        {
+            "Name": "tofi-personnal",
+            "DevPath": "dtj\\tofi-personnal",
+            "ProdPath": "personnal"
+        },
+        {
+            "Name": "tofi-orgstructure",
+            "DevPath": "dtj\\tofi-orgstructure",
+            "ProdPath": "orgstructure"
+        },
+        {
+            "Name": "tofi-object",
+            "DevPath": "dtj\\tofi-object",
+            "ProdPath": "object"
+        },
+        {
+            "Name": "tofi-admin",
+            "DevPath": "tofi-admin",
+            "ProdPath": "admin"
+        },
+        {
+            "Name": "tofi-meta",
+            "DevPath": "tofi-meta",
+            "ProdPath": "meta"
+        },
+        {
+            "Name": "tofi-cube",
+            "DevPath": "tofi-cube",
+            "ProdPath": "cube"
+        },
+        {
+            "Name": "tofi-userdata",
+            "DevPath": "tofi-userdata",
+            "ProdPath": "account"
+        },
+        {
+            "Name": "tofi-data",
+            "DevPath": "tofi-data",
+            "ProdPath": "tofidata"
+        }
+    ]
+}

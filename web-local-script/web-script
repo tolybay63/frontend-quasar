@@ -1,0 +1,29 @@
+Относительно web-скриптов:
+Структура папок на dev-server:
+frontend-quasar		(Корневая папка (D:\jc-projects\frontend-quasar)
+    dtj			(подпапка)		
+        dtj-app 	Сервисы (7)
+        tofi-nsi
+    tofi-admin
+    tofi-meta
+    tofi-cube
+    tofi-userdata
+    tofi-data
+
+Структура папок на prod-server:
+
+dtj     		Корневая папка (C:\dtj\web)
+   server
+   web
+       dtj  		Сервисы (7)
+       admin
+       meta
+       account
+       tofidata
+       cube
+       nsi
+       
+frontend реализован на Quasar
+1-скрипт собирает продакшн для всех сервисов в папке dist (quasar build).
+2-скрипт копирует для всех сервисов содержимое папки dist в prod-server в указанные папки.
+До этого при развертывании ручками удалял, копировал без блокировки, поэтому думаю, больше  ничего не требуется. Поскольку конфиг nginx не меняем, его перезагружать не нужно.

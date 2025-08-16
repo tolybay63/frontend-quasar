@@ -1,0 +1,78 @@
+{
+  "DevServer": {
+    "Hostname": "scl-007.efk.local",
+    "IP": "192.168.1.215",
+    "RootPath": "C:\\jc-2\\frontend-quasar",
+    "Credentials": {
+      "Username": "efk\\username",
+      "Password": "password"
+    }
+  },
+  "ProdServer": {
+    "Hostname": "swl-001.efk.local", 
+    "IP": "192.168.1.20",
+    "RootPath": "C:\\dtj\\web",
+    "Credentials": {
+      "Username": "efk\\username",
+      "Password": "password"
+    }
+  },
+  "DeploymentMethod": "SMB",
+  "WebServices": [
+    {
+      "Name": "admin",
+      "DevPath": "admin",
+      "ProdPath": "admin"
+    },
+    {
+      "Name": "nsi",
+      "DevPath": "nsi", 
+      "ProdPath": "nsi"
+    },
+    {
+      "Name": "orgstructure",
+      "DevPath": "orgstructure",
+      "ProdPath": "orgstructure"
+    },
+    {
+      "Name": "personnel",
+      "DevPath": "personnel",
+      "ProdPath": "personnel"
+    },
+    {
+      "Name": "reports",
+      "DevPath": "reports",
+      "ProdPath": "reports"
+    },
+    {
+      "Name": "settings",
+      "DevPath": "settings",
+      "ProdPath": "settings"
+    },
+    {
+      "Name": "tasks",
+      "DevPath": "tasks",
+      "ProdPath": "tasks"
+    },
+    {
+      "Name": "workflow",
+      "DevPath": "workflow",
+      "ProdPath": "workflow"
+    },
+    {
+      "Name": "documents",
+      "DevPath": "documents",
+      "ProdPath": "documents"
+    },
+    {
+      "Name": "calendar",
+      "DevPath": "calendar",
+      "ProdPath": "calendar"
+    },
+    {
+      "Name": "dashboard",
+      "DevPath": "dashboard",
+      "ProdPath": "dashboard"
+    }
+  ]
+}
