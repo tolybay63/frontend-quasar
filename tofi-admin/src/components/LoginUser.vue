@@ -106,7 +106,7 @@ export default {
       form: {login: "", email: "", psw: "", psw2: ""},
       lang: this.lg,
       isPwd: ref(true),
-      loading: ref(false),
+      loading: false,
     };
   },
 
@@ -169,7 +169,7 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; Basic
 params: {username: this.form.login, password: this.form.psw},
     * */
     onOKClick: function () {
-      this.loading = ref(true);
+      this.loading = true;
       let err = false
       let fd = new FormData()
       fd.append("username", this.form.login);
@@ -202,7 +202,7 @@ params: {username: this.form.login, password: this.form.psw},
           }
         )
         .finally(() => {
-          this.loading = ref(false);
+          this.loading = false;
           if (!err) this.hide()
 
         });
