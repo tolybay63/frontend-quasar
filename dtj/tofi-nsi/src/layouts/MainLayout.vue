@@ -202,6 +202,14 @@ const NAVIGATION_LINKS = [
     link: "/charts_objects",
     target: "nsi:ose",
   },
+
+  {
+    title: "charts_objects2",
+    info: "",
+    icon: "assignment_turned_in",
+    link: "/charts_objects2",
+    target: "nsi:ose",
+  },
   {
     title: "separation_point",
     info: "",

@@ -1,4 +1,3 @@
-<!--  style="height: calc(100vh - 140px); width: 100%" -->
 <template>
   <div class="no-padding no-margin">
     <q-table
