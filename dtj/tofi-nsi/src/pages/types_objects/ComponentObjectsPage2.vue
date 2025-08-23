@@ -18,22 +18,17 @@
       v-model:selected="selected"
       :rows-per-page-options="[25, 50, 0]"
     >
-      <template #top-row>
+
+      <template v-slot:top>
+
         <q-td colspan="100%" v-if="selected.length > 0">
           <span class="text-blue"> {{ $t("selectedRow") }}: </span>
           <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
         </q-td>
-        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
+        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-blue">
           {{ $t("infoRow") }}
         </q-td>
-      </template>
 
-      <template v-slot:top>
-        <div style="font-size: 1.2em; font-weight: bold">
-          <q-avatar color="black" text-color="white" icon="assignment_turned_in">
-          </q-avatar>
-          {{ $t("charts_objects") }}
-        </div>
 
         <q-space/>
         <q-btn v-if="hasTarget('nsi:ol:ins')"
@@ -50,7 +45,7 @@
         <q-btn v-if="hasTarget('nsi:ol:del')"
                icon="delete" dense
                color="secondary"
-               class="q-ml-lg"
+               class="q-mx-lg"
                :disable="loading || selected.length === 0"
                @click="removeRow(selected[0])"
         >
@@ -59,12 +54,11 @@
           </q-tooltip>
         </q-btn>
 
-        <q-space/>
-
         <q-input
           dense
           debounce="300"
           color="primary"
+          class="q-ml-lg"
           :model-value="filter"
           v-model="filter"
           :label="$t('txt_filter')"
@@ -83,8 +77,8 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
-import {hasTarget, notifyError, notifyInfo, pack} from "src/utils/jsutils";
+import {baseURL} from "boot/axios";
+import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
 import UpdateChartsObjects2 from "pages/charts_objects/UpdateChartsObjects2.vue";
 
 export default {
@@ -98,6 +92,9 @@ export default {
       rows: [],
       filter: "",
       selected: [],
+      labelTyp1: "Тип обслуживаемого объекта",
+      labelTyp2: "Компонент",
+
     }
   },
 
@@ -135,7 +132,10 @@ export default {
             data: {},
             codRelTyp: this.codRelTyp,
             codTyp1: "Typ_ObjectTyp",
-            codTyp2: "Typ_Components"
+            codTyp2: "Typ_Components",
+            labelTyp1: this.labelTyp1,
+            labelTyp2: this.labelTyp2,
+
             // ...
           },
         })
@@ -195,7 +195,7 @@ export default {
       return [
         {
           name: "namerom1",
-          label: 'Технологическая карта', //this.$t("fldName"),
+          label: this.labelTyp1, //this.$t("fldName"),
           field: "namerom1",
           align: "left",
           classes: "bg-blue-grey-1",
@@ -204,7 +204,7 @@ export default {
 
         {
           name: "namerom2",
-          label: 'Тип обслуживаемого объекта', //this.$t("fldName"),
+          label: this.labelTyp2, //this.$t("fldName"),
           field: "namerom2",
           align: "left",
           classes: "bg-blue-grey-1",

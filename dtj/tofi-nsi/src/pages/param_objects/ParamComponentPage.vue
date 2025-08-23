@@ -16,6 +16,19 @@
 
             <template v-slot:action>
 
+              <div class="absolute-left q-ma-md">
+                <q-td colspan="100%" v-if="selected.length > 0">
+                  <span class="text-blue"> {{ $t("selectedRow") }}: </span>
+                  <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
+                </q-td>
+                <q-td
+                  v-else-if="this.rows.length > 0" colspan="100%" class="text-blue">
+                  {{ $t("infoRow") }}
+                </q-td>
+              </div>
+
+              <q-space/>
+
               <q-btn
                 dense class="q-ma-sm" icon="expand_more" color="secondary" @click="fnExpand()"
               >
@@ -95,7 +108,7 @@
           </q-banner>
 
 
-          <div style="height: 100%; width: 100%" class="no-scroll">
+          <div style="height: 100%; width: 100%" class="no-scroll  my-sticky-header-table">
             <div
               class="q-table-container q-table--dense scroll"
               style="height: 100%"
@@ -104,7 +117,7 @@
               <table
                 class="q-table q-table--cell-separator q-table--bordered wrap q-table-middle"
               >
-                <thead class="text-bold text-white bg-blue-grey-13">
+                <thead class="text-bold text-white bg-blue-grey-13" >
                   <tr class style="text-align: left">
                     <th :style="fnColStyle(0)">{{ fnColLabel(0) }}</th>
                     <th :style="fnColStyle(1)">{{ fnColLabel(1) }}</th>
@@ -181,20 +194,8 @@
                 </tbody>
               </table>
 
-              <div>
-                <q-td colspan="100%" v-if="selected.length > 0">
-                  <span class="text-blue"> {{ $t("selectedRow") }}: </span>
-                  <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
-                </q-td>
-                <q-td
-                  v-else-if="this.rows.length > 0" colspan="100%" class="text-bold">
-                  {{ $t("infoRow") }}
-                </q-td>
-              </div>
-
 
             </div>
-
           </div>
 
         </div>
@@ -673,6 +674,28 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="sass">
+.my-sticky-header-table
+  /* height or max-height is important */
+  height: calc(100vh - 280px)
 
+  /* bg color is important for th; just specify one */
+  background-color: #bdbdbd
+
+  thead tr th
+    position: sticky
+    z-index: 1
+  thead tr:first-child th
+    top: 0
+
+  /* this is when the loading indicator appears */
+  &.q-table--loading thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+
+  /* prevent scrolling behind sticky top row on focus */
+  tbody
+    /* height of all previous header rows */
+    scroll-margin-top: 48px
 </style>
+

@@ -18,23 +18,25 @@
       :rows-per-page-options="[25, 50, 0]"
     >
       <template #top-row>
-        <q-td colspan="100%" v-if="selected.length > 0">
-          <span class="text-blue"> {{ $t("selectedRow") }}: </span>
-          <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
-        </q-td>
-        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
-          {{ $t("infoRow") }}
-        </q-td>
       </template>
 
       <template v-slot:top>
-        <div style="font-size: 1.2em; font-weight: bold">
+        <div style="font-size: 1.2em; font-weight: bold" class="q-mr-xl">
           <q-avatar color="black" text-color="white" icon="assignment_turned_in">
           </q-avatar>
           {{ $t("charts_objects") }}
         </div>
 
+        <q-td colspan="100%" v-if="selected.length > 0">
+          <span class="text-blue"> {{ $t("selectedRow") }}: </span>
+          <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
+        </q-td>
+        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-blue">
+          {{ $t("infoRow") }}
+        </q-td>
+
         <q-space/>
+
         <q-btn v-if="hasTarget('nsi:ol:ins')"
                icon="post_add" dense
                color="secondary"
@@ -49,7 +51,7 @@
         <q-btn v-if="hasTarget('nsi:ol:del')"
                icon="delete" dense
                color="secondary"
-               class="q-ml-lg"
+               class="q-ml-md q-mr-xl"
                :disable="loading || selected.length === 0"
                @click="removeRow(selected[0])"
         >
@@ -57,8 +59,6 @@
             {{ $t("deletingRecord") }}
           </q-tooltip>
         </q-btn>
-
-        <q-space/>
 
         <q-input
           dense
@@ -97,6 +97,8 @@ export default {
       rows: [],
       filter: "",
       selected: [],
+      labelTyp1: "Технологическая карта",
+      labelTyp2: "Тип обслуживаемого объекта",
     }
   },
 
@@ -134,7 +136,9 @@ export default {
             data: {},
             codRelTyp: "RT_Works",
             codTyp1: "Typ_Work",
-            codTyp2: "Typ_ObjectTyp"
+            codTyp2: "Typ_ObjectTyp",
+            labelTyp1: this.labelTyp1,
+            labelTyp2: this.labelTyp2,
             // ...
           },
         })

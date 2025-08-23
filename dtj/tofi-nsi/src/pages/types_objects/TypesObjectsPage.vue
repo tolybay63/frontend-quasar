@@ -1,165 +1,90 @@
 <template>
-
   <div class="no-padding no-margin">
+    <q-table
+      style="height: calc(100vh - 280px); width: 100%"
+      class="my-sticky-header-table"
+      color="primary" dense
+      card-class="bg-amber-1 text-brown"
+      row-key="id"
+      :columns="cols"
+      :rows="rows"
+      :wrap-cells="true"
+      :table-colspan="4"
+      table-header-class="text-bold text-white bg-blue-grey-13"
+      separator="cell"
+      :filter="filter"
+      :loading="loading"
+      selection="single"
+      v-model:selected="selected"
+      :rows-per-page-options="[25,50,0]"
+    >
+      <template v-slot:top>
 
-    <q-banner dense inline-actions  class="bg-orange-1">
-
-
-      <div>
         <q-td colspan="100%" v-if="selected.length > 0">
           <span class="text-blue"> {{ $t("selectedRow") }}: </span>
-          <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
+          <span class="text-bold"> {{ infoSelected(selected[0]) }} </span>
         </q-td>
-        <q-td
-          v-else-if="this.rows.length > 0" colspan="100%" class="text-bold">
+        <q-td colspan="100%" v-else-if="rows.length > 0" class="text-blue">
           {{ $t("infoRow") }}
         </q-td>
-      </div>
 
+        <q-space/>
 
-      <template v-slot:action>
-
-<!--
-        <q-btn
-          dense class="q-ml-sm" icon="expand_more" color="secondary" @click="fnExpand()"
+        <q-btn v-if="hasTarget('nsi:ol:ins')"
+               icon="post_add" dense
+               color="secondary"
+               :disable="loading"
+               @click="editRow(null, 'ins')"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("expandAll") }}
-          </q-tooltip>
-        </q-btn>
-        <q-btn
-          dense icon="expand_less" color="secondary" class="q-ml-sm" @click="fnCollapse()"
-        >
-          <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("collapseAll") }}
-          </q-tooltip>
-        </q-btn>
--->
-
-        <q-btn
-          v-if="hasTarget('mdl:mn_dp:dmprop:sel:ins')"
-          dense
-          icon="post_add"
-          color="secondary"
-          class="q-ml-sm"
-          :disable="loading"
-          @click="addNode(false)"
-        >
-          <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("addNode") }}
+            {{ $t("newRecord") }}
           </q-tooltip>
         </q-btn>
 
-<!--
-        <q-btn
-          v-if="hasTarget('mdl:mn_dp:dmprop:sel:ins')"
-          dense
-          icon="post_add"
-          color="secondary"
-          class="q-ml-sm img-vert"
-          :disable="loading || selected.length === 0"
-          @click="addNode(true)"
+        <q-btn v-if="hasTarget('nsi:ol:upd')"
+               icon="edit" dense
+               color="secondary"
+               class="q-mx-md"
+               :disable="loading || selected.length === 0"
+               @click="editRow(selected[0], 'upd')"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("addSubNode") }}
+            {{ $t("editRecord") }}
           </q-tooltip>
         </q-btn>
--->
-
-        <q-btn
-          v-if="hasTarget('mdl:mn_dp:dmprop:sel:upd')"
-          dense
-          icon="edit"
-          color="secondary"
-          class="q-ml-sm"
-          :disable="loading || selected.length === 0"
-          @click="editNode(selected[0])"
+        <q-btn v-if="hasTarget('nsi:ol:del')"
+               icon="delete" dense
+               color="secondary"
+               class="q-mx-md"
+               :disable="loading || selected.length === 0"
+               @click="removeRow(selected[0])"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("editNode") }}
+            {{ $t("deletingRecord") }}
           </q-tooltip>
         </q-btn>
 
-        <q-btn
-          v-if="hasTarget('mdl:mn_dp:dmprop:sel:del')"
-          dense
-          icon="delete"
-          color="secondary"
-          class="q-ml-sm"
-          @click="deleteNode()"
-          :disable="loading || selected.length === 0"
+
+        <q-input
+          dense class="q-ml-lg"
+          debounce="300"
+          color="primary"
+          :model-value="filter"
+          v-model="filter"
+          :label="$t('txt_filter')"
         >
-          <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("deleteNode") }}
-          </q-tooltip>
-        </q-btn>
+          <template v-slot:append>
+            <q-icon name="search"/>
+          </template>
+        </q-input>
 
-        <q-space></q-space>
-
-        <q-inner-loading :showing="loading" color="secondary"/>
 
       </template>
 
-    </q-banner>
-
-
-    <div style="height: calc(100vh - 330px); width: 100%" class="no-scroll">
-      <div
-        class="q-table-container q-table--dense scroll"
-        style="height: 100%"
-      >
-
-        <table
-          class="q-table q-table--cell-separator q-table--bordered wrap q-table-middle"
-        >
-          <thead class="text-bold text-white bg-blue-grey-13">
-          <tr class style="text-align: left">
-            <th :style="fnColStyle(0)">{{ fnColLabel(0) }}</th>
-            <th :style="fnColStyle(1)">{{ fnColLabel(1) }}</th>
-            <th :style="fnColStyle(2)">{{ fnColLabel(2) }}</th>
-            <th :style="fnColStyle(3)">{{ fnColLabel(3) }}</th>
-          </tr>
-          </thead>
-
-          <tbody style="background: aliceblue">
-          <tr v-for="(item, index) in arrayTreeObj" :key="index">
-            <td :data-th="cols[0].name" @click="toggle(item)">
-                <span
-                  class="q-tree-link q-tree-label"
-                  v-bind:style="setPadding(item)"
-                >
-                  <q-icon
-                    style="cursor: pointer"
-                    :name="iconName(item)"
-                    color="secondary"
-                  ></q-icon>
-
-                  <q-btn
-                    dense flat
-                    color="blue"
-                    :icon="
-                      selected.length > 0 && item.id === selected[0].id
-                        ? 'check_box'
-                        : 'check_box_outline_blank'
-                    "
-                    @click.stop="selectedCheck(item)"
-                  >
-                  </q-btn>
-
-                  {{ item.number }}
-                </span>
-            </td>
-            <td :data-th="cols[1].name">{{ item.name }}</td>
-            <td :data-th="cols[2].name">{{ mapCls.get(item.cls) }}</td>
-            <td :data-th="cols[3].name">{{ mapFvOt.get(item.fvShape) }}</td>
-          </tr>
-          </tbody>
-        </table>
-
-      </div>
-
-    </div>
-
+      <template #loading>
+        <q-inner-loading showing color="secondary"></q-inner-loading>
+      </template>
+    </q-table>
   </div>
 
 </template>
@@ -170,6 +95,8 @@ import {ref} from "vue";
 import {api, baseURL} from "boot/axios";
 import {collapsAll, expandAll, getParentNode, hasTarget, notifyError, notifyInfo, pack} from "src/utils/jsutils";
 import UpdaterTypesObjects from "pages/types_objects/UpdaterTypesObjects.vue";
+import {extend} from "quasar";
+
 
 const expand = (item) => {
   item.expend = ref(true);
@@ -182,14 +109,14 @@ export default {
   name: "TypesObjectsPage",
   data() {
     return {
+      loading: false,
       cols: [],
       rows: [],
-      loading: false,
+      filter: "",
+      selected: [],
+
       FD_PropType: null,
       FD_DimPropType: null,
-      isExpanded: true,
-      itemId: null,
-      selected: [],
       mapCls: null,
       mapFvOt: null,
     };
@@ -198,94 +125,41 @@ export default {
   methods: {
     hasTarget,
 
-    fnColStyle(ind) {
-      return this.cols[ind] ? this.cols[ind].headerStyle : ""
-    },
-
-    fnColLabel(ind) {
-      return this.cols[ind] ? this.cols[ind].label : "";
-    },
-
-    selectedCheck(item) {
-      let vm = this;
-      if (vm.selected.length > 0 && item.id === vm.selected[0].id)
-        vm.selected = [];
-      else {
-        vm.selected = [];
-        vm.selected.push(item);
-      }
-    },
-
-    addNode(isChild) {
-      let data = {accessLevel: 1};
-      let parentName = "Нет";
-      if (isChild) {
-        data.parent = this.selected[0].id;
-        parentName = this.selected[0].name;
-      } else {
-        if (this.selected.length > 0) {
-          let parentNode = [];
-          data.parent = this.selected[0].parent;
-          getParentNode(this.rows, this.selected[0].parent, parentNode);
-          parentName = parentNode.length > 0 ? parentNode[0].name : "Нет";
-        }
+    editRow(row, mode) {
+      let data = {
+        accessLevel: 1,
       }
 
-      let selRow = this.selected[0];
+      if (mode === "upd") {
+        extend(true, data, row)
+      }
 
       this.$q
         .dialog({
           component: UpdaterTypesObjects,
           componentProps: {
+            mode: mode,
             data: data,
-            mode: "ins",
-            parentName: parentName,
-            dense: true,
+            // ...
           },
         })
         .onOk((r) => {
-          this.loadData();
-          this.selected = []
-          this.selected.push(r)
-          if (isChild)
-            expand(selRow)
-        });
-    },
-
-    editNode(rec) {
-      let parentNode = [];
-      let parentName = "Нет";
-      let parent = 0;
-      if (rec.parent > 0) {
-        getParentNode(this.rows, rec.parent, parentNode);
-        parentName = parentNode[0].name;
-        parent = parentNode[0].id;
-      }
-
-      this.$q
-        .dialog({
-          component: UpdaterTypesObjects,
-          componentProps: {
-            data: rec,
-            mode: "upd",
-            parentName: parentName,
-            parent: parent,
-            hasChild: this.hasChild,
-            lg: this.lang,
-          },
+          //console.log("Ok! updated", r);
+          if (mode === "ins") {
+            this.rows.push(r);
+            this.selected = [];
+            this.selected.push(r);
+          } else {
+            for (let key in r) {
+              if (r.hasOwnProperty(key)) {
+                row[key] = r[key];
+              }
+            }
+          }
         })
-        .onOk((res) => {
-          this.selected = [];
-          this.loadData();
-          this.selected.push(res)
-          //this.selectedCheck(res)
-        });
-
-
     },
 
-    deleteNode() {
-      let rec = this.selected[0];
+    removeRow(rec) {
       this.$q
         .dialog({
           title: this.$t("confirmation"),
@@ -298,6 +172,7 @@ export default {
           focus: "cancel",
         })
         .onOk(() => {
+          //let index = this.rows.findIndex((row) => row.id === rec.id);
           this.$axios
             .post(baseURL, {
               method: "data/deleteOwnerWithProperties",
@@ -305,17 +180,19 @@ export default {
             })
             .then(
               () => {
+                this.loadData()
                 this.selected = []
-                this.loadData();
-              },
-              (error) => {
-                console.error(error);
-                //notifyInfo(this.$t("hasChild"));
-              }
-            );
-        });
-
+              })
+            .catch(error => {
+              console.log(error.message)
+              notifyInfo(error.message)
+            })
+        })
+        .onCancel(() => {
+          notifyInfo(this.$t("canceled"));
+        })
     },
+
 
     loadData() {
       this.loading = true;
@@ -326,7 +203,7 @@ export default {
         })
         .then(
           (response) => {
-            this.rows = pack(response.data.result["records"], "number")
+            this.rows = response.data.result["records"]
             this.fnExpand()
           })
         .catch(error => {
@@ -346,74 +223,6 @@ export default {
 
     },
 
-    fnExpand() {
-      expandAll(this.rows);
-    },
-
-    fnCollapse() {
-      collapsAll(this.rows);
-    },
-
-    recursive(obj, newObj, level, itemId, isExpend) {
-      let vm = this;
-      obj.forEach(function (o) {
-        if (o.children && o.children.length !== 0) {
-          o.level = level;
-          o.leaf = false;
-          newObj.push(o);
-          if (o.id === itemId) {
-            o.expend = isExpend;
-          }
-          if (o.expend) {
-            vm.recursive(o.children, newObj, o.level + 1, itemId, isExpend);
-          }
-        } else {
-          o.level = level;
-          o.leaf = true;
-          newObj.push(o);
-          return false;
-        }
-      });
-    },
-
-    iconName(item) {
-      if (item.expend) {
-        return "remove_circle_outline";
-      }
-      if (item.children && item.children.length > 0) {
-        return "control_point";
-      }
-      return "";
-    },
-
-    toggle(item) {
-      let vm = this;
-      vm.itemId = item.id;
-      item.leaf = false;
-      if (
-        !item.leaf &&
-        item.expend === undefined &&
-        item.children !== undefined
-      ) {
-        if (item.children.length !== 0) {
-          vm.recursive(item.children, [], item.level + 1, item.id, true);
-        }
-      }
-      if (item.expend && item.children !== undefined) {
-        item.children.forEach(function (o) {
-          o.expend = undefined;
-        });
-
-        item["expend"] = ref(undefined);
-        item["leaf"] = ref(false);
-        vm.itemId = null;
-      }
-    },
-
-    setPadding(item) {
-      return `padding-left: ${item.level * 30}px;`;
-    },
-
     infoSelected(row) {
       return " " + row.name
     },
@@ -426,7 +235,7 @@ export default {
           field: "number",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:20%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
         {
           name: "name",
@@ -434,7 +243,7 @@ export default {
           field: "name",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:30%",
+          headerStyle: "font-size: 1.2em; width:35%",
         },
         {
           name: "cls",
@@ -442,7 +251,8 @@ export default {
           field: "cls",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width: 35%",
+          headerStyle: "font-size: 1.2em; width: 40%",
+          format: (v) => this.mapCls ? this.mapCls.get(v) : null
         },
         {
           name: "fvShape",
@@ -451,6 +261,7 @@ export default {
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em; width:15%",
+          format: (v) => this.mapFvOt ? this.mapFvOt.get(v) : null
         },
       ]
     }

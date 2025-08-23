@@ -15,22 +15,22 @@
 
     <q-tabs dense v-model="tab" active-color="purple" class="text-teal no-scroll">
       <q-tab name="types" no-caps :label="$t('types_objects')" />
-      <q-tab name="compenents" no-caps :label="$t('components')" />
+      <q-tab name="components" no-caps :label="$t('components')" />
       <q-tab name="comp_objects" no-caps :label="$t('comp_objects')" />
       <q-tab name="comp_objects2" no-caps :label="$t('comp_objects')" />
     </q-tabs>
 
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="types" class="no-scroll">
-        <types-objects-page></types-objects-page>
+        <types-objects-page/>
       </q-tab-panel>
 
-      <q-tab-panel name="compenents" class="no-scroll">
-        <components-page></components-page>
+      <q-tab-panel name="components" class="no-scroll">
+        <components-page/>
       </q-tab-panel>
 
       <q-tab-panel name="comp_objects" class="no-scroll">
-        <component-objects-page codRelTyp="RT_Components"></component-objects-page>
+        <component-objects-page codRelTyp="RT_Components"/>
       </q-tab-panel>
 
       <q-tab-panel name="comp_objects2" class="no-scroll">

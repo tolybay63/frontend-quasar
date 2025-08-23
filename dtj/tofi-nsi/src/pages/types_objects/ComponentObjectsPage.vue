@@ -152,7 +152,7 @@
                   <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
                 </q-td>
                 <q-td
-                  v-else-if="this.rows.length > 0" colspan="100%" class="text-bold">
+                  v-else-if="this.rows.length > 0" colspan="100%" class="text-blue">
                   {{ $t("infoRow") }}
                 </q-td>
               </div>

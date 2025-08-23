@@ -1,6 +1,7 @@
 <template>
   <div class="no-padding no-margin">
     <q-table
+      style="height: calc(100vh - 280px); width: 100%"
       class="my-sticky-header-table"
       color="primary" dense
       card-class="bg-amber-1 text-brown"
@@ -23,7 +24,7 @@
             <span class="text-blue"> {{ $t("selectedRow") }}: </span>
             <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
           </q-td>
-          <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
+          <q-td colspan="100%" v-else-if="this.rows.length > 0" class=" text-blue">
             {{ $t("infoRow") }}
           </q-td>
         </div>

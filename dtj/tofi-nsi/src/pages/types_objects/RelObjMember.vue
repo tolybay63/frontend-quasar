@@ -52,7 +52,7 @@
         <q-td
           colspan="100%"
           v-else-if="this.rows.length > 0"
-          class="text-bold"
+          class="text-blue"
         >
           {{ $t("infoRow") }}
         </q-td>

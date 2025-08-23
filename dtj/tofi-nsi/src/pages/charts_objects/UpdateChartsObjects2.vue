@@ -19,7 +19,7 @@
         <q-select
           v-model="form['uch1']"
           :model-value="form['uch1']"
-          label="Технологическая карта"
+          :label= labelTyp1
           :options="optUch1"
           dense class="q-ma-md"
           map-options
@@ -34,7 +34,7 @@
         <q-select
           v-model="form['uch2']"
           :model-value="form['uch2']"
-          label="Тип обслуживаемого объекта"
+          :label=labelTyp2
           :options="optUch2"
           dense class="q-ma-md"
           map-options
@@ -76,7 +76,7 @@ import {api, baseURL} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "mode", "codRelTyp", "codTyp1", "codTyp2"],
+  props: ["data", "mode", "codRelTyp", "codTyp1", "codTyp2", "labelTyp1", "labelTyp2"],
 
   data() {
     return {

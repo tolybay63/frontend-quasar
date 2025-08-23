@@ -24,7 +24,7 @@
           <span class="text-blue"> {{ $t("selectedRow") }}: </span>
           <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
         </q-td>
-        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
+        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-blue">
           {{ $t("infoRow") }}
         </q-td>
       </template>

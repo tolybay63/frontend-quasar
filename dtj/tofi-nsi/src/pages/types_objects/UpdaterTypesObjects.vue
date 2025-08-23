@@ -18,9 +18,6 @@
       <q-inner-loading :showing="visible" color="secondary"/>
 
       <q-card-section>
-        <div class="row q-ma-md">
-          {{ $t("parent") }}: <b> {{ parentName }} </b>
-        </div>
 
         <!-- class -->
 
@@ -88,7 +85,6 @@ export default {
   props: [
     "data",
     "mode",
-    "parentName",
   ],
 
   data() {

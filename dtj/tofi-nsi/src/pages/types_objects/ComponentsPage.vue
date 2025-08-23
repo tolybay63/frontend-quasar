@@ -2,6 +2,7 @@
   <div class="no-padding no-margin">
     <q-table
       style="height: calc(100vh - 280px); width: 100%"
+      class="my-sticky-header-table"
       color="primary" dense
       card-class="bg-amber-1 text-brown"
       row-key="id"
@@ -15,67 +16,70 @@
       :loading="loading"
       selection="single"
       v-model:selected="selected"
-      :rows-per-page-options="[0]"
+      :rows-per-page-options="[25,50,0]"
     >
-      <template #bottom-row>
-        <q-td colspan="100%" v-if="selected.length > 0">
-          <span class="text-blue"> {{ $t("selectedRow") }}: </span>
-          <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
-        </q-td>
-        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
-          {{ $t("infoRow") }}
-        </q-td>
-      </template>
 
       <template v-slot:top>
 
-        <q-btn v-if="hasTarget('nsi:ol:ins')"
-               icon="post_add" dense
-               color="secondary"
-               :disable="loading"
-               @click="editRow(null, 'ins')"
-        >
-          <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("newRecord") }}
-          </q-tooltip>
-        </q-btn>
-        <q-btn v-if="hasTarget('nsi:ol:upd')"
-               icon="edit" dense
-               color="secondary"
-               class="q-ml-sm"
-               :disable="loading || selected.length === 0"
-               @click="editRow(selected[0], 'upd')"
-        >
-          <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("editRecord") }}
-          </q-tooltip>
-        </q-btn>
-        <q-btn v-if="hasTarget('nsi:ol:del')"
-               icon="delete" dense
-               color="secondary"
-               class="q-mx-lg"
-               :disable="loading || selected.length === 0"
-               @click="removeRow(selected[0])"
-        >
-          <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("deletingRecord") }}
-          </q-tooltip>
-        </q-btn>
+        <q-td colspan="100%" v-if="selected.length > 0">
+          <span class="text-blue"> {{ $t("selectedRow") }}: </span>
+          <span class="text-bold"> {{ infoSelected(selected[0]) }} </span>
+        </q-td>
+        <q-td colspan="100%" v-else-if="rows.length > 0" class="text-blue">
+          {{ $t("infoRow") }}
+        </q-td>
 
         <q-space/>
 
-        <q-input
-          dense class="q-mr-lg"
-          debounce="300"
-          color="primary"
-          :model-value="filter"
-          v-model="filter"
-          :label="$t('txt_filter')"
-        >
-          <template v-slot:append>
-            <q-icon name="search"/>
-          </template>
-        </q-input>
+          <q-btn v-if="hasTarget('nsi:ol:ins')"
+                 icon="post_add" dense
+                 color="secondary"
+                 :disable="loading"
+                 @click="editRow(null, 'ins')"
+          >
+            <q-tooltip transition-show="rotate" transition-hide="rotate">
+              {{ $t("newRecord") }}
+            </q-tooltip>
+          </q-btn>
+
+          <q-btn v-if="hasTarget('nsi:ol:upd')"
+                 icon="edit" dense
+                 color="secondary"
+                 class="q-mx-md"
+                 :disable="loading || selected.length === 0"
+                 @click="editRow(selected[0], 'upd')"
+          >
+            <q-tooltip transition-show="rotate" transition-hide="rotate">
+              {{ $t("editRecord") }}
+            </q-tooltip>
+          </q-btn>
+          <q-btn v-if="hasTarget('nsi:ol:del')"
+                 icon="delete" dense
+                 color="secondary"
+                 class="q-mx-md"
+                 :disable="loading || selected.length === 0"
+                 @click="removeRow(selected[0])"
+          >
+            <q-tooltip transition-show="rotate" transition-hide="rotate">
+              {{ $t("deletingRecord") }}
+            </q-tooltip>
+          </q-btn>
+
+
+          <q-input
+            dense class="q-ml-lg"
+            debounce="300"
+            color="primary"
+            :model-value="filter"
+            v-model="filter"
+            :label="$t('txt_filter')"
+          >
+            <template v-slot:append>
+              <q-icon name="search"/>
+            </template>
+          </q-input>
+
+
       </template>
 
       <template #loading>
@@ -119,7 +123,7 @@ export default {
           (response) => {
             this.rows = response.data.result["records"]
           })
-        .catch(error=> {
+        .catch(error => {
           if (error.response.data.error.message.includes("@")) {
             let msgs = error.response.data.error.message.split("@")
             let m1 = this.$t(`${msgs[0]}`)
@@ -155,7 +159,7 @@ export default {
         })
         .onOk((r) => {
           //console.log("Ok! updated", r);
-          if (mode==="ins") {
+          if (mode === "ins") {
             this.rows.push(r);
             this.selected = [];
             this.selected.push(r);
@@ -186,7 +190,7 @@ export default {
           this.$axios
             .post(baseURL, {
               method: "data/deleteOwner",
-              params: [ rec.id, 1 ],
+              params: [rec.id, 1],
             })
             .then(
               () => {
@@ -220,7 +224,7 @@ export default {
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em; width: 50%",
-          format: (v) => this.mapCls ? this.mapCls.get(v): null
+          format: (v) => this.mapCls ? this.mapCls.get(v) : null
         },
       ]
     },
@@ -244,19 +248,43 @@ export default {
             this.mapCls.set(r.id, r.name);
           })
         })
-      .then(()=> {
+      .then(() => {
         this.cols = this.getColumns()
       })
-      .then(()=> {
+      .then(() => {
         this.loadData()
       })
   }
 
 
-
 }
 </script>
 
-<style scoped>
+<style lang="sass">
+.my-sticky-header-table
+  /* height or max-height is important */
+  height: calc(100vh - 140px)
+  /* bg color is important for th; just specify one */
+  background-color: #bdbdbd
 
+  thead tr th
+    position: sticky
+    z-index: 1
+
+  thead tr:first-child th
+    top: 0
+
+  /* this is when the loading indicator appears */
+
+
+  &.q-table--loading thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+
+  /* prevent scrolling behind sticky top row on focus */
+
+
+  tbody
+    /* height of all previous header rows */
+    scroll-margin-top: 48px
 </style>

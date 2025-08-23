@@ -18,21 +18,22 @@
       :rows-per-page-options="[25, 50, 0]"
     >
       <template #top-row>
-        <q-td colspan="100%" v-if="selected.length > 0">
-          <span class="text-blue"> {{ $t("selectedRow") }}: </span>
-          <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
-        </q-td>
-        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
-          {{ $t("infoRow") }}
-        </q-td>
       </template>
 
       <template v-slot:top>
-        <div style="font-size: 1.2em; font-weight: bold">
+        <div style="font-size: 1.2em; font-weight: bold" class="q-mr-xl">
           <q-avatar color="black" text-color="white" icon="home_work">
           </q-avatar>
           {{ $t("defect_objects") }}
         </div>
+
+        <q-td colspan="100%" v-if="selected.length > 0">
+          <span class="text-blue"> {{ $t("selectedRow") }}: </span>
+          <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
+        </q-td>
+        <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-blue">
+          {{ $t("infoRow") }}
+        </q-td>
 
         <q-space/>
         <q-btn v-if="hasTarget('nsi:ol:ins')"
@@ -59,7 +60,7 @@
         <q-btn v-if="hasTarget('nsi:ol:del')"
                icon="delete" dense
                color="secondary"
-               class="q-ml-lg"
+               class="q-mx-lg"
                :disable="loading || selected.length === 0"
                @click="removeRow(selected[0])"
         >
@@ -68,12 +69,11 @@
           </q-tooltip>
         </q-btn>
 
-        <q-space/>
-
         <q-input
           dense
           debounce="300"
           color="primary"
+          class="q-ml-xl"
           :model-value="filter"
           v-model="filter"
           :label="$t('txt_filter')"
@@ -257,7 +257,7 @@ export default {
     },
 
     infoSelected(row) {
-      return " " + row.name
+      return " " + row.name + " - " + row.nameDefectsComponent
     },
 
   },
