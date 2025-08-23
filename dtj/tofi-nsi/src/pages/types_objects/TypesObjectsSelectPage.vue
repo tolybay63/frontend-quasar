@@ -17,6 +17,7 @@
       <q-tab name="types" no-caps :label="$t('types_objects')" />
       <q-tab name="compenents" no-caps :label="$t('components')" />
       <q-tab name="comp_objects" no-caps :label="$t('comp_objects')" />
+      <q-tab name="comp_objects2" no-caps :label="$t('comp_objects')" />
     </q-tabs>
 
     <q-tab-panels v-model="tab" animated>
@@ -29,6 +30,10 @@
       </q-tab-panel>
 
       <q-tab-panel name="comp_objects" class="no-scroll">
+        <component-objects-page codRelTyp="RT_Components"></component-objects-page>
+      </q-tab-panel>
+
+      <q-tab-panel name="comp_objects2" class="no-scroll">
         <component-objects-page2 codRelTyp="RT_Components"></component-objects-page2>
       </q-tab-panel>
 

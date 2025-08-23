@@ -133,6 +133,9 @@ export default {
           component: UpdateChartsObjects2,
           componentProps: {
             data: {},
+            codRelTyp: this.codRelTyp,
+            codTyp1: "Typ_ObjectTyp",
+            codTyp2: "Typ_Components"
             // ...
           },
         })

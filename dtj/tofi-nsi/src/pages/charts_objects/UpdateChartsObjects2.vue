@@ -76,7 +76,7 @@ import {api, baseURL} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "mode", "lg"],
+  props: ["data", "mode", "codRelTyp", "codTyp1", "codTyp2"],
 
   data() {
     return {
@@ -153,13 +153,13 @@ export default {
       api
         .post(baseURL, {
           method: 'data/loadUch2',
-          params: ['RT_Works', id, 'Typ_ObjectTyp'],
+          params: [this.codRelTyp, id, this.codTyp2],
         })
         .then(
           (response) => {
             this.optUch2 = response.data.result["records"]
             this.optUch2Org = response.data.result["records"]
-            //console.log("optUch2", this.optUch2)
+            console.log("optUch2", this.optUch2)
           })
         .catch((error) => {
           console.log(error);
@@ -197,7 +197,7 @@ export default {
       // before hiding the QDialog
 
       let err = false;
-      this.form['codRelTyp'] = "RT_Works";
+      this.form['codRelTyp'] = this.codRelTyp;
       this.form['name'] = this.name;
       this.$axios
           .post(baseURL, {
@@ -206,7 +206,7 @@ export default {
             params: [this.form],
           })
           .then(
-              (response) => {
+              () => {
                 err = false;
                 this.$emit("ok", {res: true});
                 notifySuccess(this.$t("success"));
@@ -233,7 +233,7 @@ export default {
     api
       .post(baseURL, {
         method: 'data/loadObjFromTyp',
-        params: ['Typ_Work'],
+        params: [this.codTyp1],
       })
       .then(
         (response) => {
