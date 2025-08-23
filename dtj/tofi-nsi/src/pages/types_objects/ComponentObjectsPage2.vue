@@ -1,6 +1,7 @@
 <template>
   <div class="no-padding no-margin">
     <q-table
+      style="height: calc(100vh - 280px); width: 100%"
       class="my-sticky-header-table"
       color="primary" dense
       card-class="bg-amber-1 text-brown"
@@ -82,13 +83,13 @@
 </template>
 
 <script>
-
 import {api, baseURL} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, pack} from "src/utils/jsutils";
 import UpdateChartsObjects2 from "pages/charts_objects/UpdateChartsObjects2.vue";
 
 export default {
-  name: "ChartsObjectsPage2",
+  props: ["codRelTyp"],
+  name: "ComponentObjectsPage2",
 
   data: function () {
     return {
@@ -108,7 +109,7 @@ export default {
       this.$axios
         .post(baseURL, {
           method: "data/loadComponentsObject2",
-          params: ["RT_Works", "Typ_Work", "Typ_ObjectTyp"],
+          params: [this.codRelTyp, "Typ_ObjectTyp", "Typ_Components"],
         })
         .then((response) => {
           //console.info("rows", response.data.result["records"])

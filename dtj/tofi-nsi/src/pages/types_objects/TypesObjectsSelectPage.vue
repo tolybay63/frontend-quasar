@@ -29,7 +29,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="comp_objects" class="no-scroll">
-        <component-objects-page codRelTyp="RT_Components"></component-objects-page>
+        <component-objects-page2 codRelTyp="RT_Components"></component-objects-page2>
       </q-tab-panel>
 
     </q-tab-panels>
@@ -41,10 +41,11 @@
 import TypesObjectsPage from "pages/types_objects/TypesObjectsPage.vue";
 import ComponentsPage from "pages/types_objects/ComponentsPage.vue";
 import ComponentObjectsPage from "pages/types_objects/ComponentObjectsPage.vue";
+import ComponentObjectsPage2 from "pages/types_objects/ComponentObjectsPage2.vue";
 
 export default {
   name: "TypesObjectsSelectPage",
-  components: {ComponentObjectsPage, ComponentsPage, TypesObjectsPage},
+  components: {ComponentObjectsPage2, ComponentObjectsPage, ComponentsPage, TypesObjectsPage},
 
   data: function () {
     return {
