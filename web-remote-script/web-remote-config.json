@@ -1,60 +1,48 @@
 {
-  "DevServer": {
-    "Hostname": "scl-007.efk.local",
-    "IP": "192.168.1.215",
-    "RootPath": "C:\\jc-2\\frontend-quasar",
-    "Credentials": {
-      "Username": "efk\\Tolybay.Kuanov",
-      "Password": "Qwerty7"
-    }
-  },
-  "ProdServer": {
-    "Hostname": "swl-001.efk.local", 
-    "IP": "192.168.1.20",
-    "RootPath": "C:\\dtj\\web",
-    "Credentials": {
-      "Username": "efk\\Tolybay.Kuanov",
-      "Password": "Qwerty7"
-    }
-  },
-  "DeploymentMethod": "SMB",
+  "ProdServer": "192.168.1.20",
+  "DevPath": "C:\\jc-2\\frontend-quasar",
   "WebServices": [
-       {
-            "Name": "dtj-app",
-            "DevPath": "dtj\\dtj-app",
-            "ProdPath": "dtj"
-        },
-        {
-            "Name": "tofi-admin",
-            "DevPath": "tofi-admin",
-            "ProdPath": "admin"
-        },
-        {
-            "Name": "tofi-meta",
-            "DevPath": "tofi-meta",
-            "ProdPath": "meta"
-        },
-        {
-            "Name": "tofi-cube",
-            "DevPath": "tofi-cube",
-            "ProdPath": "cube"
-        },
-        {
-            "Name": "tofi-userdata",
-            "DevPath": "tofi-userdata",
-            "ProdPath": "account"
-        },
-        {
-            "Name": "tofi-data",
-            "DevPath": "tofi-data",
-            "ProdPath": "tofidata"
-        },
-        {
-            "Name": "tofi-nsi",
-            "DevPath": "dtj\\tofi-nsi",
-            "ProdPath": "nsi"
-        }
-
-
+    {
+      "name": "dtj-app",
+      "path": "dtj\\dtj-app",
+      "port": 80,
+      "target": "C$\\dtj\\web\\dtj-app"
+    },
+    {
+      "name": "tofi-admin", 
+      "path": "tofi-admin",
+      "port": 80,
+      "target": "C$\\dtj\\web\\tofi-admin"
+    },
+    {
+      "name": "tofi-meta",
+      "path": "tofi-meta", 
+      "port": 80,
+      "target": "C$\\dtj\\web\\tofi-meta"
+    },
+    {
+      "name": "tofi-cube",
+      "path": "tofi-cube",
+      "port": 80, 
+      "target": "C$\\dtj\\web\\tofi-cube"
+    },
+    {
+      "name": "tofi-userdata",
+      "path": "tofi-userdata",
+      "port": 80,
+      "target": "C$\\dtj\\web\\tofi-userdata"
+    },
+    {
+      "name": "tofi-data",
+      "path": "tofi-data",
+      "port": 80,
+      "target": "C$\\dtj\\web\\tofi-data"
+    },
+    {
+      "name": "tofi-nsi",
+      "path": "dtj\\tofi-nsi",
+      "port": 80,
+      "target": "C$\\dtj\\web\\tofi-nsi"
+    }
   ]
 }
