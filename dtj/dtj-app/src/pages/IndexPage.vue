@@ -102,7 +102,7 @@
             </div>
           </q-btn>
 
-          <!-- Object -->
+          <!-- Service 360 -->
           <q-btn
             rounded
             class="bg-green text-white text-bold q-ma-md"
@@ -111,13 +111,12 @@
           >
             <div class="column">
               <div>
-                <div class="text-weight-thin q-my-none" style="font-size: 16px">Object</div>
-                <div class="text-weight-thin q-my-none" style="font-size: 16px">OrgStructure</div>
-                <div class="text-weight-thin q-my-none" style="font-size: 16px">Personnal</div>
-                <div class="text-weight-thin q-my-none" style="font-size: 16px">Plan</div>
+                <q-avatar icon="update" color="orange"></q-avatar>
+                  Service 360
               </div>
             </div>
           </q-btn>
+
 
 <!--
           &lt;!&ndash; Personnal &ndash;&gt;
