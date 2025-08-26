@@ -4,8 +4,8 @@
     "IP": "192.168.1.215",
     "RootPath": "C:\\jc-2\\frontend-quasar",
     "Credentials": {
-      "Username": "efk\\username",
-      "Password": "password"
+      "Username": "efk\\Tolybay.Kuanov",
+      "Password": "Qwerty7"
     }
   },
   "ProdServer": {
@@ -13,66 +13,48 @@
     "IP": "192.168.1.20",
     "RootPath": "C:\\dtj\\web",
     "Credentials": {
-      "Username": "efk\\username",
-      "Password": "password"
+      "Username": "efk\\Tolybay.Kuanov",
+      "Password": "Qwerty7"
     }
   },
   "DeploymentMethod": "SMB",
   "WebServices": [
-    {
-      "Name": "admin",
-      "DevPath": "admin",
-      "ProdPath": "admin"
-    },
-    {
-      "Name": "nsi",
-      "DevPath": "nsi", 
-      "ProdPath": "nsi"
-    },
-    {
-      "Name": "orgstructure",
-      "DevPath": "orgstructure",
-      "ProdPath": "orgstructure"
-    },
-    {
-      "Name": "personnel",
-      "DevPath": "personnel",
-      "ProdPath": "personnel"
-    },
-    {
-      "Name": "reports",
-      "DevPath": "reports",
-      "ProdPath": "reports"
-    },
-    {
-      "Name": "settings",
-      "DevPath": "settings",
-      "ProdPath": "settings"
-    },
-    {
-      "Name": "tasks",
-      "DevPath": "tasks",
-      "ProdPath": "tasks"
-    },
-    {
-      "Name": "workflow",
-      "DevPath": "workflow",
-      "ProdPath": "workflow"
-    },
-    {
-      "Name": "documents",
-      "DevPath": "documents",
-      "ProdPath": "documents"
-    },
-    {
-      "Name": "calendar",
-      "DevPath": "calendar",
-      "ProdPath": "calendar"
-    },
-    {
-      "Name": "dashboard",
-      "DevPath": "dashboard",
-      "ProdPath": "dashboard"
-    }
+       {
+            "Name": "dtj-app",
+            "DevPath": "dtj\\dtj-app",
+            "ProdPath": "dtj"
+        },
+        {
+            "Name": "tofi-admin",
+            "DevPath": "tofi-admin",
+            "ProdPath": "admin"
+        },
+        {
+            "Name": "tofi-meta",
+            "DevPath": "tofi-meta",
+            "ProdPath": "meta"
+        },
+        {
+            "Name": "tofi-cube",
+            "DevPath": "tofi-cube",
+            "ProdPath": "cube"
+        },
+        {
+            "Name": "tofi-userdata",
+            "DevPath": "tofi-userdata",
+            "ProdPath": "account"
+        },
+        {
+            "Name": "tofi-data",
+            "DevPath": "tofi-data",
+            "ProdPath": "tofidata"
+        },
+        {
+            "Name": "tofi-nsi",
+            "DevPath": "dtj\\tofi-nsi",
+            "ProdPath": "nsi"
+        }
+
+
   ]
 }

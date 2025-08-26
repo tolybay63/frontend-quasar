@@ -19,26 +19,6 @@
             "ProdPath": "nsi"
         },
         {
-            "Name": "tofi-plan",
-            "DevPath": "dtj\\tofi-plan",
-            "ProdPath": "plan"
-        },
-        {
-            "Name": "tofi-personnal",
-            "DevPath": "dtj\\tofi-personnal",
-            "ProdPath": "personnal"
-        },
-        {
-            "Name": "tofi-orgstructure",
-            "DevPath": "dtj\\tofi-orgstructure",
-            "ProdPath": "orgstructure"
-        },
-        {
-            "Name": "tofi-object",
-            "DevPath": "dtj\\tofi-object",
-            "ProdPath": "object"
-        },
-        {
             "Name": "tofi-admin",
             "DevPath": "tofi-admin",
             "ProdPath": "admin"

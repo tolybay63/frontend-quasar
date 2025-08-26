@@ -44,8 +44,8 @@
     "IP": "192.168.1.215",
     "RootPath": "C:\\jc-2\\frontend-quasar",
     "Credentials": {
-      "Username": "efk\\username",
-      "Password": "password"
+      "Username": "efk\\Tolybay.Kuanov",
+      "Password": "Qwerty7"
     }
   },
   "ProdServer": {
@@ -53,8 +53,8 @@
     "IP": "192.168.1.20",
     "RootPath": "C:\\dtj\\web",
     "Credentials": {
-      "Username": "efk\\username", 
-      "Password": "password"
+      "Username": "efk\\Tolybay.Kuanov", 
+      "Password": "Qwerty7"
     }
   },
   "DeploymentMethod": "SMB"
