@@ -195,6 +195,7 @@ const NAVIGATION_LINKS = [
     link: "/defect_objects",
     target: "nsi:kato",
   },
+/*
   {
     title: "charts_objects",
     info: "",
@@ -202,12 +203,13 @@ const NAVIGATION_LINKS = [
     link: "/charts_objects",
     target: "nsi:ose",
   },
+*/
 
   {
-    title: "charts_objects2",
+    title: "charts_objects",
     info: "",
     icon: "assignment_turned_in",
-    link: "/charts_objects2",
+    link: "/charts_objects",
     target: "nsi:ose",
   },
   {
