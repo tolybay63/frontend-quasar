@@ -46,7 +46,7 @@
             </div>
 
             <q-space/>
-            <q-btn v-if="hasTarget('nsi:ol:ins')"
+            <q-btn v-if="hasTarget('nsi:collection:ins')"
                    icon="post_add" dense
                    color="secondary"
                    :disable="loading"
@@ -56,7 +56,7 @@
                 {{ $t("newRecord") }}
               </q-tooltip>
             </q-btn>
-            <q-btn v-if="hasTarget('nsi:ol:upd')"
+            <q-btn v-if="hasTarget('nsi:collection:upd')"
                    icon="edit" dense
                    color="secondary"
                    class="q-ml-sm"
@@ -67,7 +67,7 @@
                 {{ $t("editRecord") }}
               </q-tooltip>
             </q-btn>
-            <q-btn v-if="hasTarget('nsi:ol:del')"
+            <q-btn v-if="hasTarget('nsi:collection:del')"
                    icon="delete" dense
                    color="secondary"
                    class="q-ml-lg"
@@ -211,7 +211,7 @@
                     </div>
 
                     <div v-else>
-                      <q-btn v-if="hasTarget('nsi:om:fle:del')"
+                      <q-btn v-if="hasTarget('nsi:collection:fle:del')"
                              :disable="props.row['fileVal'] === undefined"
                              round size="sm" icon="delete" color="red" flat dense
                              @click="fnDeleteFile(props.row)"
@@ -224,7 +224,7 @@
                       </q-btn>
 
 
-                      <q-btn v-if="hasTarget('nsi:om:fle:cpy')"
+                      <q-btn v-if="hasTarget('nsi:collection:fle:cpy')"
                              :disable="props.row['fileVal'] === undefined"
                              round size="sm" icon="file_download" flat dense
                              @click="fnDownloadFs(props.row)"
@@ -235,7 +235,7 @@
                           {{ $t("download_org") }}
                         </q-tooltip>
                       </q-btn>
-                      <q-btn v-if="hasTarget('nsi:om:fle:viw')"
+                      <q-btn v-if="hasTarget('nsi:collection:fle:viw')"
                              :disable="props.row['fileVal'] === undefined"
                              round size="sm" icon="visibility" flat dense color="blue"
                              @click="fnViewFile(props.row)"

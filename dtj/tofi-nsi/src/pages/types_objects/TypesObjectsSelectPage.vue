@@ -14,9 +14,9 @@
     </div>
 
     <q-tabs dense v-model="tab" active-color="purple" class="text-teal no-scroll">
-      <q-tab name="types" no-caps :label="$t('types_objects')" />
-      <q-tab name="components" no-caps :label="$t('components')" />
-      <q-tab name="comp_objects" no-caps :label="$t('comp_objects')" />
+      <q-tab name="types" no-caps :label="$t('types_objects')" v-if="hasTarget('nsi:ot:typ')"/>
+      <q-tab name="components" no-caps :label="$t('components')"  v-if="hasTarget('nsi:ot:com')"/>
+      <q-tab name="comp_objects" no-caps :label="$t('comp_objects')"  v-if="hasTarget('nsi:ot:objcom')"/>
 <!--      <q-tab name="comp_objects2" no-caps :label="$t('comp_objects')" />-->
     </q-tabs>
 
@@ -47,12 +47,13 @@
 <script>
 import TypesObjectsPage from "pages/types_objects/TypesObjectsPage.vue";
 import ComponentsPage from "pages/types_objects/ComponentsPage.vue";
-import ComponentObjectsPage from "pages/types_objects/ComponentObjectsPage.vue";
 import ComponentObjectsPage2 from "pages/types_objects/ComponentObjectsPage2.vue";
+import {hasTarget} from "src/utils/jsutils";
 
 export default {
   name: "TypesObjectsSelectPage",
-  components: {ComponentObjectsPage2, ComponentObjectsPage, ComponentsPage, TypesObjectsPage},
+  methods: {hasTarget},
+  components: {ComponentObjectsPage2, ComponentsPage, TypesObjectsPage},
 
   data: function () {
     return {
@@ -61,6 +62,15 @@ export default {
     }
   },
 
+  mounted() {
+    if (hasTarget('nsi:ot:typ'))
+      this.tab = "types";
+    else if (hasTarget('nsi:ot:com'))
+      this.tab = "components";
+    else if (hasTarget('nsi:ot:objcom'))
+      this.tab = "comp_objects";
+
+  }
 
 
 }

@@ -31,7 +31,7 @@
 
         <q-space/>
 
-          <q-btn v-if="hasTarget('nsi:ol:ins')"
+          <q-btn v-if="hasTarget('nsi:ot:com:ins')"
                  icon="post_add" dense
                  color="secondary"
                  :disable="loading"
@@ -42,7 +42,7 @@
             </q-tooltip>
           </q-btn>
 
-          <q-btn v-if="hasTarget('nsi:ol:upd')"
+          <q-btn v-if="hasTarget('nsi:ot:com:upd')"
                  icon="edit" dense
                  color="secondary"
                  class="q-mx-md"
@@ -53,7 +53,7 @@
               {{ $t("editRecord") }}
             </q-tooltip>
           </q-btn>
-          <q-btn v-if="hasTarget('nsi:ol:del')"
+          <q-btn v-if="hasTarget('nsi:ot:com:del')"
                  icon="delete" dense
                  color="secondary"
                  class="q-mx-md"

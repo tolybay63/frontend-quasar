@@ -37,7 +37,7 @@
 
         <q-space/>
 
-        <q-btn v-if="hasTarget('nsi:ol:ins')"
+        <q-btn v-if="hasTarget('nsi:objtc:ins')"
                icon="post_add" dense
                color="secondary"
                :disable="loading"
@@ -48,7 +48,7 @@
           </q-tooltip>
         </q-btn>
 
-        <q-btn v-if="hasTarget('nsi:ol:del')"
+        <q-btn v-if="hasTarget('nsi:objtc:del')"
                icon="delete" dense
                color="secondary"
                class="q-ml-md q-mr-xl"
@@ -83,8 +83,8 @@
 
 <script>
 
-import {api, baseURL} from "boot/axios";
-import {hasTarget, notifyError, notifyInfo, pack} from "src/utils/jsutils";
+import {baseURL} from "boot/axios";
+import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
 import UpdateChartsObjects2 from "pages/charts_objects/UpdateChartsObjects2.vue";
 
 export default {

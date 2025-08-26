@@ -45,7 +45,7 @@
               </q-btn>
 
               <q-btn
-                v-if="hasTarget('mdl:mn_ds')"
+                v-if="hasTarget('nsi:op:param:ins')"
                 dense class="q-ma-sm"
                 icon="edit_note"
                 color="secondary"
@@ -58,7 +58,7 @@
               </q-btn>
 
               <q-btn
-                v-if="hasTarget('mdl:mn_ds')"
+                v-if="hasTarget('nsi:op:param:del')"
                 dense
                 class="q-ma-sm"
                 icon="delete_sweep"
@@ -72,7 +72,7 @@
               </q-btn>
 
               <q-btn
-                v-if="hasTarget('mdl:mn_ds')"
+                v-if="hasTarget('nsi:op:param:upd')"
                 dense
                 icon="edit"
                 color="secondary"
@@ -86,7 +86,7 @@
               </q-btn>
 
               <q-btn
-                v-if="hasTarget('mdl:mn_ds:')"
+                v-if="hasTarget('nsi:op:param:del')"
                 dense
                 icon="delete"
                 color="secondary"

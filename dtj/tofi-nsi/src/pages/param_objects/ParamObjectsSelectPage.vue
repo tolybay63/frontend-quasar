@@ -14,18 +14,18 @@
     </div>
 
     <q-tabs dense v-model="tab" active-color="purple" class="text-teal no-scroll">
-      <q-tab name="params" no-caps :label="$t('params')" />
-      <q-tab name="params_component" no-caps :label="$t('params_component')" />
+      <q-tab name="params" no-caps :label="$t('params')" v-if="hasTarget('nsi:op:param')"/>
+      <q-tab name="params_component" no-caps :label="$t('params_component')"  v-if="hasTarget('nsi:op:comparam')"/>
     </q-tabs>
 
     <q-tab-panels v-model="tab" animated>
 
       <q-tab-panel name="params" class="no-scroll">
-        <params-page></params-page>
+        <params-page/>
       </q-tab-panel>
 
       <q-tab-panel name="params_component" class="no-scroll">
-        <param-component-page codRelTyp="RT_ParamsComponent"></param-component-page>
+        <param-component-page codRelTyp="RT_ParamsComponent"/>
       </q-tab-panel>
 
     </q-tab-panels>
@@ -38,9 +38,11 @@
 
 import ParamsPage from "pages/param_objects/ParamsPage.vue";
 import ParamComponentPage from "pages/param_objects/ParamComponentPage.vue";
+import {hasTarget} from "src/utils/jsutils";
 
 export default {
   name: "ParamObjectsSelectPage",
+  methods: {hasTarget},
   components: {ParamComponentPage, ParamsPage },
 
   data: function () {
@@ -49,6 +51,13 @@ export default {
       tab: "params"
     }
   },
+
+  mounted() {
+    if (hasTarget('nsi:op:param'))
+      this.tab = "params";
+    else if (hasTarget('nsi:op:comparam'))
+      this.tab = "params_component";
+  }
 
 
 

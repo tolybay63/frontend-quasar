@@ -31,7 +31,7 @@
 
 
         <q-space/>
-        <q-btn v-if="hasTarget('nsi:ol:ins')"
+        <q-btn v-if="hasTarget('nsi:ot:objcom:ins')"
                icon="post_add" dense
                color="secondary"
                :disable="loading"
@@ -42,7 +42,7 @@
           </q-tooltip>
         </q-btn>
 
-        <q-btn v-if="hasTarget('nsi:ol:del')"
+        <q-btn v-if="hasTarget('nsi:ot:objcom:del')"
                icon="delete" dense
                color="secondary"
                class="q-mx-lg"

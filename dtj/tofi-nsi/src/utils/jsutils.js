@@ -3,6 +3,48 @@ import {ref} from 'vue';
 import {useUserStore} from 'stores/user-store';
 import {storeToRefs} from 'pinia';
 
+async function encryptDecrypt(text, password) {
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+  const salt = window.crypto.getRandomValues(new Uint8Array(16));
+  const iv = window.crypto.getRandomValues(new Uint8Array(12));
+
+  const keyMaterial = await window.crypto.subtle.importKey(
+    'raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits', 'deriveKey']
+  );
+  const key = await window.crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt: salt,
+      iterations: 100000,
+      hash: 'SHA-256'
+    },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+
+  const encrypted = await window.crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    encoder.encode(text)
+  );
+
+  const decrypted = await window.crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    encrypted
+  );
+
+  return {
+    encrypted: new Uint8Array(encrypted),
+    decrypted: decoder.decode(decrypted)
+  };
+}
+
+
+
 // Константы для уведомлений
 const NOTIFICATION_DEFAULTS = {
   POSITION: 'bottom-right',
@@ -221,5 +263,6 @@ export {
   expandAll,
   collapsAll,
   convertNodeIds,
-  hasTarget
+  hasTarget,
+  encryptDecrypt
 };

@@ -30,7 +30,7 @@
 
         <q-space/>
 
-        <q-btn v-if="hasTarget('nsi:ol:ins')"
+        <q-btn v-if="hasTarget('nsi:ot:typ:ins')"
                icon="post_add" dense
                color="secondary"
                :disable="loading"
@@ -41,7 +41,7 @@
           </q-tooltip>
         </q-btn>
 
-        <q-btn v-if="hasTarget('nsi:ol:upd')"
+        <q-btn v-if="hasTarget('nsi:ot:typ:upd')"
                icon="edit" dense
                color="secondary"
                class="q-mx-md"
@@ -52,7 +52,7 @@
             {{ $t("editRecord") }}
           </q-tooltip>
         </q-btn>
-        <q-btn v-if="hasTarget('nsi:ol:del')"
+        <q-btn v-if="hasTarget('nsi:ot:typ:del')"
                icon="delete" dense
                color="secondary"
                class="q-mx-md"
@@ -93,7 +93,7 @@
 
 import {ref} from "vue";
 import {api, baseURL} from "boot/axios";
-import {collapsAll, expandAll, getParentNode, hasTarget, notifyError, notifyInfo, pack} from "src/utils/jsutils";
+import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
 import UpdaterTypesObjects from "pages/types_objects/UpdaterTypesObjects.vue";
 import {extend} from "quasar";
 
