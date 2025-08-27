@@ -149,15 +149,15 @@
 </template>
 
 <script>
-import {defineComponent, ref, computed} from "vue";
+import {computed, defineComponent, ref} from "vue";
 import LoginUser from "components/LoginUser.vue";
 import SetLocale from "components/SetLocale.vue";
 import {api, authURL, baseURL, urlMainApp} from "boot/axios";
-import {hasTarget, notifyError} from "src/utils/jsutils";
+import {encrypted, hasTarget, notifyError} from "src/utils/jsutils";
 import {useUserStore} from "stores/user-store";
 import {storeToRefs} from "pinia";
 import {useQuasar} from "quasar";
-import { useRouter } from 'vue-router';
+import {useRouter} from 'vue-router';
 
 const NAVIGATION_LINKS = [
   {
@@ -237,13 +237,14 @@ export default defineComponent({
     const router = useRouter();
     const leftDrawerOpen = ref(true);
     const store = useUserStore();
-    const {isSysAdmin, getUserName, getTarget} = storeToRefs(store);
+    const {isSysAdmin, getUserName} = storeToRefs(store);
     const {setUserStore} = store;
 
     const essentialLinks = ref(NAVIGATION_LINKS);
 
     const reqAuth = computed(() => getUserName.value === "");
-    const notAccess = computed(() => getTarget.value.length === 0 && !isSysAdmin.value);
+    //const notAccess = computed(() => getTarget.value.length === 0 && !isSysAdmin.value);
+    const notAccess = computed(() => !hasTarget("nsi") && !isSysAdmin.value);
     const nameIcon = computed(() => getUserName.value === "" ? "login" : "logout");
 
     const mainApp = () => {
@@ -278,6 +279,8 @@ export default defineComponent({
               })
               .then(
                 (response) => {
+                  //console.info("target0", response.data.result)
+                  response.data.result.target = encrypted(response.data.result.target)
                   setUserStore(response.data.result);
                 },
                 (error) => {

@@ -140,8 +140,8 @@ export default {
       fd.append("file", this.file)
       fd.append("params", JSON.stringify(this.form))
 
-      console.info("form", this.form)
-      console.info("fd", fd)
+      //console.info("form", this.form)
+      //console.info("fd", fd)
 
       this.$axios
         .post("/upload", fd, {

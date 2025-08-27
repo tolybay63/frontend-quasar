@@ -114,7 +114,7 @@
           </div>
           <template v-slot:action>
 
-            <q-btn
+            <q-btn v-if="hasTarget('nsi:collection:ins')"
               icon="edit" dense no-caps
               :label="$t('editRecord')"
               color="secondary"
@@ -124,7 +124,7 @@
             >
             </q-btn>
 
-            <q-btn
+            <q-btn v-if="hasTarget('nsi:collection:ins')"
               icon="save" dense no-caps
               :label="$t('save')"
               color="red"
@@ -171,7 +171,7 @@
 
                 <template v-slot:action>
 
-                  <q-btn
+                  <q-btn v-if="hasTarget('nsi:collection:ins')"
                     icon="attach_file" dense no-caps
                     color="secondary"
                     class="q-mr-sm"
@@ -210,8 +210,8 @@
                       </span>
                     </div>
 
-                    <div v-else>
-                      <q-btn v-if="hasTarget('nsi:collection:fle:del')"
+                    <div v-else class="text-right">
+                      <q-btn v-if="hasTarget('nsi:collection:ins')"
                              :disable="props.row['fileVal'] === undefined"
                              round size="sm" icon="delete" color="red" flat dense
                              @click="fnDeleteFile(props.row)"
@@ -224,7 +224,7 @@
                       </q-btn>
 
 
-                      <q-btn v-if="hasTarget('nsi:collection:fle:cpy')"
+                      <q-btn v-if="hasTarget('nsi:collection:ins')"
                              :disable="props.row['fileVal'] === undefined"
                              round size="sm" icon="file_download" flat dense
                              @click="fnDownloadFs(props.row)"
@@ -235,7 +235,9 @@
                           {{ $t("download_org") }}
                         </q-tooltip>
                       </q-btn>
-                      <q-btn v-if="hasTarget('nsi:collection:fle:viw')"
+
+<!--
+                      <q-btn v-if=false
                              :disable="props.row['fileVal'] === undefined"
                              round size="sm" icon="visibility" flat dense color="blue"
                              @click="fnViewFile(props.row)"
@@ -246,6 +248,8 @@
                           {{ $t("view") }}
                         </q-tooltip>
                       </q-btn>
+-->
+
                     </div>
 
                   </q-td>
@@ -309,7 +313,7 @@ export default {
     hasTarget,
 
     saveOtherProps() {
-      console.info(this.refDepartment)
+      //console.info(this.refDepartment)
       this.loading = true
       let err = false
       api
@@ -374,7 +378,6 @@ export default {
             if (!err) {
               //setTimeout(()=> {
               this.splitterModel = 70
-              console.info("this.refDepartment", this.refDepartment)
               //}, 10)
             }
           })
@@ -441,7 +444,7 @@ export default {
           },
         })
         .onOk((r) => {
-          console.log("Ok! updated", r);
+          //console.log("Ok! updated", r);
           if (mode === "ins") {
             this.rows.push(r);
             this.selected = [];
@@ -716,7 +719,7 @@ export default {
       .then(
         (response) => {
           this.optDepartment = pack(response.data.result["records"], "id")
-          console.log("optDepartment", this.optDepartment)
+          //console.log("optDepartment", this.optDepartment)
         },
         (error) => {
           let msg = error.message

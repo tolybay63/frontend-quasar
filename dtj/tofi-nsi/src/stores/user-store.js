@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 
-
 export const useUserStore = defineStore("user", {
+
   state: () => {
     let ii = sessionStorage.getItem("userid") || 0;
     let nn = sessionStorage.getItem("username") || "";
@@ -21,16 +21,14 @@ export const useUserStore = defineStore("user", {
     isSysAdmin: (state) => parseInt(state.user.id, 10) === 1,
     getUserName: (state) => state.user.name,
     getTarget: (state) =>
-      state.user.target ? state.user.target.split(",") : "",
+      state.user.target ? state.user.target : "",
   },
 
   actions: {
-    setUserName(name) {
-      this.user.name = name;
-    },
 
     setUserStore(data) {
       //console.info("setUserStore", data)
+
       if (JSON.stringify(data) !== "{}") {
         this.user.id = data.id;
         this.user.name = data.fullname;

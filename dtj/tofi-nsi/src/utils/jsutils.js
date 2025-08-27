@@ -2,47 +2,17 @@ import {Notify} from 'quasar';
 import {ref} from 'vue';
 import {useUserStore} from 'stores/user-store';
 import {storeToRefs} from 'pinia';
+import * as CryptoJS from 'crypto-js';
 
-async function encryptDecrypt(text, password) {
-  const encoder = new TextEncoder();
-  const decoder = new TextDecoder();
-  const salt = window.crypto.getRandomValues(new Uint8Array(16));
-  const iv = window.crypto.getRandomValues(new Uint8Array(12));
+const key = "KsI2025";
 
-  const keyMaterial = await window.crypto.subtle.importKey(
-    'raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits', 'deriveKey']
-  );
-  const key = await window.crypto.subtle.deriveKey(
-    {
-      name: 'PBKDF2',
-      salt: salt,
-      iterations: 100000,
-      hash: 'SHA-256'
-    },
-    keyMaterial,
-    { name: 'AES-GCM', length: 256 },
-    false,
-    ['encrypt', 'decrypt']
-  );
-
-  const encrypted = await window.crypto.subtle.encrypt(
-    { name: 'AES-GCM', iv: iv },
-    key,
-    encoder.encode(text)
-  );
-
-  const decrypted = await window.crypto.subtle.decrypt(
-    { name: 'AES-GCM', iv: iv },
-    key,
-    encrypted
-  );
-
-  return {
-    encrypted: new Uint8Array(encrypted),
-    decrypted: decoder.decode(decrypted)
-  };
+const encrypted = (txt)=> {
+  return CryptoJS.AES.encrypt(txt, key).toString();
 }
 
+const decrypted = (txt)=> {
+  return CryptoJS.AES.decrypt(txt, key).toString(CryptoJS.enc.Utf8);
+}
 
 
 // Константы для уведомлений
@@ -248,7 +218,8 @@ const notifyInfo = (msg) =>
 
 const hasTarget = (tg) => {
   if (isSysAdmin.value) return true;
-  return getTarget.value?.includes(tg) ?? false;
+  let tv = decrypted(getTarget.value).split(",")
+  return tv.includes(tg) ?? false;
 };
 
 export {
@@ -264,5 +235,5 @@ export {
   collapsAll,
   convertNodeIds,
   hasTarget,
-  encryptDecrypt
+  encrypted
 };

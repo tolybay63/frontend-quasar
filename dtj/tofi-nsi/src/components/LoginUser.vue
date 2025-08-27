@@ -129,8 +129,8 @@ export default {
         })
         .onOk((r) => {
           try {
-            console.log("Ok! ForgetPsw");
-            console.log("reg data", r);
+            //console.log("Ok! ForgetPsw");
+            //console.log("reg data", r);
             //code to save to DB ....
           } finally {
             setTimeout(() => {

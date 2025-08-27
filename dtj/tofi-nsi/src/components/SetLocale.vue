@@ -42,7 +42,7 @@ let localeOptions;
 export default {
   methods: {
     setLang(e) {
-      console.info("setLang")
+      //console.info("setLang")
       import(`../../node_modules/quasar/lang/${e}.js`).then((l) => {
         this.$q.lang.set(l.default);
         let curLang = l.default.isoName;
