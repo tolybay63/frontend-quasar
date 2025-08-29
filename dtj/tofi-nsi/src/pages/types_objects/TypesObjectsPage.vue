@@ -207,14 +207,16 @@ export default {
             this.fnExpand()
           })
         .catch(error => {
-          if (error.response.data.error.message.includes("@")) {
-            let msgs = error.response.data.error.message.split("@")
-            let m1 = this.$t(`${msgs[0]}`)
-            let m2 = (msgs.length > 1) ? " [" + msgs[1] + "]" : ""
-            let msg = m1 + m2
-            notifyError(msg)
-          } else {
-            notifyError(this.$t(error.response.data.error.message))
+          if (error.response && error.response.data) {
+            if (error.response.data.error.message.includes("@")) {
+              let msgs = error.response.data.error.message.split("@")
+              let m1 = this.$t(`${msgs[0]}`)
+              let m2 = (msgs.length > 1) ? " [" + msgs[1] + "]" : ""
+              let msg = m1 + m2
+              notifyError(msg)
+            } else {
+              notifyError(this.$t(error.response.data.error.message))
+            }
           }
         })
         .finally(() => {
