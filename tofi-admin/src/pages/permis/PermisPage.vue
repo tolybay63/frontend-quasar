@@ -347,8 +347,15 @@ export default {
                 this.fetchData();
                 this.currentNode = null;
               },
-              () => {
-                notifyInfo(this.$t("hasChild"));
+              (error) => {
+                if (error.response.data && error.response.data.error.message) {
+                  if (error.response.data.error.message.includes("fk_permis_parent"))
+                    notifyInfo(this.$t("hasChild"));
+                  else
+                    notifyInfo(error.response.data.error.message);
+                }
+
+                //notifyInfo(this.$t("hasChild"));
               }
             );
         })
