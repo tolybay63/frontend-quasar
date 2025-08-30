@@ -298,7 +298,7 @@ export default {
       .then(()=> {
         api
           .post(baseURL, {
-            method: "data/loadFvSource",
+            method: "data/loadFvForSelect",
             params: ["Factor_Source"],
           })
           .then(
@@ -312,7 +312,7 @@ export default {
       .then(()=> {
         api
           .post(baseURL, {
-            method: "data/loadFvPeriodType",
+            method: "data/loadFvForSelect",
             params: ["Factor_PeriodType"],
           })
           .then(

@@ -18,29 +18,19 @@
       <q-inner-loading :showing="visible" color="secondary"/>
 
       <q-card-section>
-
-        <!-- class -->
-
-        <q-select
-          v-model="form.cls" :model-value="form.cls" autofocus
-          :label="fmReqLabel('class')" :options="optCls"
-          option-label="name" option-value="id" class="q-ma-md"
-          dense options-dense map-options :readonly="mode==='upd' || form.parent>0"
-          @update:model-value="fnSelectCls"
-        />
-
         <!-- name -->
         <q-input
             class="q-ma-md"
             dense :model-value="form.name"
             v-model="form.name"
+            :disable="mode === 'upd'"
             @blur="onBlurName"
             :label="fmReqLabel('fldName')" autofocus
             :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"
         >
         </q-input>
 
-        <!-- fvPeriodicity -->
+        <!-- fvShape -->
         <q-select
           v-model="form.fvShape"
           :model-value="form.fvShape"
@@ -92,9 +82,7 @@ export default {
       form: extend({}, this.data),
       visible: false,
       lang: this.lg,
-      optCls: [],
       optFvOt: [],
-
     };
   },
 
@@ -108,10 +96,6 @@ export default {
 
     fmReqLabel(label) {
       return this.$t(label) + "*";
-    },
-
-    fnSelectCls(val) {
-      this.form.cls = val.id
     },
 
     fnSelectFvOt(v) {
@@ -139,7 +123,7 @@ export default {
     },
 
     validSave() {
-      if (!this.form.cls || !this.form.name) return true;
+      if (!this.form.fvShape || !this.form.name) return true;
     },
 
     // following method is REQUIRED
@@ -192,31 +176,11 @@ export default {
     },
   },
   created() {
-    this.loading = true
-    api
-      .post(baseURL, {
-        method: "data/loadClsForSelect",
-        params: [ "Typ_ObjectTyp" ],
-      })
-      .then(
-        (response) => {
-          this.optCls = response.data.result["records"]
-        },
-        (error) => {
-          let msg = error.message
-          if (error.response)
-            msg = this.$t(error.response.data.error.message)
-          notifyError(msg)
-        }
-      )
-      .finally(() => {
-        this.loading = false
-      })
     //
     this.loading = true
     api
       .post(baseURL, {
-        method: 'data/loadFvOt',
+        method: 'data/loadFvForSelect',
         params: ['Factor_Shape'],
       })
       .then(

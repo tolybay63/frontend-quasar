@@ -117,7 +117,7 @@ export default {
 
       FD_PropType: null,
       FD_DimPropType: null,
-      mapCls: null,
+      //mapCls: null,
       mapFvOt: null,
     };
   },
@@ -175,8 +175,8 @@ export default {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           this.$axios
             .post(baseURL, {
-              method: "data/deleteOwnerWithProperties",
-              params: [rec.id, 1],
+              method: "data/deleteTypesObjects",
+              params: [rec.id],
             })
             .then(
               () => {
@@ -248,13 +248,12 @@ export default {
           headerStyle: "font-size: 1.2em; width:35%",
         },
         {
-          name: "cls",
+          name: "nameCls",
           label: this.$t("class"),
-          field: "cls",
+          field: "nameCls",
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em; width: 40%",
-          format: (v) => this.mapCls ? this.mapCls.get(v) : null
         },
         {
           name: "fvShape",
@@ -270,53 +269,32 @@ export default {
 
   },
 
-  computed: {
-    arrayTreeObj() {
-      let vm = this;
-      let newObj = [];
-      vm.recursive(vm.rows, newObj, 0, vm.itemId, vm.isExpanded);
-      return newObj;
-    },
-  },
-
   mounted() {
-    console.info("mounted")
-    this.cols = this.getColumns()
+    //console.info("mounted")
   },
 
   created() {
-  console.info("created")
+    console.info("created")
     api
       .post(baseURL, {
-        method: "data/loadClsForSelect",
-        params: ["Typ_ObjectTyp"],
+        method: "data/loadFvForSelect",
+        params: ["Factor_Shape"],
       })
       .then(
         (response) => {
-          this.mapCls = new Map()
+          this.mapFvOt = new Map()
           response.data.result["records"].forEach(r => {
-            this.mapCls.set(r.id, r.name);
+            this.mapFvOt.set(r.id, r.name);
           })
         })
-      .then(() => {
-        api
-          .post(baseURL, {
-            method: "data/loadFvOt",
-            params: ["Factor_Shape"],
-          })
-          .then(
-            (response) => {
-              this.mapFvOt = new Map()
-              response.data.result["records"].forEach(r => {
-                this.mapFvOt.set(r.id, r.name);
-              })
-            })
-      })
       .then(() => {
         this.cols = this.getColumns()
       })
       .then(() => {
         this.loadData()
+      })
+      .finally(()=> {
+
       })
 
   }

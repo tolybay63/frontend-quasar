@@ -29,12 +29,6 @@
         <components-page/>
       </q-tab-panel>
 
-<!--
-      <q-tab-panel name="comp_objects" class="no-scroll">
-        <component-objects-page codRelTyp="RT_Components"/>
-      </q-tab-panel>
--->
-
       <q-tab-panel name="comp_objects" class="no-scroll">
         <component-objects-page2 codRelTyp="RT_Components"/>
       </q-tab-panel>

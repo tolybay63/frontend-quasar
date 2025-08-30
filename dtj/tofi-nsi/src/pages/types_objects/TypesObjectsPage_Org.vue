@@ -488,7 +488,7 @@ export default {
       .then(() => {
         api
           .post(baseURL, {
-            method: "data/loadFvOt",
+            method: "data/loadFvForSelect",
             params: ["Factor_Shape"],
           })
           .then(

@@ -265,7 +265,7 @@ export default {
   created() {
     api
       .post(baseURL, {
-        method: "data/loadFvCategory",
+        method: "data/loadFvForSelect",
         params: ["Factor_Defects"],
       })
       .then(

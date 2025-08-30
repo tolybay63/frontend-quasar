@@ -337,8 +337,8 @@ export default {
         getCheckets(this.rows[i])
         rez.push(checkedMembers)
       }
-      //console.info("rez", rez)
-      //console.info("rows", this.rows)
+      console.info("rez", rez)
+      console.info("rows", this.rows)
 
       api
           .post(baseURL, {
