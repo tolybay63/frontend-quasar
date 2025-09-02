@@ -213,6 +213,14 @@ const NAVIGATION_LINKS = [
     target: "nsi:objtc",
   },
   {
+    title: "section",
+    info: "",
+    icon: "multiple_stop",
+    link: "/section",
+    target: "nsi:uch",
+  },
+
+  {
     title: "separation_point",
     info: "",
     icon: "train",

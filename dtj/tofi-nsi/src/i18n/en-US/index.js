@@ -143,6 +143,8 @@ export default {
   separation_point: "Separate points",
   hauls: "Hauls",
   org_structure: "Organizational structure",
+  section: "Sections of the railway track",
+  client: "Client",
 
   addNode: "Add Node",
   addSubNode: "Add child node",

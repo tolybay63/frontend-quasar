@@ -10,6 +10,7 @@ const routes = [
       {path: '/param_objects', name: "ParamObjectsPage", component: () => import('pages/param_objects/ParamObjectsSelectPage.vue')},
       {path: '/defect_objects', name: "DefectObjectsPage", component: () => import('pages/defect_objects/DefectObjectsPage.vue')},
       {path: '/charts_objects', name: "ChartsObjectsPage2", component: () => import('pages/charts_objects/ChartsObjectsPage2.vue')},
+      {path: '/section', name: "SectionPage", component: () => import('pages/section/SectionPage.vue')},
       {path: '/separation_point', name: "SeparationPointPage", component: () => import('pages/separation_point/SeparationPointPage.vue')},
       {path: '/hauls', name: "HaulsPage", component: () => import('pages/hauls/HaulsPage.vue')},
     ]

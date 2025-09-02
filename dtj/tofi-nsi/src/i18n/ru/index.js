@@ -147,6 +147,9 @@ export default {
   serviced_objects: "Типы обслуживаемых объектов - объекты",
   separation_point: "Раздельные пункты",
   hauls: "Перегоны",
+  section: "Участки жд пути",
+  client: "Клиент",
+
   org_structure: "Организационная структура",
   params: "Параметры",
   params_component: "Параметры компонентов",

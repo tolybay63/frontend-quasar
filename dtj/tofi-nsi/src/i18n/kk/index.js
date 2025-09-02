@@ -144,6 +144,8 @@ export default {
   separation_point: "Бөлек нүктелер",
   hauls: "Перегондар",
   org_structure: "Ұйымдастырушылық құрылым",
+  section: "Темір жолдың учаскелері",
+  client: "Клиент",
 
   addNode: "Түйінді қосу",
   addSubNode: "Еншілес түйінді қосу",
