@@ -203,8 +203,8 @@ export default {
                 this.selected = []
               })
             .catch(error => {
-              console.log(error.message)
-              notifyInfo(error.message)
+              if (error.response.data)
+                notifyInfo(error.response.data.error.message)
             })
         })
         .onCancel(() => {

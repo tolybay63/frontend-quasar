@@ -156,7 +156,6 @@ export default {
 
     },
 
-
     removeRow(rec) {
       this.$q
         .dialog({
