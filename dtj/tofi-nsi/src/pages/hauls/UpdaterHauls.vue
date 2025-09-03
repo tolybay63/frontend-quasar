@@ -26,7 +26,22 @@
           class="q-ma-md" dense autofocus
         >
         </q-input>
-<!--    :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"    -->
+
+        <!-- parent -->
+        <q-select
+          v-model="form['parent']"
+          :model-value="form['parent']"
+          :label="fmReqLabel('section')"
+          :options="optSection"
+          dense class="q-ma-md"
+          map-options
+          option-label="name"
+          option-value="id"
+          use-input
+          @update:model-value="fnSelectSection"
+          @filter="filterSection"
+        />
+
 
         <!-- StartKm -->
         <q-input
@@ -91,7 +106,7 @@
 </template>
 
 <script>
-import {baseURL} from "boot/axios";
+import {api, baseURL} from "boot/axios";
 import {notifyError} from "src/utils/jsutils";
 
 export default {
@@ -101,6 +116,8 @@ export default {
     return {
       loading: false,
       form: this.data,
+      optSection: [],
+      optSectionOrg: [],
     };
   },
 
@@ -115,8 +132,29 @@ export default {
       return this.$t(label) + "*";
     },
 
+    fnSelectSection(v) {
+      this.form.parent = v.id
+    },
+
+    filterSection(val, update) {
+      if (val === null || val === '') {
+        update(() => {
+          this.optSection = this.optSectionOrg
+        })
+        return
+      }
+      update(() => {
+        if (this.optSectionOrg.length < 2) return
+        const needle = val.toLowerCase()
+        let name = 'name'
+        this.optSection = this.optSectionOrg.filter((v) => {
+          return v[name].toLowerCase().indexOf(needle) > -1
+        })
+      })
+    },
+
     validSave() {
-      if (!this.form.name || !this.form.StartKm || !this.form.StartPicket ||
+      if (!this.form.parent || !this.form.name || !this.form.StartKm || !this.form.StartPicket ||
         !this.form.FinishKm || !this.form.FinishPicket || !this.form.StageLength) return true
     },
 
@@ -172,6 +210,20 @@ export default {
     },
   },
   created() {
+    this.loading = true
+    api
+      .post(baseURL, {
+        method: 'data/loadObjForSelectFromObject',
+        params: ['Cls_Section'],
+      })
+      .then(
+        (response) => {
+          this.optSection = response.data.result["records"]
+          this.optSectionOrg = response.data.result["records"]
+        })
+      .finally(()=> {
+        this.loading = false
+      })
 
   },
 };

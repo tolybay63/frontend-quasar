@@ -17,8 +17,16 @@
       </q-bar>
 
       <q-card-section>
+        <!-- name -->
+        <q-input
+          :model-value="form.name"
+          v-model="form.name"
+          :label="fmReqLabel('fldName')"
+          class="q-ma-md" dense autofocus
+        >
+        </q-input>
 
-        <!-- objSection -->
+        <!-- parent -->
         <q-select
           v-model="form['parent']"
           :model-value="form['parent']"
@@ -32,16 +40,6 @@
           @update:model-value="fnSelectSection"
           @filter="filterSection"
         />
-
-        <!-- name -->
-        <q-input
-          :model-value="form.name"
-          v-model="form.name"
-          :label="fmReqLabel('fldName')"
-          class="q-ma-md" dense autofocus
-        >
-        </q-input>
-<!--    :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"    -->
 
         <!-- StartKm -->
         <q-input
@@ -127,7 +125,6 @@ export default {
 
     fnSelectSection(v) {
       this.form.parent = v.id
-      //this.form.pvSection = v["pv"]
     },
 
     filterSection(val, update) {
@@ -204,12 +201,11 @@ export default {
     },
   },
   created() {
-
     this.loading = true
     api
       .post(baseURL, {
-        method: 'data/loadObjList',
-        params: ['Cls_Section', "Prop_Section", 'objectdata'],
+        method: 'data/loadObjForSelectFromObject',
+        params: ['Cls_Section'],
       })
       .then(
         (response) => {

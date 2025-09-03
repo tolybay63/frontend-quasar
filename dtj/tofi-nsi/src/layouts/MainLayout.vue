@@ -230,7 +230,7 @@ const NAVIGATION_LINKS = [
   {
     title: "hauls",
     info: "",
-    icon: "multiple_stop",
+    icon: "sync_alt",
     link: "/hauls",
     target: "nsi:pg",
   },

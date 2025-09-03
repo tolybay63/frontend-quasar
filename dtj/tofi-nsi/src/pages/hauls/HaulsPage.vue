@@ -220,12 +220,20 @@ export default {
           headerStyle: "font-size: 1.2em; width:25%",
         },
         {
+          name: "nameParent",
+          label: this.$t("section"),
+          field: "nameParent",
+          align: "left",
+          classes: "bg-blue-grey-1",
+          headerStyle: "font-size: 1.2em; width:25%",
+        },
+        {
           name: "StartKm",
           label: this.$t("StartKm"),
           field: "StartKm",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:15%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
         {
           name: "StartPicket",
@@ -233,7 +241,7 @@ export default {
           field: "StartPicket",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:15%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
         {
           name: "FinishKm",
@@ -241,7 +249,7 @@ export default {
           field: "FinishKm",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:15%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
         {
           name: "FinishPicket",
@@ -249,7 +257,7 @@ export default {
           field: "FinishPicket",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:15%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
 
         {
@@ -258,7 +266,7 @@ export default {
           field: "StageLength",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:15%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
       ]
     },

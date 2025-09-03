@@ -216,7 +216,15 @@ export default {
           field: "name",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:40%",
+          headerStyle: "font-size: 1.2em; width:30%",
+        },
+        {
+          name: "nameParent",
+          label: this.$t("section"),
+          field: "nameParent",
+          align: "left",
+          classes: "bg-blue-grey-1",
+          headerStyle: "font-size: 1.2em; width:30%",
         },
         {
           name: "StartKm",
@@ -224,7 +232,7 @@ export default {
           field: "StartKm",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:15%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
         {
           name: "StartPicket",
@@ -232,7 +240,7 @@ export default {
           field: "StartPicket",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:15%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
         {
           name: "FinishKm",
@@ -240,7 +248,7 @@ export default {
           field: "FinishKm",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:15%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
         {
           name: "FinishPicket",
@@ -248,7 +256,7 @@ export default {
           field: "FinishPicket",
           align: "left",
           classes: "bg-blue-grey-1",
-          headerStyle: "font-size: 1.2em; width:15%",
+          headerStyle: "font-size: 1.2em; width:10%",
         },
       ]
     },
