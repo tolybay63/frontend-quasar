@@ -18,6 +18,21 @@
 
       <q-card-section>
 
+        <!-- objSection -->
+        <q-select
+          v-model="form['parent']"
+          :model-value="form['parent']"
+          :label="fmReqLabel('section')"
+          :options="optSection"
+          dense class="q-ma-md"
+          map-options
+          option-label="name"
+          option-value="id"
+          use-input
+          @update:model-value="fnSelectSection"
+          @filter="filterSection"
+        />
+
         <!-- name -->
         <q-input
           :model-value="form.name"
@@ -84,7 +99,7 @@
 </template>
 
 <script>
-import {baseURL} from "boot/axios";
+import {api, baseURL} from "boot/axios";
 import {notifyError} from "src/utils/jsutils";
 
 export default {
@@ -94,6 +109,8 @@ export default {
     return {
       loading: false,
       form: this.data,
+      optSection: [],
+      optSectionOrg: [],
     };
   },
 
@@ -108,8 +125,30 @@ export default {
       return this.$t(label) + "*";
     },
 
+    fnSelectSection(v) {
+      this.form.parent = v.id
+      //this.form.pvSection = v["pv"]
+    },
+
+    filterSection(val, update) {
+      if (val === null || val === '') {
+        update(() => {
+          this.optSection = this.optSectionOrg
+        })
+        return
+      }
+      update(() => {
+        if (this.optSectionOrg.length < 2) return
+        const needle = val.toLowerCase()
+        let name = 'name'
+        this.optSection = this.optSectionOrg.filter((v) => {
+          return v[name].toLowerCase().indexOf(needle) > -1
+        })
+      })
+    },
+
     validSave() {
-      if (!this.form.name || !this.form.StartKm || !this.form.StartPicket ||
+      if (!this.form.parent || !this.form.name || !this.form.StartKm || !this.form.StartPicket ||
         !this.form.FinishKm || !this.form.FinishPicket) return true
     },
 
@@ -165,6 +204,21 @@ export default {
     },
   },
   created() {
+
+    this.loading = true
+    api
+      .post(baseURL, {
+        method: 'data/loadObjList',
+        params: ['Cls_Section', "Prop_Section", 'objectdata'],
+      })
+      .then(
+        (response) => {
+          this.optSection = response.data.result["records"]
+          this.optSectionOrg = response.data.result["records"]
+        })
+      .finally(()=> {
+        this.loading = false
+      })
 
   },
 };
