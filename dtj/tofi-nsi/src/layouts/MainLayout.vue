@@ -161,13 +161,6 @@ import {useRouter} from 'vue-router';
 
 const NAVIGATION_LINKS = [
   {
-    title: "process_charts",
-    info: "",
-    icon: "assignment",
-    link: "/process_charts",
-    target: "nsi:tc",
-  },
-  {
     title: "source_collections",
     info: "",
     icon: "schedule",
@@ -175,11 +168,25 @@ const NAVIGATION_LINKS = [
     target: "nsi:collection",
   },
   {
+    title: "process_charts",
+    info: "",
+    icon: "assignment",
+    link: "/process_charts",
+    target: "nsi:tc",
+  },
+  {
     title: "types_objects_comps",
     info: "",
     icon: "dashboard",
     link: "/types_objects",
     target: "nsi:ot",
+  },
+  {
+    title: "charts_objects",
+    info: "",
+    icon: "assignment_turned_in",
+    link: "/charts_objects",
+    target: "nsi:objtc",
   },
   {
     title: "param_objects",
@@ -204,14 +211,6 @@ const NAVIGATION_LINKS = [
     target: "nsi:ose",
   },
 */
-
-  {
-    title: "charts_objects",
-    info: "",
-    icon: "assignment_turned_in",
-    link: "/charts_objects",
-    target: "nsi:objtc",
-  },
   {
     title: "section",
     info: "",

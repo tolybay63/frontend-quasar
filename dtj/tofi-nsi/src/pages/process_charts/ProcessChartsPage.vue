@@ -184,7 +184,7 @@ export default {
           title: this.$t("confirmation"),
           message:
             this.$t("deleteRecord") +
-            '<div style="color: plum">(' + rec.TechCard + ")</div>",
+            '<div style="color: plum">(' + rec.fullName + ")</div>",
           html: true,
           cancel: true,
           persistent: true,
