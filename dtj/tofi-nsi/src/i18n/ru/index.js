@@ -137,7 +137,7 @@ export default {
   process_charts: "Перечень технологических карт",
   source_collections: "Источники (сборники)",
   charts_periodicity: "Техкарты - периодичность",
-  types_objects_comps: "Типы обслуживаемых объектов и его компоненты",
+  types_objects_comps: "Типы обслуживаемых объектов и их компоненты",
   types_objects: "Типы объектов",
   comp_objects: "Компоненты  объектов",
   components: "Компоненты",

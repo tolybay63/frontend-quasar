@@ -133,6 +133,7 @@ export default {
   process_charts: "List of process charts",
   source_collections: "Sources (collections)",
   charts_periodicity: "Process charts - periodicity",
+  types_objects_comps: "Types of serviced objects and their components",
   types_objects: "Types of serviced objects",
   comp_objects: "Object Components",
   components: "Components",
