@@ -176,12 +176,10 @@
 <script>
 import {defineComponent} from "vue";
 import {
-  appAdmURL,
-  appModelURL,
-  appDataUserURL,
-  appDataURL, appNSIURL, appCubeURL, appUnifiedURL
+  appAdmURL, appModelURL, appDataUserURL,
+  appDataURL, appNSIURL, appCubeURL, appServiceURL
 } from "boot/axios";
-import {notifyError} from "src/utils/jsutils.js";
+
 
 export default defineComponent({
   name: "IndexPage",
@@ -212,8 +210,8 @@ export default defineComponent({
     },
 
     fnUnified() {
-      notifyError("На стадии разработки")
-      //open(appUnifiedURL, "_self");
+      //notifyError("На стадии разработки")
+      open(appServiceURL, "_self");
     },
 
   },
