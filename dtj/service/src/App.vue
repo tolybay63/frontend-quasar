@@ -1,5 +1,8 @@
 <template>
   <NaiveProvider>
+    <!-- Индикатор офлайн статуса -->
+    <OfflineIndicator />
+    
     <div v-if="!isLoginPage" class="app-layout">
       <Sidebar />
       <div class="main-content">
@@ -22,6 +25,7 @@ import Sidebar from './components/layout/Sidebar.vue'
 import Navbar from './components/layout/Navbar.vue'
 import NaiveProvider from './naive.config.js'
 import AppNotification from './components/layout/AppNotification.vue'
+import OfflineIndicator from './components/ui/OfflineIndicator.vue'
 
 const route = useRoute()
 const isLoginPage = computed(() => route.path === '/login')

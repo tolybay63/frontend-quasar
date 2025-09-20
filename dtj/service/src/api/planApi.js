@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { offlineAPI } from '@/utils/offlineApi.js';
 
 const API_BASE_URL = import.meta.env.VITE_PLAN_URL;
 
@@ -16,22 +16,31 @@ export async function loadWorkPlan(date = "2025-07-30", periodType = 11) {
     objLocation: parseInt(objLocation)
   });
 
-  const response = await axios.post(
-    API_BASE_URL, 
-    {
-      method: "data/loadPlan",
-      params: [
-        {
-          date,
-          periodType,
-          objLocation: parseInt(objLocation),
-        }
-      ]
-    },
-    {
-      withCredentials: true
-    }
-  );
+  const requestData = {
+    method: "data/loadPlan",
+    params: [
+      {
+        date,
+        periodType,
+        objLocation: parseInt(objLocation),
+      }
+    ]
+  };
 
-  return response.data.result?.records || [];
+  try {
+    const response = await offlineAPI.request(API_BASE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(requestData)
+    });
+
+    const data = await response.json();
+    return data.result?.records || [];
+  } catch (error) {
+    console.error('Ошибка загрузки плана работ:', error);
+    throw error;
+  }
 }
