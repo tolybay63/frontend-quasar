@@ -250,7 +250,6 @@ export default defineComponent({
     const essentialLinks = ref(NAVIGATION_LINKS);
 
     const reqAuth = computed(() => getUserName.value === "");
-    //const notAccess = computed(() => getTarget.value.length === 0 && !isSysAdmin.value);
     const notAccess = computed(() => !hasTarget("nsi") && !isSysAdmin.value);
     const nameIcon = computed(() => getUserName.value === "" ? "login" : "logout");
 
