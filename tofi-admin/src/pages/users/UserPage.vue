@@ -133,8 +133,8 @@
               color="secondary"
               class="q-ml-sm"
               @click="fnDel(selected2[0])"
-              :disable="
-                selected2.length === 0 || selected2[0].login === 'sysadmin'
+              :disable="true
+                /*selected2.length === 0 || selected2[0].login === 'sysadmin'*/
               "
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
