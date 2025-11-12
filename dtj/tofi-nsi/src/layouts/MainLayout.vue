@@ -161,42 +161,42 @@ import {useRouter} from 'vue-router';
 
 const NAVIGATION_LINKS = [
   {
-    title: "source_collections",
+    title: "source_collections",  //Источники (сборники)
     info: "",
     icon: "schedule",
     link: "/source_collections",
     target: "nsi:collection",
   },
   {
-    title: "process_charts",
+    title: "process_charts",    //Перечень технологических карт
     info: "",
     icon: "assignment",
     link: "/process_charts",
     target: "nsi:tc",
   },
   {
-    title: "types_objects_comps",
+    title: "types_objects_comps",   //Типы обслуживаемых объектов и их компоненты
     info: "",
     icon: "dashboard",
     link: "/types_objects",
     target: "nsi:ot",
   },
   {
-    title: "charts_objects",
+    title: "charts_objects",    //Техкарты - типы обслуживаемых объектов
     info: "",
     icon: "assignment_turned_in",
     link: "/charts_objects",
     target: "nsi:objtc",
   },
   {
-    title: "param_objects",
+    title: "param_objects",     //Параметры обслуживаемых объектов
     info: "",
     icon: "pin",
     link: "/param_objects",
     target: "nsi:op",
   },
   {
-    title: "defect_objects",
+    title: "defect_objects",    //Дефекты по типам объектов
     info: "",
     icon: "report_off",
     link: "/defect_objects",
@@ -212,7 +212,7 @@ const NAVIGATION_LINKS = [
   },
 */
   {
-    title: "section",
+    title: "section",       //Участки жд пути
     info: "",
     icon: "multiple_stop",
     link: "/section",
@@ -220,14 +220,14 @@ const NAVIGATION_LINKS = [
   },
 
   {
-    title: "separation_point",
+    title: "separation_point",  //Раздельные пункты
     info: "",
     icon: "train",
     link: "/separation_point",
     target: "nsi:st",
   },
   {
-    title: "hauls",
+    title: "hauls",           //Перегоны
     info: "",
     icon: "sync_alt",
     link: "/hauls",
@@ -250,7 +250,6 @@ export default defineComponent({
     const essentialLinks = ref(NAVIGATION_LINKS);
 
     const reqAuth = computed(() => getUserName.value === "");
-    //const notAccess = computed(() => getTarget.value.length === 0 && !isSysAdmin.value);
     const notAccess = computed(() => !hasTarget("nsi") && !isSysAdmin.value);
     const nameIcon = computed(() => getUserName.value === "" ? "login" : "logout");
 
