@@ -183,8 +183,6 @@ params: {username: this.form.login, password: this.form.psw},
         })
         .then(
           (response) => {
-            //const JSESSIONID = Cookies.get("JSESSIONID");
-            //console.info(JSESSIONID, JSESSIONID);
             //console.log("loginUser: response", response);
             this.$emit("ok", {res: true});
           },
