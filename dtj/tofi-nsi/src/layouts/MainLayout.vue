@@ -235,7 +235,7 @@ const NAVIGATION_LINKS = [
   },
 
   {
-    title: 'fill',
+    title: 'filling',
     info: '',
     icon: 'download',
     link: '/fill',
