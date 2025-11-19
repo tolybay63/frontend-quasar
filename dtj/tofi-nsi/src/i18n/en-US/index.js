@@ -143,6 +143,8 @@ export default {
   serviced_objects: "Types of serviced objects - objects",
   separation_point: "Separate points",
   hauls: "Hauls",
+  filling: "Filling",
+
   org_structure: "Organizational structure",
   section: "Sections of the railway track",
   client: "Client",

@@ -13,6 +13,7 @@ const routes = [
       {path: '/section', name: "SectionPage", component: () => import('pages/section/SectionPage.vue')},
       {path: '/separation_point', name: "SeparationPointPage", component: () => import('pages/separation_point/SeparationPointPage.vue')},
       {path: '/hauls', name: "HaulsPage", component: () => import('pages/hauls/HaulsPage.vue')},
+      {path: '/fill', name: "FillPage", component: () => import('pages/fill/FillPage.vue')},
     ]
   },
 

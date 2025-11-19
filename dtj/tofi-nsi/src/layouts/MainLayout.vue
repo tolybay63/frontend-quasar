@@ -233,6 +233,15 @@ const NAVIGATION_LINKS = [
     link: "/hauls",
     target: "nsi:pg",
   },
+
+  {
+    title: 'fill',
+    info: '',
+    icon: 'download',
+    link: '/fill',
+    target: 'object:fill',
+  },
+
 ];
 
 export default defineComponent({

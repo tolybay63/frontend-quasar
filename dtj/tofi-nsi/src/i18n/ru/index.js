@@ -149,6 +149,7 @@ export default {
   hauls: "Перегоны",
   section: "Участки жд пути",
   client: "Клиент",
+  filling: "Заливка",
 
   org_structure: "Организационная структура",
   params: "Параметры",

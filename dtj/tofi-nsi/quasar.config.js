@@ -127,6 +127,10 @@ export default defineConfig((ctx) => {
           target: url,
           changeOrigin: true,
         },
+        '/filldata': {
+          target: url,
+          changeOrigin: true,
+        },
 
       },
     },

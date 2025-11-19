@@ -144,6 +144,8 @@ export default {
   serviced_objects: "Қызмет көрсетілетін объектілердің түрлері – объектілер",
   separation_point: "Бөлек нүктелер",
   hauls: "Перегондар",
+  filling: "Толтыру",
+
   org_structure: "Ұйымдастырушылық құрылым",
   section: "Темір жолдың учаскелері",
   client: "Клиент",
