@@ -2,7 +2,7 @@
   <div class="q-pa-md q-gutter-sm">
     <h6 class="page-header text-weight-bolder">Заливка</h6>
     <hr style="margin-top: -50px" />
-    <div class="q-pa-md q-gutter-sm q-pt-none">1. Водные объекты и их свойства (Ссылочные данные)</div>
+    <div class="q-pa-md q-gutter-sm q-pt-none">1. Обслуживаемые объекты и их свойства</div>
 
     <div class="row">
       <div class="col-9">
