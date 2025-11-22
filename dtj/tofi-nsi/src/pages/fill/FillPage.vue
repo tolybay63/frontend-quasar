@@ -16,6 +16,7 @@
           type="file"
           @clear="clrFile"
           @update:model-value="updFile"
+          @click="clickFile"
         />
       </div>
       <q-space></q-space>
@@ -98,12 +99,11 @@ export default {
 
     },
 
-    updFile(val) {
-      this.err = false
-      this.isFill = false
-      this.filled = false
-      this.msg = "Успешно"
+    clickFile() {
+      this.clrFile()
+    },
 
+    updFile(val) {
       if (val && val.length > 0) {
         this.file = val[0]
         this.filled = false
