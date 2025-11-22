@@ -8,6 +8,7 @@
       <div class="col-9">
         <q-input
           v-model="file"
+          :model-value="file"
           :clearable="true"
           accept=".xlsx"
           autofocus
@@ -20,7 +21,7 @@
       <q-space></q-space>
       <div class="col-1 text-right">
         <q-btn
-          :disable="!file || (file && errTest)"
+          :disable="!file || err || (file && filled)"
           color="grey-4"
           icon="file_download"
           label="Залить"
@@ -32,23 +33,25 @@
 
     <div v-if="file" class="q-pa-md q-gutter-sm">
       <div v-if="!isFill">
-        <div v-if="errTest">
+        <div v-if="err">
           <div>
-            Проверка формата: <span class="text-red"> {{ logs[0].msg }} </span>
+            Проверка формата: <span class="text-red"> {{ msg }} </span>
           </div>
-          <div>Количество строк: {{ logs[0].cnt }}</div>
+          <div>Количество строк: {{ count }}/{{ countVal }}</div>
         </div>
         <div v-else>
-          <div>Проверка формата: <span class="text-green"> Успешно </span></div>
-          <div>Количество строк: {{ logs.length > 0 ? logs[0].cnt : '' }}</div>
+          <div>Проверка формата: <span class="text-green"> {{ msg }} </span></div>
+          <div>Количество объектов/свойства: {{ count }}/{{ countVal }}</div>
         </div>
       </div>
       <div v-else>
-        <div v-if="errFill">
+        <div v-if="err">
           <div>Заливка данных: <span class="text-red"> Ошибка </span></div>
+          <div> {{ msg }}</div>
         </div>
         <div v-else>
-          <div>Заливка данных: <span class="text-green"> Успешно </span></div>
+          <div>Заливка данных: <span class="text-green"> {{msg}} </span></div>
+          <div>Количество объектов/свойства: {{ count }}/{{ countVal }}</div>
         </div>
       </div>
     </div>
@@ -71,11 +74,13 @@ export default {
     return {
       file: ref(null),
       loading: false,
-      logs: [],
-      errTest: false,
-      errFill: false,
+      err: false,
+      msg: "Успешно",
+      count: 0,
+      countVal: 0,
+
       isFill: false,
-      //
+      filled: false
     }
   },
 
@@ -86,14 +91,22 @@ export default {
 
     clrFile() {
       this.file = ref(null)
-      this.errTest = false
-      this.errFill = false
-      this.logs = []
+      this.err = false
+      this.msg = "Успешно"
+      this.isFill = false
+      this.filled = false
+
     },
 
     updFile(val) {
-      if (val !== null) {
+      this.err = false
+      this.isFill = false
+      this.filled = false
+      this.msg = "Успешно"
+
+      if (val && val.length > 0) {
         this.file = val[0]
+        this.filled = false
         this.toSrv(false)
       }
     },
@@ -114,31 +127,28 @@ export default {
           }
         })
         .then(() => {
-          if (fill) {
-            this.errFill = false
-          }
-        })
-        .then(() => {
-          this.loading = true
           this.$axios
             .post(baseURL, {
               method: 'fill/loadLog',
               params: []
             })
             .then((response) => {
-              this.logs = response.data.result.records
-              this.errTest = this.logs[0].err === 1
+              let logs = response.data.result.records[0]
+              this.err = logs["err"]===1
+              this.count = logs["count"]
+              this.countVal = logs["countval"]
+              if (this.err)
+                this.msg = logs["msg"]
             })
             .finally(() => {
               this.loading = false
             })
         })
-        .catch(() => {
-          if (fill) {
-            this.errFill = true
-          }
+        .catch((error) => {
+          console.log(error.message)
         })
         .finally(() => {
+          if (this.isFill) this.filled = true
           this.loading = false
         })
     }
