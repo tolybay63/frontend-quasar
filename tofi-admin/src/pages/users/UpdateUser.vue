@@ -19,10 +19,10 @@
         <div class="col">
           <q-card-section>
             <!-- login
-            :disable="true"
+            :disable="mode === 'upd' && form.login === 'sysadmin'"
             -->
             <q-input
-              :disable="mode === 'upd' && form.login === 'sysadmin'"
+              :disable="mode === 'upd'"
               autofocus
               dense
               v-model="form.login"

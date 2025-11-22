@@ -170,7 +170,7 @@ export default {
       },
       lang: this.lg,
       isPwd: ref(true),
-      loading: ref(false),
+      loading: false,
     };
   },
 
@@ -211,7 +211,7 @@ export default {
     onOKClick() {
       //const data = JSON.parse(JSON.stringify(this.form));
 
-      this.loading = ref(true);
+      this.loading = true;
 
       api
           .post(baseURL, {
@@ -232,7 +232,7 @@ export default {
               }
           )
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 

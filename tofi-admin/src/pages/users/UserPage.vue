@@ -133,8 +133,8 @@
               color="secondary"
               class="q-ml-sm"
               @click="fnDel(selected2[0])"
-              :disable="true
-                /*selected2.length === 0 || selected2[0].login === 'sysadmin'*/
+              :disable="
+                selected2.length === 0 || selected2[0].login === 'sysadmin'
               "
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
@@ -467,11 +467,19 @@ export default {
                 this.selected2 = [];
               },
               (error) => {
-                let msg = error.message;
-                if (error.response)
-                  msg = error.response.data.error.message;
+                let msg = error.message
+                if (error.response) {
+                  console.info("Role", error.response.data.error.message.indexOf("fk_authroleuser"))
+                  console.info("Perm", error.response.data.error.message.indexOf("fk_authuserpermis"))
+                  if (error.response.data.error.message.indexOf("fk_authroleuser") !== -1)
+                    msg = "У пользователя существуют роли"
+                  else if (error.response.data.error.message.indexOf("fk_authuserpermis") !== -1)
+                    msg = "У пользователя существуют привилегии"
+                  else
+                    msg = error.response.data.error.message
+                }
 
-                notifyError(msg);
+                notifyError(msg)
               }
             );
         })
