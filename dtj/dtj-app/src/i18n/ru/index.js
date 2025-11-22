@@ -12,6 +12,8 @@ export default {
   appUserDataName: "Личный кабинет пользователя",
   appDataName: "Сервис работы с данными",
   appNSIName: "Нормативно-справочная информация",
+  appOrgName: "Организация",
+  appOpsName: "Деятельность",
 
   appMinIO: "Файловое хранилище",
   appCubesName: "Сервис работы с кубами",

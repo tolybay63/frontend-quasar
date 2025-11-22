@@ -11,7 +11,8 @@ export default {
   appUserDataName: "User's personal account",
   appDataName: "Data service",
   appNSIName: "Normative reference information",
-  appMonitoringName: "Monitoring of fishing reservoirs",
+  appOrgName: "Organization",
+  appOpsName: "Operations",
 
   appMinIO: "Файловое хранилище",
   appCubesName: "Сервис работы с кубами",

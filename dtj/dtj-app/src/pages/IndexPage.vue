@@ -67,15 +67,10 @@
               </div>
             </div>
           </q-btn>
-
-
-        </div>
-
-        <div class="row q-ma-md justify-center">
           <!-- User Data -->
           <q-btn
             rounded
-            class="bg-green text-white text-bold q-ma-md"
+            class="bg-blue text-white text-bold q-ma-md"
             style="height: 200px; width: 350px; font-size: 24px; opacity: 0.7"
             @click="fnUserData()"
           >
@@ -87,6 +82,9 @@
             </div>
           </q-btn>
 
+        </div>
+
+        <div class="row q-ma-md justify-center">
           <!-- NSI -->
           <q-btn
             rounded
@@ -102,18 +100,34 @@
             </div>
           </q-btn>
 
-          <!-- Service 360 -->
+          <!-- Service 360 Org-->
           <q-btn
             rounded
             class="bg-green text-white text-bold q-ma-md"
             style="height: 200px; width: 350px; font-size: 26px; opacity: 0.7"
-            @click="fnUnified()"
+            @click="fnOrg()"
+          >
+            <div class="column">
+              <div>
+                <q-avatar icon="location_city" color="orange"></q-avatar>
+                S-360
+                <div>{{$t("appOrgName")}}</div>
+              </div>
+            </div>
+          </q-btn>
+          <!-- Service 360 Ops-->
+          <q-btn
+            rounded
+            class="bg-green text-white text-bold q-ma-md"
+            style="height: 200px; width: 350px; font-size: 26px; opacity: 0.7"
+            @click="fnOps()"
           >
             <div class="column">
               <div>
                 <q-avatar icon="update" color="orange"></q-avatar>
-                  Service 360
+                S-360
               </div>
+              <div>{{$t("appOpsName")}}</div>
             </div>
           </q-btn>
 
@@ -177,7 +191,7 @@
 import {defineComponent} from "vue";
 import {
   appAdmURL, appModelURL, appDataUserURL,
-  appDataURL, appNSIURL, appCubeURL, appServiceURL
+  appDataURL, appNSIURL, appCubeURL, appOrgURL, appOpsURL
 } from "boot/axios";
 
 
@@ -209,9 +223,12 @@ export default defineComponent({
       open(appCubeURL, "_self");
     },
 
-    fnUnified() {
-      //notifyError("На стадии разработки")
-      open(appServiceURL, "_self");
+    fnOrg() {
+      open(appOrgURL, "_self");
+    },
+
+    fnOps() {
+      open(appOpsURL, "_self");
     },
 
   },
