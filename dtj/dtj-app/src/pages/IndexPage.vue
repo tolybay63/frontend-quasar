@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div>
     <q-page class="flex flex-center">
 
       <div style="height: 50%; width: 80%">
@@ -236,9 +236,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.body {
-  background-image: url("../assets/ms.png");
-}
 
 button:hover {
   transform: skew(-10deg);
