@@ -17,7 +17,7 @@ const appNSIURL = process.env.VITE_PRUDUCT_NSI_URL
 const appCubeURL = process.env.VITE_PRUDUCT_CUBE_URL
 const appOpsURL = process.env.VITE_PRUDUCT_OPS_URL
 const appOrgURL = process.env.VITE_PRUDUCT_ORG_URL
-
+const appINDURL = process.env.VITE_PRUDUCT_NSI_URL
 
 let url = "http://127.0.0.1:8080"
 if (import.meta.env.PROD) {
@@ -40,4 +40,5 @@ export default boot(({ app }) => {
   //       so you can easily perform requests against your app's API
 })
 
-export { api, baseURL, appAdmURL, appModelURL, appDataUserURL, appDataURL, appNSIURL, appCubeURL, appOpsURL, appOrgURL}
+export { api, baseURL, appAdmURL, appModelURL, appDataUserURL, appDataURL,
+  appNSIURL, appCubeURL, appOpsURL, appOrgURL, appINDURL}

@@ -191,7 +191,7 @@
 import {defineComponent} from "vue";
 import {
   appAdmURL, appModelURL, appDataUserURL,
-  appDataURL, appNSIURL, appCubeURL, appOrgURL, appOpsURL
+  appDataURL, /*appNSIURL,*/ appCubeURL, appOrgURL, appOpsURL, appINDURL
 } from "boot/axios";
 
 
@@ -216,7 +216,7 @@ export default defineComponent({
     },
 
     fnNSI() {
-      open(appNSIURL, "_self");
+      open(appINDURL, "_self");
     },
 
     fnCube() {
