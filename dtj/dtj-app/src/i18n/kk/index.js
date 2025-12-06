@@ -12,7 +12,9 @@ export default {
   appDataName: "Деректермен жұмыс істеу қызметі",
   appNSIName: "Нормативтік анықтамалық ақпарат",
   appMonitoringName: "Балық аулау резервуарларының мониторингі",
-
+  appOrgName: "Организация",
+  appOpsName: "Деятельность",
+  appReportName: "Отчеты",
 
   appMinIO: "Файлды сақтау",
   appCubesName: "Текшелермен жұмыс істеу қызметі",

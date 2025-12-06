@@ -13,6 +13,8 @@ export default {
   appNSIName: "Normative reference information",
   appOrgName: "Organization",
   appOpsName: "Operations",
+  appReportName: "Reports",
+
 
   appMinIO: "Файловое хранилище",
   appCubesName: "Сервис работы с кубами",

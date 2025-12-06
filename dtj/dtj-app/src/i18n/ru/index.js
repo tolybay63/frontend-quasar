@@ -14,6 +14,7 @@ export default {
   appNSIName: "Нормативно-справочная информация",
   appOrgName: "Организация",
   appOpsName: "Деятельность",
+  appReportName: "Отчеты",
 
   appMinIO: "Файловое хранилище",
   appCubesName: "Сервис работы с кубами",

@@ -130,55 +130,21 @@
               <div>{{$t("appOpsName")}}</div>
             </div>
           </q-btn>
-
-
-<!--
-          &lt;!&ndash; Personnal &ndash;&gt;
+          <!-- Service 360 Report-->
           <q-btn
             rounded
             class="bg-green text-white text-bold q-ma-md"
             style="height: 200px; width: 350px; font-size: 26px; opacity: 0.7"
-            @click="fnPersonnal()"
+            @click="fnReport()"
           >
             <div class="column">
               <div>
-                <q-avatar icon="menu_book" color="orange"></q-avatar>
-                {{ $t("appPersonnalName") }}
+                <q-avatar icon="update" color="orange"></q-avatar>
+                S-360
               </div>
+              <div>{{$t("appReportName")}}</div>
             </div>
           </q-btn>
-
-          &lt;!&ndash; OrgStructure &ndash;&gt;
-          <q-btn
-            rounded
-            class="bg-green text-white text-bold q-ma-md"
-            style="height: 200px; width: 350px; font-size: 26px; opacity: 0.7"
-            @click="fnOrgStructure()"
-          >
-            <div class="column">
-              <div>
-                <q-avatar icon="menu_book" color="orange"></q-avatar>
-                {{ $t("appOrgStructureName") }}
-              </div>
-            </div>
-          </q-btn>
-
-          &lt;!&ndash; Plan &ndash;&gt;
-          <q-btn
-            rounded
-            class="bg-green text-white text-bold q-ma-md"
-            style="height: 200px; width: 350px; font-size: 26px; opacity: 0.7"
-            @click="fnPlan()"
-          >
-            <div class="column">
-              <div>
-                <q-avatar icon="menu_book" color="orange"></q-avatar>
-                {{ $t("appPlanName") }}
-              </div>
-            </div>
-          </q-btn>
--->
-
         </div>
 
       </div>
@@ -191,7 +157,7 @@
 import {defineComponent} from "vue";
 import {
   appAdmURL, appModelURL, appDataUserURL,
-  appDataURL, /*appNSIURL,*/ appCubeURL, appOrgURL, appOpsURL, appINDURL
+  appDataURL, /*appNSIURL,*/ appCubeURL, appOrgURL, appOpsURL, appINDURL, appReportURL
 } from "boot/axios";
 
 
@@ -229,6 +195,10 @@ export default defineComponent({
 
     fnOps() {
       open(appOpsURL, "_self");
+    },
+
+    fnReport() {
+      open(appReportURL, "_self");
     },
 
   },
