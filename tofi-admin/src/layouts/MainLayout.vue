@@ -166,7 +166,7 @@ import RegUser from 'components/RegUser.vue'
 import ProfileUser from 'components/ProfileUser.vue'
 import LoginUser from 'components/LoginUser.vue'
 import SetLocale from 'components/SetLocale.vue'
-import {api, authURL, baseURL, urlMainApp} from 'boot/axios'
+import {api, authURL, urlMainApp} from 'boot/axios'
 import {notifyError, notifySuccess} from 'src/utils/jsutils'
 import {useQuasar} from 'quasar'
 

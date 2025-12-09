@@ -4,10 +4,7 @@
 import { configure } from 'quasar/wrappers'
 import { fileURLToPath } from 'node:url'
 
-let url = 'http://localhost:8080'
-if (process.env.NODE_ENV === 'production') {
-  url = process.env.VITE_PRODUCT_URL
-}
+let url = process.env.VITE_PRODUCT_URL || 'http://127.0.0.1:8080'
 
 export default configure((ctx) => {
   return {

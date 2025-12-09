@@ -120,7 +120,7 @@
 import {defineComponent, ref} from "vue";
 import LoginUser from "components/LoginUser.vue";
 import SetLocale from "components/SetLocale.vue";
-import {api, authURL, baseURL, urlMainApp} from "boot/axios";
+import {api, authURL, urlMainApp} from "boot/axios";
 import {notifyError } from "src/utils/jsutils";
 import {useUserStore} from "stores/user-store";
 import {useParamsStore} from "stores/params-store";
@@ -213,7 +213,7 @@ export default defineComponent({
           })
           .onOk((r) => {
             api
-              .post(baseURL, {
+              .post('', {
                 method: "data/getCurUserInfo",
                 params: [],
               })
@@ -279,7 +279,7 @@ export default defineComponent({
     }
 
       this.loading = ref(true)
-      api.post(baseURL, {
+      api.post('', {
         method: "data/loadDataBase",
         params: [],
       })

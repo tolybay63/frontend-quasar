@@ -7,10 +7,7 @@
 import {defineConfig} from '#q-app/wrappers'
 import {fileURLToPath} from 'node:url'
 
-let url = 'http://localhost:8080'
-if (process.env.NODE_ENV === 'production') {
-  url = process.env.VITE_PRODUCT_URL
-}
+let url = process.env.VITE_PRODUCT_URL || 'http://127.0.0.1:8080'
 
 export default defineConfig((ctx) => {
   return {
@@ -53,17 +50,17 @@ export default defineConfig((ctx) => {
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
-      vueRouterBase: ctx.modeName === 'spa' && ctx.prod ? '/dtj/account/' : '',
+      vueRouterBase: ctx.modeName === 'spa' && ctx.prod ? '/dtj/tofidata/' : '',
       // vueDevtools,
       // vueOptionsAPI: false,
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
       // publicPath: '/',
-      publicPath: ctx.modeName === 'spa' && ctx.prod ? '/dtj/account/' : '',
+      publicPath: ctx.modeName === 'spa' && ctx.prod ? '/dtj/tofidata/' : '',
       extendViteConf(viteConf, { isServer, isClient }) {
         if (ctx.modeName === 'spa' && ctx.prod) {
-          viteConf.base = '/dtj/account/';
+          viteConf.base = '/dtj/tofidata/';
         } else {
           viteConf.base = '';
         }

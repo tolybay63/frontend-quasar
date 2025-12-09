@@ -15,8 +15,15 @@ const { setMetaModel } = store
 
 let urlMainApp = process.env.VITE_PRODUCT_URL_MAIN_APP
 
-let authURL = "/auth"
-let baseURL = "/api"
+let url = 'http://127.0.0.1:8080'
+let authURL = url + "/auth"
+let baseURL = url + "/api"
+
+if (import.meta.env.PROD) {
+  //url = process.env.VITE_PRODUCT_URL_MAIN_APP
+  authURL = "/auth"
+  baseURL = "/api"
+}
 
 const api = axios.create({ baseURL: baseURL })
 

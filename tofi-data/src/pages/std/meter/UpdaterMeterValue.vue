@@ -168,7 +168,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 import {ref} from "vue";
 import {useParamsStore} from "stores/params-store";
@@ -379,7 +379,7 @@ export default {
 
       let err = false;
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/" + method,
           params: [this.form],
         })
@@ -409,7 +409,7 @@ export default {
 
     getPeriodInfo(dt, periodType) {
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/getPeriodInfo",
           params: [dt, periodType],
         })
@@ -444,7 +444,7 @@ export default {
     this.msg = this.$t("val") + ": [" + b1 + "; " + b2 + "]";
 
     api
-      .post(baseURL, {
+      .post('', {
         method: "data/loadDict",
         params: ["FD_PeriodType"],
       })
@@ -454,7 +454,7 @@ export default {
 
     if (this.reqParams.provider > 0) {
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadProvider",
           params: [this.reqParams.prop, getModel.value, getMetaModel.value],
         })
@@ -473,7 +473,7 @@ export default {
     //
     if (this.reqParams.status > 0) {
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadStatus",
           params: [this.reqParams.prop],
         })
@@ -491,7 +491,7 @@ export default {
     if (this.reqParams.dependPeriod) {
       let prop = this.reqParams.isMulti ? this.reqParams.multiProp : this.reqParams.prop
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/propPeriodType",
           params: [prop, this.reqParams.isMulti],
         })
