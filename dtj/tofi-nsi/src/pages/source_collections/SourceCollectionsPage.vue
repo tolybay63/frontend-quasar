@@ -274,11 +274,10 @@
 
 import treeselect from "vue3-treeselect";
 import "vue3-treeselect/dist/vue3-treeselect.css";
-import {hasTarget, notifyError, notifyInfo, notifySuccess, pack} from "src/utils/jsutils";
-import {api, baseURL} from "boot/axios";
+import {hasTarget, notifyError, notifyInfo, pack} from "src/utils/jsutils";
+import {api} from "boot/axios";
 import {extend} from "quasar";
 import UpdaterSourceCollections from "pages/source_collections/UpdaterSourceCollections.vue";
-import {ref} from "vue";
 import ViewPdf from "components/ViewPdf.vue";
 import UpdaterFile from "pages/source_collections/UpdaterFile.vue";
 

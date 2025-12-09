@@ -93,7 +93,7 @@
 
 <script>
 import {extend} from "quasar";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
 import UpdaterProcessCharts from "pages/process_charts/UpdaterProcessCharts.vue";
 

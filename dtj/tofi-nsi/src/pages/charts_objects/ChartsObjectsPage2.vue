@@ -83,7 +83,6 @@
 
 <script>
 
-import {baseURL} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
 import UpdateChartsObjects2 from "pages/charts_objects/UpdateChartsObjects2.vue";
 

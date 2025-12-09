@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import {baseURL} from "boot/axios";
 import {notifyError} from "src/utils/jsutils";
 
 export default {

@@ -123,7 +123,6 @@
 </template>
 
 <script>
-import {baseURL} from "boot/axios";
 import {ref} from "vue";
 import {checkChilds, collapsAll, expandAll, notifyError, notifySuccess, pack, uncheckChilds} from "src/utils/jsutils";
 

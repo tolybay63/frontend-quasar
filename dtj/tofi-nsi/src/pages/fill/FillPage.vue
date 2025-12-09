@@ -65,8 +65,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import { baseURL } from 'boot/axios'
+import {ref} from 'vue'
 
 export default {
   name: 'FillPage',

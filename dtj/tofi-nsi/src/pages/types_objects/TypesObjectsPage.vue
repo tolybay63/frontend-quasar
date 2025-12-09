@@ -92,7 +92,7 @@
 <script>
 
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
 import UpdaterTypesObjects from "pages/types_objects/UpdaterTypesObjects.vue";
 import {extend} from "quasar";

@@ -189,7 +189,7 @@
 import {ref} from "vue";
 import RelObjMember from "pages/types_objects/RelObjMember.vue";
 import {collapsAll, expandAll, hasTarget, notifyError, notifySuccess, pack} from "src/utils/jsutils";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import UpdaterGroupRelObj from "pages/types_objects/UpdaterGroupRelObj.vue";
 import UpdaterRelObj from "pages/types_objects/UpdaterRelObj.vue";
 import DeleteGroupRelObj from "pages/types_objects/DeleteGroupRelObj.vue";

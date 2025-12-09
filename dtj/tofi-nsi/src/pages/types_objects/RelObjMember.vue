@@ -90,7 +90,6 @@
 
 <script>
 import {ref} from "vue";
-import {baseURL} from "boot/axios";
 import {hasTarget, notifyError} from "src/utils/jsutils";
 import UpdaterObj from "pages/types_objects/UpdaterObj.vue";
 import {extend} from "quasar";

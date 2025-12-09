@@ -91,7 +91,7 @@
 
 <script>
 import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {extend} from "quasar";
 import UpdaterComponents from "pages/types_objects/UpdaterComponents.vue";
 

@@ -14,6 +14,8 @@ let urlMainApp = process.env.VITE_PRODUCT_URL_MAIN_APP
 
 const authURL = "/auth"
 const baseURL = "/api"
+
+
 const api = axios.create({ baseURL: baseURL })
 
 export default boot(({ app }) => {

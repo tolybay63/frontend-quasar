@@ -102,8 +102,8 @@
 
 /*import treeselect from "vue3-treeselect";
 import "vue3-treeselect/dist/vue3-treeselect.css";*/
-import {api, baseURL} from "boot/axios";
-import {notifyError, notifySuccess, pack} from "src/utils/jsutils";
+import {api} from "boot/axios";
+import {notifyError, notifySuccess} from "src/utils/jsutils";
 import {extend} from "quasar";
 
 export default {

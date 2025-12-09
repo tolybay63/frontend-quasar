@@ -93,7 +93,7 @@
 
 <script>
 import {hasTarget, notifyError, notifyInfo, pack} from "src/utils/jsutils";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {extend} from "quasar";
 import UpdaterSeparationPoint from "pages/separation_point/UpdaterSeparationPoint.vue";
 

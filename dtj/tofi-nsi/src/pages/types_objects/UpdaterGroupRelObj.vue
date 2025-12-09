@@ -127,7 +127,6 @@
 </template>
 
 <script>
-import {baseURL} from "boot/axios";
 import {ref} from "vue";
 import {
   checkChilds,
