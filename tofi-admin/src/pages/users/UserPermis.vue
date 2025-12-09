@@ -126,7 +126,7 @@ export default {
     fetchData(user) {
       this.loading = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "usr/loadUserPermis",
           params: [user],
         })
@@ -142,7 +142,7 @@ export default {
     loadUser(user) {
       this.loading = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "usr/loadUser",
           params: [user],
         })
@@ -285,7 +285,7 @@ export default {
     this.loading = ref(true)
 
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/loadDict",
         params: ["FD_AccessLevel"],
       })

@@ -165,7 +165,7 @@ export default defineComponent({
     this.columns = this.getColumns();
 
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/load",
         params: [{dict: "FD_AccessLevel"}],
       })
@@ -275,7 +275,7 @@ export default defineComponent({
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           api
-            .post(baseURL, {
+            .post('', {
               method: "meterrate/deleteSoftMR",
               params: [{rec: rec}],
             })
@@ -302,7 +302,7 @@ export default defineComponent({
 
     fetchData() {
       api
-        .post(baseURL, {
+        .post('', {
           method: "meterrate/loadSoftMR",
           params: [this.meter_id],
         })

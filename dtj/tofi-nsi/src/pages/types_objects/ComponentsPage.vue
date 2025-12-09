@@ -115,7 +115,7 @@ export default {
     loadData() {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadComponents",
           params: [0],
         })
@@ -188,7 +188,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteOwner",
               params: [rec.id, 1],
             })
@@ -237,7 +237,7 @@ export default {
 
   created() {
     api
-      .post(baseURL, {
+      .post('', {
         method: "data/loadClsForSelect",
         params: ["Typ_Components"],
       })

@@ -117,7 +117,7 @@ export default {
     fetchData(role) {
       this.loading = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "role/loadRolePermis",
           params: [role],
         })
@@ -255,7 +255,7 @@ export default {
 
     this.loading = ref(true)
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/loadDict",
         params: ["FD_AccessLevel"],
       })

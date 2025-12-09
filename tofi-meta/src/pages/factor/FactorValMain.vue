@@ -79,7 +79,7 @@ export default defineComponent({
     // load factor
     this.loading = ref(true);
     api
-        .post(baseURL, {
+        .post('', {
           id: "1",
           method: "factor/loadRec",
           params: [{id: this.factor1_id}],

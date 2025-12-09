@@ -186,7 +186,7 @@ export default {
     loadData(relTypCharGr) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "reltyp/loadRelTypCharGrMultiProp",
             params: [{relTypCharGr: relTypCharGr}],
           })
@@ -318,7 +318,7 @@ export default {
     this.lang = this.lang === "en-US" ? "en" : this.lang;
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_StorageType"}],
         })

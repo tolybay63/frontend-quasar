@@ -153,7 +153,7 @@ export default {
       });
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "multiProp/saveMultiPropPeriodType",
             params: [this.multiProp, dta],
           })
@@ -201,7 +201,7 @@ export default {
     this.cols = this.getColumns();
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "multiProp/loadMultiPropPeriodTypeForUpd",
           params: [this.multiProp],
         })

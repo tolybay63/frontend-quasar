@@ -277,7 +277,7 @@ export default {
       this.selected2 = [];
 
       api
-        .post(baseURL, {
+        .post('', {
           method: "usr/loadGroup",
           params: [{}],
         })
@@ -382,7 +382,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           api
-            .post(baseURL, {
+            .post('', {
               method: "usr/deleteGr",
               params: [rec.id],
             })
@@ -428,7 +428,7 @@ export default {
     fnIns(mode) {
       if (mode === "ins") {
         api
-          .post(baseURL, {
+          .post('', {
             method: "usr/newRec",
             params: [this.currentNode.id],
           })
@@ -457,7 +457,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           api
-            .post(baseURL, {
+            .post('', {
               method: "usr/delete",
               params: [rec.id],
             })
@@ -491,7 +491,7 @@ export default {
     fetchData(gr) {
       this.loading2 = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "usr/load",
           params: [gr],
         })
@@ -636,7 +636,7 @@ export default {
 
     this.visible = ref(true)
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/loadDict",
         params: ["FD_AccessLevel"],
       })

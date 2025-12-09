@@ -341,7 +341,7 @@ export default {
       console.info("rows", this.rows)
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "relcls/createGroupRelCls",
             params: [this.form.relTyp, rez, this.dbType.id],
           })
@@ -400,7 +400,7 @@ export default {
 
     this.loading = ref(true);
     api
-        .post(baseURL, {
+        .post('', {
           method: "relcls/loadAllMembers",
           params: [this.form],
         })
@@ -415,7 +415,7 @@ export default {
 
     this.loading = ref(true);
     api
-      .post(baseURL, {
+      .post('', {
         method: "database/loadDbForSelect",
         params: [],
       })

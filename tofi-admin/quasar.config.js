@@ -7,10 +7,9 @@
 import {defineConfig} from '#q-app/wrappers'
 import {fileURLToPath} from 'node:url'
 
-let url = 'http://127.0.0.1:8080'
-if (process.env.NODE_ENV === 'production') {
-  url = process.env.VITE_PRODUCT_URL
-}
+// Для dev режима используем абсолютный URL для proxy
+// Для prod режима не используется (используются относительные пути)
+let url = process.env.VITE_PRODUCT_URL || 'http://127.0.0.1:8080'
 
 export default defineConfig((ctx) => {
   return {
@@ -52,16 +51,20 @@ export default defineConfig((ctx) => {
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
-      // vueRouterBase,
+      vueRouterBase: ctx.modeName === 'spa' && ctx.prod ? '/dtj/admin/' : '',
       // vueDevtools,
       // vueOptionsAPI: false,
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
       // publicPath: '/',
-      publicPath: '',
+      publicPath: ctx.modeName === 'spa' && ctx.prod ? '/dtj/admin/' : '',
       extendViteConf(viteConf, { isServer, isClient }) {
-        viteConf.base = '';
+        if (ctx.modeName === 'spa' && ctx.prod) {
+          viteConf.base = '/dtj/admin/';
+        } else {
+          viteConf.base = '';
+        }
       },
       // analyze: true,
       // env: {},

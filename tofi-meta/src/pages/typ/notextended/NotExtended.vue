@@ -186,7 +186,7 @@ export default {
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "typ/deleteNotExtended",
                   params: [rec],
                 })
@@ -212,7 +212,7 @@ export default {
     fetchData(typ) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "typ/loadNotExtended",
             params: [typ],
           })

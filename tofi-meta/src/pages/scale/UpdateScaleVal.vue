@@ -143,7 +143,7 @@ export default {
       const method = this.mode === "ins" ? "insertScaleVal" : "updateScaleVal";
 
       api
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "scale/" + method,
             params: [ this.form ],

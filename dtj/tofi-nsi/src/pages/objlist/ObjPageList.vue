@@ -170,7 +170,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteOwner",
               params: [ rec.id, 1 ],
             })
@@ -192,7 +192,7 @@ export default {
     loadFishingTools() {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadObjWithCls",
           params: ["Typ_FishGear"],
         })

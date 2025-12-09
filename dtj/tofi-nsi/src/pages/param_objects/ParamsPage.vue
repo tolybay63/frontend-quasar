@@ -117,7 +117,7 @@ export default {
     loadData() {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadParameters",
           params: [0],
         })
@@ -195,7 +195,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteOwnerWithProperties",
               params: [ rec.id, 1 ],
             })
@@ -262,7 +262,7 @@ export default {
   created() {
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: 'data/loadMeasure',
         params: ['Prop_ParamsMeasure'],
       })
@@ -274,7 +274,7 @@ export default {
         })
       .then(()=> {
         api
-          .post(baseURL, {
+          .post('', {
             method: 'data/loadCollections',
             params: ['Cls_Collections', 'Prop_Collections'],
           })

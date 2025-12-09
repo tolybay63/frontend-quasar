@@ -75,7 +75,7 @@ export default {
     fetchData(multiProp) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "multiProp/loadMultiPropPeriodType",
             params: [multiProp],
           })
@@ -126,7 +126,7 @@ export default {
     this.cols = this.getColumns();
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_PeriodType"}],
         })

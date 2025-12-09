@@ -183,7 +183,7 @@ export default {
         .onOk(() => {
           let index = this.rows.findIndex((row) => row.id === rec.id);
           api
-            .post(baseURL, {
+            .post('', {
               method: "role/delete",
               params: [{ rec: rec }],
             })
@@ -261,7 +261,7 @@ export default {
       const filter = requestProps.filter;
       //
       api
-        .post(baseURL, {
+        .post('', {
           method: "role/loadRolePaginate",
           params: [
             {

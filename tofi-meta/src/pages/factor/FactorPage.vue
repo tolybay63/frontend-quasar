@@ -198,7 +198,7 @@ export default defineComponent({
     hasTarget,
     fnUp(up) {
       api
-          .post(baseURL, {
+          .post('', {
             method: "factor/changeOrdF",
             params: [{rec: this.selected[0], up: up}],
           })
@@ -320,7 +320,7 @@ export default defineComponent({
       const filter = requestProps.filter;
       //
       api
-          .post(baseURL, {
+          .post('', {
             method: "factor/loadFactorPaginate",
             params: [
               {
@@ -408,7 +408,7 @@ export default defineComponent({
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "factor/delete",
                   params: [{rec: rec}],
                 })
@@ -553,7 +553,7 @@ export default defineComponent({
     this.lang = localStorage.getItem("curLang");
     this.lang = this.lang === "en-US" ? "en" : this.lang;
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AccessLevel"}],
         })

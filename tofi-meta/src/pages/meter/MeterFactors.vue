@@ -305,7 +305,7 @@ export default defineComponent({
 
     fnUp(up) {
       api
-        .post(baseURL, {
+        .post('', {
           method: "meterfactor/changeOrd",
           params: [{rec: this.currentNode, up: up}],
         })
@@ -325,7 +325,7 @@ export default defineComponent({
 
     fnNewDim() {
       api
-        .post(baseURL, {
+        .post('', {
           method: "meterfactor/newDimension",
           params: [{rec: this.currentNode, maxDim: this.maxDim}],
         })
@@ -346,7 +346,7 @@ export default defineComponent({
     fnIns() {
       let data = null;
       api
-        .post(baseURL, {
+        .post('', {
           method: "meterfactor/newRec",
           params: [{}],
         })
@@ -393,7 +393,7 @@ export default defineComponent({
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           api
-            .post(baseURL, {
+            .post('', {
               method: "meterfactor/delFactor",
               params: [{rec: rec}],
             })
@@ -415,7 +415,7 @@ export default defineComponent({
 
     fetchData(meter) {
       api
-        .post(baseURL, {
+        .post('', {
           method: "meterfactor/load",
           params: [{meter: meter}],
         })
@@ -502,7 +502,7 @@ export default defineComponent({
 
     //
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/load",
         params: [{dict: "FD_AccessLevel"}],
       })

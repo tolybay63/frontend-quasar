@@ -131,7 +131,7 @@ export default {
       let err = false;
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "auth/savePsw",
             params: [this.form],
           })

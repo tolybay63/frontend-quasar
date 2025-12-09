@@ -283,7 +283,7 @@ export default {
       let data = {}
       this.loading = true
       api
-        .post(baseURL, {
+        .post('', {
           method: 'data/loadRelObjRec',
           params: [rec.id],
         })
@@ -334,7 +334,7 @@ export default {
         })
         .onOk(() => {
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteOwner",
               params: [rec.id, 0],
             })
@@ -357,7 +357,7 @@ export default {
     fetchData() {
       this.loading = ref(true);
       this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/loadComponentsObject",
           params: [this.reltyp],
         })
@@ -498,7 +498,7 @@ export default {
   created() {
     this.loading = true
     this.$axios
-      .post(baseURL, {
+      .post('', {
         method: "data/getIdRelTyp",
         params: [this.codRelTyp],
       })

@@ -174,7 +174,7 @@ export default {
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "reltyp/deleteVer",
                   params: [{rec: rec}],
                 })
@@ -288,7 +288,7 @@ export default {
     fetchData(reltyp) {
       this.loading = false;
       api
-          .post(baseURL, {
+          .post('', {
             method: "reltyp/loadVer",
             params: [reltyp],
           })

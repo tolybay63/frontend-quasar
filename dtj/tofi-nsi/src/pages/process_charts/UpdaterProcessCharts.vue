@@ -212,7 +212,7 @@ export default {
 
       this.form.fullName = this.form["name"] + " [тк №" + this.form["NumberSource"] +" / "+ this.mapCollections.get(this.form.objCollections)+"]";
       this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/saveProcessCharts",
           params: [ this.mode, this.form ],
         })
@@ -243,7 +243,7 @@ export default {
     //
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: "data/loadClsForSelect",
         params: [ "Typ_Work" ],
       })
@@ -264,7 +264,7 @@ export default {
     //
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: 'data/loadCollections',
         params: ['Cls_Collections', 'Prop_Collections'],
       })
@@ -288,7 +288,7 @@ export default {
     //
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: 'data/loadFvPeriodType',
         params: ['Factor_PeriodType'],
       })

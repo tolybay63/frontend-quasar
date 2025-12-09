@@ -189,7 +189,7 @@ export default {
     loadData() {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "typ/loadTypCharGrMultiPropForUpd",
             params: [this.typCharGr],
           })
@@ -268,7 +268,7 @@ export default {
       //console.info("d0", d0)
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "typ/saveTypCharGrMultiProp",
             params: [{typCharGr: this.typCharGr, data: d0}],
           })

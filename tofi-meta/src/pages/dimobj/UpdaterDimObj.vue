@@ -169,7 +169,7 @@ export default {
         typeof this.al === "object" ? this.al.id : this.al;
 
       api
-        .post(baseURL, {
+        .post('', {
           id: this.form.id,
           method: "dimobj/" + method,
           params: [{ rec: this.form }],
@@ -198,7 +198,7 @@ export default {
   created() {
     this.visible = ref(true);
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/load",
         params: [{ dict: "FD_AccessLevel" }],
       })

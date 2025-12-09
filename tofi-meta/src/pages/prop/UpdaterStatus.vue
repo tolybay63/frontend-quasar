@@ -210,7 +210,7 @@ export default {
       });
 
       api
-          .post(baseURL, {
+          .post('', {
             method: this.form.act + "/saveStatus",
             params: [this.form.fk, dta],
           })
@@ -258,7 +258,7 @@ export default {
     this.cols = this.getColumns();
 
     api
-        .post(baseURL, {
+        .post('', {
           method: this.form.act + "/loadStatusForUpd",
           params: [this.form.fk, this.form.factor],
         })

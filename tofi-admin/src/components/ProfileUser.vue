@@ -253,7 +253,7 @@ export default {
 
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "auth/saveProfile",
             params: [this.newForm],
           })
@@ -310,7 +310,7 @@ export default {
   created() {
     this.loading = ref(true);
     api
-        .post(baseURL, {
+        .post('', {
           id: "1",
           method: "auth/loadProfile",
           params: [this.userId],

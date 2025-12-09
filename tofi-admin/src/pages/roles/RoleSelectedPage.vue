@@ -79,7 +79,7 @@ export default {
     // load role
     this.loading = ref(true);
     api
-      .post(baseURL, {
+      .post('', {
         method: "role/loadRec",
         params: [this.role_id],
       })

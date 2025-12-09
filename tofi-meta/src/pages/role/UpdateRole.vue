@@ -174,7 +174,7 @@ export default {
       this.myData.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
       api
-          .post(baseURL, {
+          .post('', {
             id: this.myData.id,
             method: this.act + "/" + method,
             params: [{rec: this.myData}],
@@ -203,7 +203,7 @@ export default {
   },
   created() {
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AccessLevel"}],
         })

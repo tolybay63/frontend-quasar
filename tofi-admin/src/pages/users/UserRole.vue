@@ -85,7 +85,7 @@ export default {
     fetchData(user) {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "usr/loadUserRoles",
           params: [user],
         })

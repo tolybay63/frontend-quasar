@@ -200,7 +200,7 @@ export default {
       this.loading = true;
       //
       api
-          .post(baseURL, {
+          .post('', {
             method: "scale/loadScaleAsgn",
             params: [scale],
           })
@@ -242,7 +242,7 @@ export default {
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "scale/deleteScaleAsgn",
                   params: [ rec ],
                 })
@@ -399,7 +399,7 @@ export default {
       this.loading = true
       //
       api
-          .post(baseURL, {
+          .post('', {
             method: "scale/loadScaleValAsgn",
             params: [scale, scaleAsgn],
           })
@@ -485,7 +485,7 @@ export default {
     this.cols2 = this.getColumns2()
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AccessLevel"}],
         })

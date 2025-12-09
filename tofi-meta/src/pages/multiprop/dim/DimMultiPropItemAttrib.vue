@@ -117,7 +117,7 @@ export default {
     loadDimMultiPropItemAttrib(dmpia) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "dimMultiProp/loadDimMultiPropItemAttrib",
             params: [dmpia],
           })
@@ -174,7 +174,7 @@ export default {
           })
           .onOk(() => {
             api
-                .post(baseURL, {
+                .post('', {
                   method: "dimMultiProp/deleteDimMultiPropItemAttrib",
                   params: [rec.id],
                 })
@@ -218,7 +218,7 @@ export default {
 
   created() {
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AttribValType"}],
         })

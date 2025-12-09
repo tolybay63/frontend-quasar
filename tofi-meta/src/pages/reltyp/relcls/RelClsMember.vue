@@ -199,7 +199,7 @@ export default {
       this.loading = ref(true);
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "relcls/loadRelClsMember",
             params: [relcls],
           })
@@ -279,7 +279,7 @@ export default {
     this.lang = this.lang === "en-US" ? "en" : this.lang;
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_MemberType"}],
         })

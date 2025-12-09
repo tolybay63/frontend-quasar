@@ -299,7 +299,7 @@ export default {
         })
         .onOk(() => {
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteOwnerWithProperties",
               params: [rec.id, 1],
             })
@@ -320,7 +320,7 @@ export default {
     loadData() {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadTypesObjects",
           params: [0],
         })
@@ -474,7 +474,7 @@ export default {
   created() {
   console.info("created")
     api
-      .post(baseURL, {
+      .post('', {
         method: "data/loadClsForSelect",
         params: ["Typ_ObjectTyp"],
       })
@@ -487,7 +487,7 @@ export default {
         })
       .then(() => {
         api
-          .post(baseURL, {
+          .post('', {
             method: "data/loadFvForSelect",
             params: ["Factor_Shape"],
           })

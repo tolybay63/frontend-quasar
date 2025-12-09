@@ -93,7 +93,7 @@ export default {
     // load info
     this.loading = ref(true);
     api
-        .post(baseURL, {
+        .post('', {
           id: "1",
           method: "reltyp/loadRelTypCharGrInfo",
           params: [this.relCharGr],

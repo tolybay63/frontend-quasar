@@ -233,7 +233,7 @@ export default {
       });
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/savePropRefVal",
             params: [this.prop, dta],
           })
@@ -275,7 +275,7 @@ export default {
     this.cols = this.getColumns();
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "prop/loadPropValForUpd",
           params: [this.prop],
         })

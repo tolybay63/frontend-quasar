@@ -165,7 +165,7 @@ export default {
       this.form.accessLevel = typeof this.al === "object" ? this.al.id : this.al;
 
       api
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "scale/" + method,
             params: [ this.form ],
@@ -195,7 +195,7 @@ export default {
   },
   created() {
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AccessLevel"}],
         })

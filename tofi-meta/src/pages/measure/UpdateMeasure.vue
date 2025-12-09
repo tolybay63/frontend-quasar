@@ -180,7 +180,7 @@ export default {
           typeof this.al === "object" ? this.al.id : this.al;
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "measure/" + method,
             params: [{rec: this.form}],
           })
@@ -210,7 +210,7 @@ export default {
   },
   created() {
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AccessLevel"}],
         })

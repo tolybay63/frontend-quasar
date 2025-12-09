@@ -104,7 +104,7 @@ export default {
     fetchData() {
       this.loading = true;
       this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/loadComponentsObject2",
           params: [this.codRelTyp, "Typ_ObjectTyp", "Typ_Components"],
         })
@@ -171,7 +171,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteOwnerWithProperties",
               params: [rec.idro, 0],
             })

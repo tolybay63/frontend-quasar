@@ -238,7 +238,7 @@ const loginOnOff = () => {
       })
       .onOk(() => {
         api
-          .post(baseURL, {
+          .post('', {
             method: 'auth/getCurUserInfo',
             params: [],
           })

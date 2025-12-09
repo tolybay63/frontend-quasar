@@ -109,7 +109,7 @@ export default {
       const method = this.mode === "ins" ? "insertMoreCols" : "updateMoreCols";
 
       api
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "dimMultiProp/" + method,
             params: [this.form],

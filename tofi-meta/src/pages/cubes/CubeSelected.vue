@@ -135,7 +135,7 @@ export default {
     checkDimProp(cubeId) {
       this.loading = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "cubes/checkDimProp",
           params: [cubeId],
         })
@@ -153,7 +153,7 @@ export default {
     checkDimObj(cubeId) {
       this.loading = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "cubes/checkDimObj",
           params: [cubeId],
         })
@@ -187,7 +187,7 @@ export default {
 
     this.loading = ref(true);
     api
-      .post(baseURL, {
+      .post('', {
         method: "cubes/loadRec",
         params: [this.cubesId],
       })

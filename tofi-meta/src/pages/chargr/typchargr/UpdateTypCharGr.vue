@@ -242,7 +242,7 @@ export default {
           this.mode === "ins" ? "insertTypCharGr" : "updateTypCharGr";
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "typ/" + method,
             params: [this.form],
           })
@@ -263,7 +263,7 @@ export default {
 
     loadclustFactorVal(typ, mode) {
       api
-          .post(baseURL, {
+          .post('', {
             method: "typ/loadTypClustFactorVal",
             params: [typ, mode],
           })
@@ -281,7 +281,7 @@ export default {
 
   created() {
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AccessLevel"}],
         })
@@ -291,7 +291,7 @@ export default {
         });
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "typ/loadTypForSelect",
           params: [{}],
         })

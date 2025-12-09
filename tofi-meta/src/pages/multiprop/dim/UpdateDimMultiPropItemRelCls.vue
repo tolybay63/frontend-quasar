@@ -165,7 +165,7 @@ export default {
       this.form.visualFormat =
           typeof this.vf === "object" ? this.vf.id : this.vf;
       api
-          .post(baseURL, {
+          .post('', {
             method: "dimMultiProp/" + method,
             params: [this.form],
           })
@@ -193,7 +193,7 @@ export default {
 
     this.visible = ref(true)
     api
-        .post(baseURL, {
+        .post('', {
           method: "dimMultiProp/loadRelClsForSelect",
           params: [],
         })
@@ -206,7 +206,7 @@ export default {
 
     this.visible = ref(true)
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_VisualFormat"}],
         })

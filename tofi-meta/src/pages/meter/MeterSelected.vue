@@ -138,7 +138,7 @@ export default defineComponent({
     // load meter
     this.loading = ref(true);
     api
-        .post(baseURL, {
+        .post('', {
           id: "1",
           method: "meter/loadRec",
           params: [{id: this.meter_id}],

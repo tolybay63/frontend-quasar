@@ -221,7 +221,7 @@ export default defineComponent({
             })
             .onOk(() => {
               api
-                .post(baseURL, {
+                .post('', {
                   method: "auth/getCurUserInfo",
                   params: [],
                 })

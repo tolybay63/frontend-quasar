@@ -306,7 +306,7 @@ export default {
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "relcls/delete",
                   params: [rec],
                 })
@@ -332,7 +332,7 @@ export default {
       this.loading = ref(true);
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "relcls/load",
             params: [reltyp],
           })
@@ -428,7 +428,7 @@ export default {
     this.lang = this.lang === "en-US" ? "en" : this.lang;
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AccessLevel"}],
         })
@@ -440,7 +440,7 @@ export default {
         });
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "database/loadDbForSelect",
           params: [],
         })

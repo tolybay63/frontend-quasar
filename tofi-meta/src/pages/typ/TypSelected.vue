@@ -103,7 +103,7 @@ export default {
     onLoadTyp(typ) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             id: "1",
             method: "typ/loadRec",
             params: [typ],

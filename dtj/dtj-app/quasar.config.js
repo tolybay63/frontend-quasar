@@ -7,10 +7,7 @@
 import { configure } from 'quasar/wrappers'
 import { fileURLToPath } from 'node:url';
 
-let url = "http://127.0.0.1:8080"
-if (process.env.NODE_ENV === 'production') {
-  url = process.env.VITE_PRODUCT_URL
-}
+let url = process.env.VITE_PRODUCT_URL || 'http://127.0.0.1:8080'
 
 
 export default configure((ctx) => {
@@ -53,17 +50,23 @@ export default configure((ctx) => {
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
-      // vueRouterBase,
+
+      vueRouterBase: ctx.modeName === 'spa' && ctx.prod ? '/dtj/' : '',
       // vueDevtools,
       // vueOptionsAPI: false,
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
       // publicPath: '/',
-      publicPath: '',
+      publicPath: ctx.modeName === 'spa' && ctx.prod ? '/dtj/' : '',
       extendViteConf(viteConf, { isServer, isClient }) {
-        viteConf.base = '';
+        if (ctx.modeName === 'spa' && ctx.prod) {
+          viteConf.base = '/dtj/';
+        } else {
+          viteConf.base = '';
+        }
       },
+
       // analyze: true,
       // env: {},
       // rawDefine: {}

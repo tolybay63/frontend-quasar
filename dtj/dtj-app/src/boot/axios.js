@@ -20,12 +20,8 @@ const appOrgURL = process.env.VITE_PRUDUCT_ORG_URL
 const appINDURL = process.env.VITE_PRUDUCT_IND_URL
 const appReportURL = process.env.VITE_PRUDUCT_REPORT_URL
 
-let url = "http://127.0.0.1:8080"
-if (import.meta.env.PROD) {
-  url = process.env.VITE_PRODUCT_URL
-}
 
-const baseURL = url + "/api"
+const baseURL = "/api"
 const api = axios.create({ baseURL: baseURL })
 
 

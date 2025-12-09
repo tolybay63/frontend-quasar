@@ -222,7 +222,7 @@ export default {
       const method = this.mode === "ins" ? "insert" : "update";
       let err = false;
       api
-          .post(baseURL, {
+          .post('', {
             method: "relcls/" + method,
             params: [this.form],
           })
@@ -258,7 +258,7 @@ export default {
   created() {
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AccessLevel"}],
         })
@@ -267,7 +267,7 @@ export default {
         });
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "database/loadDbForSelect",
           params: [],
         })

@@ -205,7 +205,7 @@ export default {
 
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "reltyp/loadRelTypCharGrProp",
             params: [{relTypCharGr: relTypCharGr}],
           })
@@ -375,7 +375,7 @@ export default {
 
     this.loading = ref(true);
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_StorageType"}],
         })
@@ -387,7 +387,7 @@ export default {
         });
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "flatTable/loadTables",
           params: [{}],
         })

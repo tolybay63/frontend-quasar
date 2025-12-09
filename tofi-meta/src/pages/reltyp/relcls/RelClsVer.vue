@@ -172,7 +172,7 @@ export default {
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "relcls/deleteVer",
                   params: [rec],
                 })
@@ -282,7 +282,7 @@ export default {
     fetchData(relcls) {
       this.loading = false;
       api
-          .post(baseURL, {
+          .post('', {
             method: "relcls/loadVer",
             params: [relcls],
           })

@@ -165,7 +165,7 @@ export default {
       this.loading = false
       let err = false
       api
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "data/saveSourceCollections",
             params: [this.mode, this.form],

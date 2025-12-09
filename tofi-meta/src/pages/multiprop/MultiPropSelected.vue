@@ -148,7 +148,7 @@ export default {
     // load multiProp
     this.loading = ref(true);
     api
-      .post(baseURL, {
+      .post('', {
         method: "multiProp/loadRec",
         params: [this.multiPropId],
       })

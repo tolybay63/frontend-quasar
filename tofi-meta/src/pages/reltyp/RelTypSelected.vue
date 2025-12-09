@@ -86,7 +86,7 @@ export default {
     onLoadRelTyp(reltyp) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             id: "1",
             method: "reltyp/loadRec",
             params: [{id: reltyp}],

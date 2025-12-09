@@ -47,7 +47,7 @@ export default {
     let role_id = this.$route.params.role;
     this.loading = ref(true);
     api
-      .post(baseURL, {
+      .post('', {
         method: "role/getRolePermis",
         params: [role_id],
       })

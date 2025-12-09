@@ -180,7 +180,7 @@ export default {
       // before hiding the QDialog
 
       this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/saveDefects",
           params: [this.mode, this.form],
         })
@@ -211,7 +211,7 @@ export default {
   created() {
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: 'data/loadComponentDefect',
         params: ['Typ_Components', "Prop_DefectsComponent"],
       })
@@ -222,7 +222,7 @@ export default {
         })
       .then(() => {
         api
-          .post(baseURL, {
+          .post('', {
             method: "data/loadFvForSelect",
             params: ["Factor_Defects"],
           })

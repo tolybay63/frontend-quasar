@@ -127,7 +127,7 @@ export default {
       const method = this.mode === "ins" ? "insert" : "update";
 
       api
-        .post(baseURL, {
+        .post('', {
           id: this.form.id,
           method: "role/" + method,
           params: [{ rec: this.form }],

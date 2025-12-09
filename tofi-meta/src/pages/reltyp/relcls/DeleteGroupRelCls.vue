@@ -123,7 +123,7 @@ export default {
 
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "relcls/deleteGroupRelCls",
             params: [this.relTyp, this.selected],
           })
@@ -184,7 +184,7 @@ export default {
       this.loading = ref(true);
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "relcls/load",
             params: [this.relTyp],
           })

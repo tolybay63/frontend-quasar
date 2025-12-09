@@ -75,7 +75,7 @@ export default {
     fetchData(prop) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/loadPropPeriodType",
             params: [prop],
           })
@@ -126,7 +126,7 @@ export default {
     this.cols = this.getColumns();
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_PeriodType"}],
         })

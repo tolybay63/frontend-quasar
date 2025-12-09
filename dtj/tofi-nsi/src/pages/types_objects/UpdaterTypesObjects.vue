@@ -150,7 +150,7 @@ export default {
       // before hiding the QDialog
 
       this.$axios
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "data/saveTypesObjects",
             params: [this.mode, this.form],
@@ -179,7 +179,7 @@ export default {
     //
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: 'data/loadFvForSelect',
         params: ['Factor_Shape'],
       })
@@ -201,7 +201,7 @@ export default {
     if (this.form.parent) {
       this.loading = true
       api
-        .post(baseURL, {
+        .post('', {
           method: 'data/getCls',
           params: [this.form.parent],
         })

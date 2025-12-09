@@ -126,7 +126,7 @@ export default {
       this.loading = ref(true);
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/loadPropValEntity",
             params: [prop, this.entityType],
           })

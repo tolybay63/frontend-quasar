@@ -110,7 +110,7 @@ export default {
       // before hiding the QDialog
 
       this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/editRelObj",
           params: [this.form ],
         })

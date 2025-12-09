@@ -254,7 +254,7 @@ export default {
       this.form.multiEntityType =
           typeof this.et === "object" ? this.et.id : this.et
       api
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "dimMultiProp/" + method,
             params: [this.form],
@@ -284,7 +284,7 @@ export default {
   created() {
     this.visible = true
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_MultiValEntityType"}],
         })
@@ -299,7 +299,7 @@ export default {
     //
     this.visible = true
     api
-        .post(baseURL, {
+        .post('', {
           method: "dimMultiProp/loadPropForMultiPropItem",
           params: [],
         })

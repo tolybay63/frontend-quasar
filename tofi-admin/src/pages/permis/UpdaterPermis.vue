@@ -112,7 +112,7 @@ export default {
       const method = this.mode === "ins" ? "insert" : "update";
 
       api
-        .post(baseURL, {
+        .post('', {
           method: "permis/" + method,
           params: [{ rec: this.form }],
         })

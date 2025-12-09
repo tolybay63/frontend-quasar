@@ -186,7 +186,7 @@ export default {
     loadData() {
       this.loading = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "meterrate/loadMeterSoftForUpd",
           params: [this.meter],
         })

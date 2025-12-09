@@ -162,7 +162,7 @@ export default {
       });
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/savePropPeriodType",
             params: [this.prop, getMetaModel.value, dta],
           })
@@ -210,7 +210,7 @@ export default {
     this.cols = this.getColumns();
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "prop/loadPropPeriodTypeForUpd",
           params: [this.prop],
         })

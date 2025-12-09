@@ -352,7 +352,7 @@ export default {
     // load prop
     this.loading = ref(true);
     api
-        .post(baseURL, {
+        .post('', {
           id: "1",
           method: "prop/loadRec",
           params: [this.propId],

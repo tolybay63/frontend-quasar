@@ -140,7 +140,7 @@ export default {
       let method = this.mode === "ins" ? "insertObj" : "updateObj";
 
       this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/" + method,
           params: [ this.form ],
         })
@@ -173,7 +173,7 @@ export default {
     //
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: "data/loadClsForSelect",
         params: [ "Typ_FishGear" ],
       })

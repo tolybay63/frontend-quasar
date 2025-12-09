@@ -141,7 +141,7 @@ export default {
         v = 0
       this.loading = true
       api
-        .post(baseURL, {
+        .post('', {
           method: "cubes/selectValue",
           params: [this.cubeS, this.selDPI, v, this.mapping, this.propField],
         })
@@ -178,7 +178,7 @@ export default {
     fnUnBind() {
       this.loading = true
       api
-        .post(baseURL, {
+        .post('', {
           method: "cubes/unbinding",
           params: [this.cubeS, this.mapping],
         })
@@ -282,7 +282,7 @@ export default {
     //console.info("propField", this.propField)
     this.visible = true;
     api
-      .post(baseURL, {
+      .post('', {
         method: "prop/loadPropForSelect",
         params: [this.propField],
       })

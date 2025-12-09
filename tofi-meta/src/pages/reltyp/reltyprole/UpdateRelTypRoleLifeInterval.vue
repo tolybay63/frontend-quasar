@@ -120,7 +120,7 @@ export default {
       const method =
           this.mode === "ins" ? "insertRelTypRoleLife" : "updateRelTypRoleLife";
       api
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "reltyp/" + method,
             params: [{rec: this.form}],

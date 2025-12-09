@@ -158,7 +158,7 @@ export default {
       let err = false
       const method = this.mode === "ins" ? "insertVer" : "updateVer";
       api
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "relcls/" + method,
             params: [this.form],

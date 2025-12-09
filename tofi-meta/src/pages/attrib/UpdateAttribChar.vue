@@ -295,7 +295,7 @@ export default {
       }
       //
       api
-          .post(baseURL, {
+          .post('', {
             method: "attrib/" + method,
             params: [{rec: this.form}],
           })
@@ -321,7 +321,7 @@ export default {
   },
   created() {
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_EntityType"}],
         })
@@ -330,7 +330,7 @@ export default {
         });
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_PeriodType"}],
         })

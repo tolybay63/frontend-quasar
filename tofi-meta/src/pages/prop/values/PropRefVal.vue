@@ -84,7 +84,7 @@ export default {
       if (this.propType === allConsts.FD_PropType.typ) ent = "Typ";
       else if (this.propType === allConsts.FD_PropType.reltyp) ent = "RelTyp";
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/loadPropVal",
             params: [prop, ent],
           })

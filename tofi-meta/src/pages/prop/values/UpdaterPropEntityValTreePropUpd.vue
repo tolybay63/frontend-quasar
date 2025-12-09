@@ -193,7 +193,7 @@ export default {
     loadData() {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/loadPropValEntityTreePropForUpd",
             params: [this.prop],
           })
@@ -293,7 +293,7 @@ export default {
       });
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/savePropEntityVal",
             params: [this.prop, d0],
           })

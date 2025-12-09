@@ -99,7 +99,7 @@ export default {
 
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "multiProp/loadMultiPropCond",
             params: [multiProp],
           })
@@ -173,7 +173,7 @@ export default {
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "multiProp/deleteMultiPropCond",
                   params: [rec.id],
                 })

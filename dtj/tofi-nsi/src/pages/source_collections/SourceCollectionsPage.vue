@@ -317,7 +317,7 @@ export default {
       this.loading = true
       let err = false
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/saveDepartment",
           params: [{
             isObj: 1, metamodel: "dtj", model: "nsidata",
@@ -352,7 +352,7 @@ export default {
         this.updated = true
         let err = false
         api
-          .post(baseURL, {
+          .post('', {
             method: "data/loadDepartmentsWithFile",
             params: [this.own],
           })
@@ -401,7 +401,7 @@ export default {
     loadData() {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadSourceCollections",
           params: [0],
         })
@@ -474,7 +474,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteOwnerWithProperties",
               params: [rec.id, 1],
             })
@@ -570,7 +570,7 @@ export default {
         })
         .onOk(() => {
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteFileValue",
               params: [row],
             })
@@ -664,7 +664,7 @@ export default {
     loadAttachedFiles() {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadAttachedFiles",
           params: [this.own, "Prop_DocumentFiles"],
         })
@@ -712,7 +712,7 @@ export default {
 
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: 'data/loadDepartments',
         params: ['Typ_Location', 'Prop_LocationMulti'],
       })

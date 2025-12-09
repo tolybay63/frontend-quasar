@@ -185,7 +185,7 @@ export default defineComponent({
     load() {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "database/load",
             params: [],
           })
@@ -214,7 +214,7 @@ export default defineComponent({
       if (mode === "ins") {
         this.loading = ref(true);
         api
-            .post(baseURL, {
+            .post('', {
               method: "database/newRec",
               params: [],
             })
@@ -290,7 +290,7 @@ export default defineComponent({
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "database/delete",
                   params: [rec],
                 })
@@ -311,7 +311,7 @@ export default defineComponent({
   created() {
     this.cols = this.getColumns();
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_DataBaseType"}],
         })

@@ -167,7 +167,7 @@ export default {
       });
 
       api
-        .post(baseURL, {
+        .post('', {
           method: "usr/saveUserRole",
           params: [this.user, dta],
         })
@@ -209,7 +209,7 @@ export default {
     this.cols = this.getColumns();
 
     api
-      .post(baseURL, {
+      .post('', {
         method: "usr/loadUserRolesForUpd",
         params: [this.user],
       })

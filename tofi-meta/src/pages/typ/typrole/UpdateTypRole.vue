@@ -119,7 +119,7 @@ export default {
       let err = false
       const method = this.mode === "ins" ? "insertTypRole" : "updateTypRole";
       api
-          .post(baseURL, {
+          .post('', {
             method: "typ/" + method,
             params: [{rec: this.form}],
           })
@@ -147,7 +147,7 @@ export default {
   },
   created() {
     api
-        .post(baseURL, {
+        .post('', {
           method: "typ/selectTypRole",
           params: [this.typ],
         })

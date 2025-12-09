@@ -266,7 +266,7 @@ export default {
       /*      this.form.cubeSDimType =
               typeof this.cdt === "object" ? this.cdt.id : this.cdt;*/
       api
-        .post(baseURL, {
+        .post('', {
           method: "cubes/saveCubeDim",
           params: [this.form],
         })
@@ -292,7 +292,7 @@ export default {
     loadDimPropForSelect(cubeS, dimPropType, mode) {
       this.loading = true
       api
-        .post(baseURL, {
+        .post('', {
           method: "cubes/loadDimPropForSelect",
           params: [cubeS, dimPropType, mode],
         })
@@ -311,7 +311,7 @@ export default {
 
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/load",
         params: [{dict: "FD_CubeSDimType"}],
       })
@@ -324,7 +324,7 @@ export default {
     //
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/load",
         params: [{dict: "FD_DimPropType"}],
       })
@@ -358,7 +358,7 @@ export default {
 
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: "cubes/loadDimPeriod",
         params: [],
       })
@@ -371,7 +371,7 @@ export default {
     //
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: "cubes/loadDimObj",
         params: [],
       })

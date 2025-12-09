@@ -190,7 +190,7 @@ export default {
       const method = this.mode === "ins" ? "insertDPI" : "updateDPI";
 
       api
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "dimprop/" + method,
             params: [this.form],
@@ -220,7 +220,7 @@ export default {
     //console.info("UpdaterDimPropItemProp");
       this.visible = true;
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/loadAllPropForSelect",
             params: [],
           })

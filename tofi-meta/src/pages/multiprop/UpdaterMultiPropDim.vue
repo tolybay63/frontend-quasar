@@ -219,7 +219,7 @@ export default {
       //console.info("saveMultiPropDim", this.multiPropId, dta)
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "multiProp/saveMultiPropDim",
             params: [this.multiPropId, dta],
           })
@@ -260,7 +260,7 @@ export default {
   created() {
     this.cols = this.getColumns();
     api
-        .post(baseURL, {
+        .post('', {
           method: "multiProp/loadMultiPropDimForUpd",
           params: [this.multiPropId],
         })

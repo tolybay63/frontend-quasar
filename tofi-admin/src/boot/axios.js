@@ -11,13 +11,13 @@ import axios from 'axios'
 
 let urlMainApp = process.env.VITE_PRODUCT_URL_MAIN_APP
 
-let url = 'http://127.0.0.1:8080'
-if (import.meta.env.PROD) {
-  url = process.env.VITE_PRODUCT_URL
-}
+// Используем относительные пути для работы на любом сервере
+// В dev режиме Vite proxy обработает эти пути (настроен в quasar.config.js)
+// В prod режиме Nginx будет проксировать их на backend
+// Относительные пути работают на любом сервере без изменения конфигурации
+let authURL = "/auth"
+let baseURL = "/api"
 
-const authURL = url + "/auth"
-const baseURL = url + "/api"
 const api = axios.create({ baseURL: baseURL })
 
 export default defineBoot(({ app }) => {

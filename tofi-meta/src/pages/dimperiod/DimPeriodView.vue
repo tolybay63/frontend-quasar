@@ -191,7 +191,7 @@ export default {
     loadData(params) {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "dimperioditem/loadTree",
           params: [params],
         })

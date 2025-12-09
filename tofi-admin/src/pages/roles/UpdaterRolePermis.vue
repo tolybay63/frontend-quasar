@@ -245,7 +245,7 @@ export default {
       //
       if (item.checked && item.parent !== undefined) {
         api
-          .post(baseURL, {
+          .post('', {
             method: "permis/getLeaf",
             params: [item.id],
           })
@@ -261,7 +261,7 @@ export default {
     loadData() {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "role/loadRolePermisForUpd",
           params: [this.role],
         })
@@ -332,7 +332,7 @@ export default {
       });
 
       api
-        .post(baseURL, {
+        .post('', {
           method: "role/saveRolePermis",
           params: [{ role: this.role, data: d0 }],
         })
@@ -426,7 +426,7 @@ export default {
 
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/loadDict",
         params: ["FD_AccessLevel"],
       })

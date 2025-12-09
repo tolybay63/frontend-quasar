@@ -110,7 +110,7 @@ export default {
 /*
     this.loading = ref(true);
     api
-      .post(baseURL, {
+      .post('', {
         method: "data/getPathFile",
         params: [this.id],
       })

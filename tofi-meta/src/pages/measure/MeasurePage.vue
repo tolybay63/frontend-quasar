@@ -121,7 +121,7 @@ export default {
     fetchData() {
       this.visible = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "measure/load",
           params: [{}],
         })
@@ -299,7 +299,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           api
-            .post(baseURL, {
+            .post('', {
               method: "measure/delete",
               params: [{rec: rec}],
             })
@@ -323,7 +323,7 @@ export default {
     this.cols = this.getColumns();
 
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/load",
         params: [{dict: "FD_AccessLevel"}],
       })

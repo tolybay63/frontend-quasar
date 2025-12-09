@@ -158,7 +158,7 @@ export default {
       this.loading = ref(true);
 
       this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/loadRelObjMember",
           params: [relobj],
         })

@@ -97,7 +97,7 @@ export default {
       let err = false
       this.form.mode = this.mode
       api
-        .post(baseURL, {
+        .post('', {
           method: 'data/saveParamComponentValue',
           params: [this.form],
         })

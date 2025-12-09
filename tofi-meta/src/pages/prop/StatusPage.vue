@@ -87,7 +87,7 @@ export default {
     loadStatus() {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: this.act + "/loadStatus",
             params: [this.fk],
           })

@@ -97,7 +97,7 @@ export default {
     // load user
     this.loading = ref(true);
     api
-      .post(baseURL, {
+      .post('', {
         method: "usr/loadUser",
         params: [this.user_id],
       })

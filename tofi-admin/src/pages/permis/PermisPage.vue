@@ -338,7 +338,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           api
-            .post(baseURL, {
+            .post('', {
               method: "permis/delete",
               params: [{ rec: rec }],
             })
@@ -367,7 +367,7 @@ export default {
     fetchData() {
       this.loading = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "permis/load",
           params: [{}],
         })

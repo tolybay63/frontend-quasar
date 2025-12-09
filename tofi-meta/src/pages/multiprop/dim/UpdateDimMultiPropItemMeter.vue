@@ -156,7 +156,7 @@ export default {
       const method = this.mode === "ins" ? "insDimMultiPropItemMeter" : "updDimMultiPropItemMeter";
 
       api
-        .post(baseURL, {
+        .post('', {
           method: "dimMultiProp/" + method,
           params: [this.form],
         })
@@ -182,7 +182,7 @@ export default {
   },
   created() {
     api
-      .post(baseURL, {
+      .post('', {
         method: "dimMultiProp/loadMeasure",
         params: [],
       })

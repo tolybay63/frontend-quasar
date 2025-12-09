@@ -243,7 +243,7 @@ export default {
       })
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "scale/updateScaleValAsgn",
             params: [ this.scale, this.scaleAsgn, data],
           })
@@ -274,7 +274,7 @@ export default {
     this.cols = this.getColumns()
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "scale/loadScaleValAsgnUpd",
           params: [this.scale, this.scaleAsgn, this.nmAsgn],
         })

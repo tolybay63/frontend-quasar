@@ -174,7 +174,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteTypesObjects",
               params: [rec.id],
             })
@@ -198,7 +198,7 @@ export default {
     loadData() {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadTypesObjects",
           params: [0],
         })
@@ -277,7 +277,7 @@ export default {
   created() {
     console.info("created")
     api
-      .post(baseURL, {
+      .post('', {
         method: "data/loadFvForSelect",
         params: ["Factor_Shape"],
       })

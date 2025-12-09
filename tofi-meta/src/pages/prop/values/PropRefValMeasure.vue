@@ -47,7 +47,7 @@ export default {
     load(prop) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/loadPropVal",
             params: [prop, "Measure"],
           })

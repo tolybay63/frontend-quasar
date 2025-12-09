@@ -197,7 +197,7 @@ export default {
     loadData(params) {
       this.loading = ref(true);
       api
-        .post(baseURL, {
+        .post('', {
           method: "dimobj/loadTreeForView",
           params: [params],
         })

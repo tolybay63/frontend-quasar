@@ -116,7 +116,7 @@ export default {
     loadData() {
       this.loading = true;
       api
-        .post(baseURL, {
+        .post('', {
           method: "data/loadStation",
           params: [0],
         })
@@ -189,7 +189,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/deleteOwnerWithPropertiesFromObject",
               params: [ rec.id, 1 ],
             })

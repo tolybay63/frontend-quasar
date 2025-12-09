@@ -150,7 +150,7 @@ export default {
       let err = false;
 
       this.$axios
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "relcls/updateRelClsMember",
             params: [this.form],

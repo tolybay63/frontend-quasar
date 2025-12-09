@@ -15,13 +15,9 @@ const { setMetaModel } = store
 
 let urlMainApp = process.env.VITE_PRODUCT_URL_MAIN_APP
 
-let url = 'http://127.0.0.1:8080'
-if (import.meta.env.PROD) {
-  url = process.env.VITE_PRODUCT_URL
-}
+let authURL = "/auth"
+let baseURL = "/api"
 
-const authURL = url + "/auth"
-const baseURL = url + "/api"
 const api = axios.create({ baseURL: baseURL })
 
 
@@ -42,8 +38,8 @@ const tofi_dend = "3333-12-31"
 
 
 const fnMeta = ()=> {
-  axios
-    .post(baseURL, {
+  api
+    .post('', {
       method: "dataBase/getIdMetaModel",
       params: [],
     })

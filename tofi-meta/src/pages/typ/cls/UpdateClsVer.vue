@@ -159,7 +159,7 @@ export default {
       let err = false
       const method = this.mode === "ins" ? "insertClsVer" : "updateClsVer";
       api
-          .post(baseURL, {
+          .post('', {
             id: this.myData.id,
             method: "typ/" + method,
             params: [this.myData],

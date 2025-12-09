@@ -210,7 +210,7 @@ export default defineComponent({
       //
       this.loading2 = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "factorrel/factorValRel",
             params: [{factor1: factor1, factor2: factor2}],
           })
@@ -310,7 +310,7 @@ export default defineComponent({
       const factor = requestProps.factor;
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "factorrel/load",
             params: [
               {

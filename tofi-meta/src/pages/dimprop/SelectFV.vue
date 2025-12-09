@@ -264,7 +264,7 @@ export default {
 
     fetchData() {
       api
-        .post(baseURL, {
+        .post('', {
           method: "dimprop/loadForFvSelect",
           params: [this.dimPropItem],
         })

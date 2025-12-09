@@ -181,7 +181,7 @@ export default {
 
       const method = this.mode === "ins" ? "insertGr" : "updateGr";
       api
-        .post(baseURL, {
+        .post('', {
           id: this.form.id,
           method: "usr/" + method,
           params: [{ rec: this.form }],
@@ -210,7 +210,7 @@ export default {
 
     this.loading = ref(true)
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/loadDictAsStore",
         params: ["FD_AccessLevel"],
       })
@@ -223,7 +223,7 @@ export default {
     //
     this.loading = ref(true)
     api
-      .post(baseURL, {
+      .post('', {
         method: "usr/loadGroupForSelect",
         params: [this.data.id],
       })

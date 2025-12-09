@@ -258,7 +258,7 @@ export default {
       this.currentNode = item.selected !== undefined ? item.selected : null;
       if (this.currentNode) {
         api
-          .post(baseURL, {
+          .post('', {
             method: "group/loadRec",
             params: [{ id: this.currentNode.id, tableName: "DimPropGr" }],
           })
@@ -280,7 +280,7 @@ export default {
       this.visible = ref(true);
       this.currentNode = null
       api
-        .post(baseURL, {
+        .post('', {
           method: "group/loadGroup",
           params: [{ tableName: "DimPropGr" }],
         })
@@ -390,7 +390,7 @@ export default {
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
           api
-            .post(baseURL, {
+            .post('', {
               method: "group/delete",
               params: [rec],
             })
@@ -428,7 +428,7 @@ export default {
       this.visible = ref(true);
       this.selected2 = []
       api
-        .post(baseURL, {
+        .post('', {
           method: "dimprop/loadDimProp",
           params: [dimPropGr],
         })
@@ -484,7 +484,7 @@ export default {
     fnIns(mode) {
       if (mode === "ins") {
         api
-          .post(baseURL, {
+          .post('', {
             method: "dimprop/newRec",
             params: [this.currentNode.id],
           })
@@ -514,7 +514,7 @@ export default {
         })
         .onOk(() => {
           api
-            .post(baseURL, {
+            .post('', {
               method: "dimprop/delete",
               params: [{ rec: rec }],
             })
@@ -613,7 +613,7 @@ export default {
     this.lang = this.lang === "en-US" ? "en" : this.lang;
 
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/load",
         params: [{ dict: "FD_DimPropType" }],
       })

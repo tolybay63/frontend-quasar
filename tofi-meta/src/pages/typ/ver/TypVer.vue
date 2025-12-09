@@ -173,7 +173,7 @@ export default {
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "typ/deleteVer",
                   params: [{rec: rec}],
                 })
@@ -290,7 +290,7 @@ export default {
     fetchData(typ) {
       this.loading = true;
       api
-          .post(baseURL, {
+          .post('', {
             method: "typ/loadVer",
             params: [typ],
           })

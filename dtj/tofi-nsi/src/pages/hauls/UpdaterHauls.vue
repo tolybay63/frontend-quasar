@@ -182,7 +182,7 @@ export default {
       // before hiding the QDialog
 
       this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/saveStage",
           params: [ this.mode, this.form ],
         })
@@ -212,7 +212,7 @@ export default {
   created() {
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: 'data/loadObjForSelectFromObject',
         params: ['Cls_Section'],
       })

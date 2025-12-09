@@ -152,7 +152,7 @@ export default {
       });
 
       api
-        .post(baseURL, {
+        .post('', {
           method: "dimperiod/updateNotIn",
           params: [this.dimPeriodItem, dta],
         })
@@ -194,7 +194,7 @@ export default {
     this.cols = this.getColumns();
 
     api
-      .post(baseURL, {
+      .post('', {
         method: "dimperiod/loadNotInForUpdate",
         params: [this.dimPeriodItem],
       })

@@ -79,7 +79,7 @@ export default {
     onLoadRelCls(relclsId) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "relcls/loadRec",
             params: [relclsId],
           })

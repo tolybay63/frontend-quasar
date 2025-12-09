@@ -93,7 +93,7 @@ export default {
     loadProvider() {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: this.act + "/loadProvider",
             params: [this.fk],
           })
@@ -122,7 +122,7 @@ export default {
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: this.act + "/deleteProvider",
                   params: [rec.id],
                 })

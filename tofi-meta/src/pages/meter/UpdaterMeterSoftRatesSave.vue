@@ -168,7 +168,7 @@ export default {
     loadData() {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "meterrate/loadMeterSoftForUpdSave",
             params: [{meter: this.meter, checkeds: this.checkeds}],
           })
@@ -237,7 +237,7 @@ export default {
       });
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "meterrate/saveMeterSoftRates",
             params: [{meter: this.meter, data: d0}],
           })

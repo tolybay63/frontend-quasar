@@ -214,7 +214,7 @@ export default defineComponent({
       let data = {};
       if (mode === "ins") {
         api
-          .post(baseURL, {
+          .post('', {
             method: "dimperiod/newRec",
             params: [{}],
           })
@@ -278,7 +278,7 @@ export default defineComponent({
       const filter = requestProps.filter;
       //
       api
-        .post(baseURL, {
+        .post('', {
           id: "1",
           method: "dimperiod/loadDimPeriodPaginate",
           params: [
@@ -367,7 +367,7 @@ export default defineComponent({
         .onOk(() => {
           let index = this.rows.findIndex((row) => row.id === rec.id);
           api
-            .post(baseURL, {
+            .post('', {
               method: "dimperiod/delete",
               params: [{rec: rec}],
             })
@@ -470,7 +470,7 @@ export default defineComponent({
     this.cols = this.getColumns();
 
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/load",
         params: [{dict: "FD_AccessLevel"}],
       })

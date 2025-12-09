@@ -190,7 +190,7 @@ export default {
     loadData() {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "prop/loadPropMeterForUpd",
             params: [
               {

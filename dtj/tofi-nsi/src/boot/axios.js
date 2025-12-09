@@ -12,13 +12,8 @@ import axios from 'axios'
 
 let urlMainApp = process.env.VITE_PRODUCT_URL_MAIN_APP
 
-let url = 'http://127.0.0.1:8080'
-if (process.env.NODE_ENV === 'production') {
-  url = process.env.VITE_PRODUCT_URL
-}
-
-const authURL = url + "/auth"
-const baseURL = url + "/api"
+const authURL = "/auth"
+const baseURL = "/api"
 const api = axios.create({ baseURL: baseURL })
 
 export default boot(({ app }) => {

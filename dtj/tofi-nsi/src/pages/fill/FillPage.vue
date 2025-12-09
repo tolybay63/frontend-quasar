@@ -128,7 +128,7 @@ export default {
         })
         .then(() => {
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: 'fill/loadLog',
               params: []
             })

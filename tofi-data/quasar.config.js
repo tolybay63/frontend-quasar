@@ -52,17 +52,24 @@ export default defineConfig((ctx) => {
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
-      // vueRouterBase,
+
+      vueRouterBase: ctx.modeName === 'spa' && ctx.prod ? '/dtj/account/' : '',
       // vueDevtools,
       // vueOptionsAPI: false,
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
       // publicPath: '/',
-      publicPath: '',
-      extendViteConf(viteConf, { /*isServer, isClient*/ }) {
-        viteConf.base = '';
+      publicPath: ctx.modeName === 'spa' && ctx.prod ? '/dtj/account/' : '',
+      extendViteConf(viteConf, { isServer, isClient }) {
+        if (ctx.modeName === 'spa' && ctx.prod) {
+          viteConf.base = '/dtj/account/';
+        } else {
+          viteConf.base = '';
+        }
       },
+
+
       // analyze: true,
       // env: {},
       // rawDefine: {}

@@ -184,7 +184,7 @@ export default {
           typeof this.st === "object" ? this.st.id : this.st;
 
       api
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "scale/" + method,
             params: [ this.form ],
@@ -214,7 +214,7 @@ export default {
   },
   created() {
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_AccessLevel"}],
         })
@@ -223,7 +223,7 @@ export default {
         });
 
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_ScaleType"}],
         })

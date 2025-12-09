@@ -227,7 +227,7 @@ export default defineComponent({
       this.selected = ref([]);
       //
       api
-          .post(baseURL, {
+          .post('', {
             method: "reltyp/loadRelTypCharGr",
             params: [],
           })
@@ -274,7 +274,7 @@ export default defineComponent({
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "relTyp/deleteRelTypCharGr",
                   params: [rec.id],
                 })

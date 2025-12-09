@@ -151,7 +151,7 @@ export default {
     loadUch2(id) {
       this.loading = true
       api
-        .post(baseURL, {
+        .post('', {
           method: 'data/loadUch2',
           params: [this.codRelTyp, id, this.codTyp2],
         })
@@ -200,7 +200,7 @@ export default {
       this.form['codRelTyp'] = this.codRelTyp;
       this.form['name'] = this.name;
       this.$axios
-          .post(baseURL, {
+          .post('', {
             id: this.form.id,
             method: "data/saveRelObj",
             params: [this.form],
@@ -231,7 +231,7 @@ export default {
   created() {
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: 'data/loadObjFromTyp',
         params: [this.codTyp1],
       })

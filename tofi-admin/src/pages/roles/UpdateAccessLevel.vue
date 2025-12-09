@@ -115,7 +115,7 @@ export default {
   created() {
     this.loading = true
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/loadDictAsStore",
         params: ["FD_AccessLevel"],
       })

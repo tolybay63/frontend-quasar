@@ -214,7 +214,7 @@ export default {
       this.loading = true;
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "auth/regUser",
             params: [this.form],
           })

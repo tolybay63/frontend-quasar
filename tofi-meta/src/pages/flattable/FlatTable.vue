@@ -195,7 +195,7 @@ export default defineComponent({
       this.loading = ref(true);
 
       api
-          .post(baseURL, {
+          .post('', {
             method: "flatTable/load",
             params: [],
           })
@@ -234,7 +234,7 @@ export default defineComponent({
           .onOk(() => {
             let index = this.rows.findIndex((row) => row.id === rec.id);
             api
-                .post(baseURL, {
+                .post('', {
                   method: "flatTable/deleteFlatTable",
                   params: [rec],
                 })

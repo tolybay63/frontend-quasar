@@ -119,7 +119,7 @@ export default {
     loadDimMultiPropItemRelCls(dmpia) {
       this.loading = ref(true);
       api
-          .post(baseURL, {
+          .post('', {
             method: "dimMultiProp/loadDimMultiPropItemRelCls",
             params: [dmpia],
           })
@@ -176,7 +176,7 @@ export default {
           })
           .onOk(() => {
             api
-                .post(baseURL, {
+                .post('', {
                   method: "dimMultiProp/deleteDimMultiPropItemRelCls",
                   params: [rec.id],
                 })
@@ -220,7 +220,7 @@ export default {
 
   created() {
     api
-        .post(baseURL, {
+        .post('', {
           method: "dict/load",
           params: [{dict: "FD_VisualFormat"}],
         })

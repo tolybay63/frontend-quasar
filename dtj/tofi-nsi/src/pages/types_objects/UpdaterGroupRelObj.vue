@@ -366,7 +366,7 @@ export default {
       }
 
       this.$axios
-          .post(baseURL, {
+          .post('', {
             method: "data/createGroupRelObj",
             params: [this.form.relTyp, rez],
           })
@@ -417,7 +417,7 @@ export default {
 
     this.loading = ref(true);
     this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/loadAllMembers",
           params: [this.form],
         })

@@ -293,7 +293,7 @@ export default {
       }
 
       this.$axios
-          .post(baseURL, {
+          .post('', {
             method: "data/deleteGroupRelObj",
             params: [checkedMembers],
           })
@@ -344,7 +344,7 @@ export default {
 
     this.loading = ref(true);
     this.$axios
-        .post(baseURL, {
+        .post('', {
           method: "data/loadAllRelObj",
           params: [this.relTyp],
         })
