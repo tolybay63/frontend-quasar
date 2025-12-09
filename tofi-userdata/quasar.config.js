@@ -1,8 +1,8 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
-import { configure } from 'quasar/wrappers'
-import { fileURLToPath } from 'node:url'
+import {configure} from 'quasar/wrappers'
+import {fileURLToPath} from 'node:url'
 
 let url = process.env.VITE_PRODUCT_URL || 'http://127.0.0.1:8080'
 

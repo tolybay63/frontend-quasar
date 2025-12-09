@@ -115,10 +115,10 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import { collapsAll, expandAll } from "src/utils/jsutils";
-import { tofi_dbeg, tofi_dend } from "boot/axios";
-import { date } from "quasar";
+import {ref} from "vue";
+import {collapsAll, expandAll} from "src/utils/jsutils";
+import {tofi_dbeg, tofi_dend} from "boot/axios";
+import {date} from "quasar";
 import allConsts from "pages/page/all-consts.js";
 
 

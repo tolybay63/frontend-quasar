@@ -54,8 +54,8 @@
   </q-dialog>
 </template>
 <script>
-import { ref } from "vue";
-import { useQuasar } from "quasar";
+import {useQuasar} from "quasar";
+
 const $q = useQuasar();
 export default {
   props: ["lg"],

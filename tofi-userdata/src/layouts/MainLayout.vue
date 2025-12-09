@@ -124,13 +124,14 @@
 </template>
 
 <script>
-import {defineComponent, ref} from "vue";
+import {defineComponent} from "vue";
 import SetLocale from "components/SetLocale.vue";
-import {api, authURL, baseURL, urlMainApp} from "boot/axios";
+import {api, authURL, urlMainApp} from "boot/axios";
 import {useUserStore} from "stores/user-store";
 import {storeToRefs} from "pinia";
 import {QSpinnerFacebook, useQuasar} from "quasar";
 import {notifyError} from "src/utils/jsutils.js";
+
 const store = useUserStore();
 
 export default defineComponent({
@@ -150,7 +151,7 @@ export default defineComponent({
     })
 
     api
-      .post(baseURL, {
+      .post('', {
         method: "data/analizeFlatTable",
         params: ["DB_UserData"],
       })

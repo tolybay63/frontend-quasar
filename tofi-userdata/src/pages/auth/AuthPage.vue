@@ -10,7 +10,6 @@
 import LoginUser from "components/LoginUser.vue";
 import {useUserStore} from "stores/user-store";
 import {notifyError} from "src/utils/jsutils";
-import {baseURL} from "boot/axios";
 
 export default {
   name: 'LoginPage',
@@ -36,7 +35,7 @@ export default {
         .onOk((r) => {
 
           this.$axios
-            .post(baseURL, {
+            .post('', {
               method: "data/getCurUserInfo",
               params: [],
             })
