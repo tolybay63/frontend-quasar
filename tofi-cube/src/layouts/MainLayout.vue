@@ -178,7 +178,7 @@ const loginOnOff = async () => {
       })
       .onOk(() => {
         api
-          .post({
+          .post('', {
             method: "cube/getCurUserInfo",
             params: [],
           })
