@@ -187,7 +187,7 @@
 
 import {ref} from "vue";
 import {hasTarget, notifyError, pack} from "src/utils/jsutils.js";
-import {api, baseURL} from "boot/axios.js";
+import {api } from "boot/axios.js";
 import {QSpinnerCube, useQuasar} from "quasar";
 
 export default {

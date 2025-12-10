@@ -141,7 +141,7 @@ import {computed} from "vue";
 import SetLocale from "components/SetLocale.vue";
 import {useUserStore} from "stores/user-store.js";
 import {storeToRefs} from "pinia";
-import {api, authURL, baseURL, urlMainApp} from "boot/axios.js";
+import {api, authURL, urlMainApp} from "boot/axios.js";
 import {notifyError} from "src/utils/jsutils.js";
 import LoginUser from "components/LoginUser.vue";
 import {useQuasar} from "quasar";
@@ -178,7 +178,7 @@ const loginOnOff = async () => {
       })
       .onOk(() => {
         api
-          .post(baseURL, {
+          .post({
             method: "cube/getCurUserInfo",
             params: [],
           })
