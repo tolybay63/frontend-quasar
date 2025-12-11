@@ -12,6 +12,7 @@ export default {
   appUserDataName: "Личный кабинет пользователя",
   appDataName: "Сервис работы с данными",
   appNSIName: "Нормативно-справочная информация",
+  appIndName: "Отраслевые справочники",
   appOrgName: "Организация",
   appOpsName: "Деятельность",
   appReportName: "Отчеты",

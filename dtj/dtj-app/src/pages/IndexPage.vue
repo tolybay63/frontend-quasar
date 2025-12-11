@@ -85,7 +85,7 @@
         </div>
 
         <div class="row q-ma-md justify-center">
-          <!-- NSI -->
+          <!-- Service 360 Ind -->
           <q-btn
             rounded
             class="bg-green text-white text-bold q-ma-md"
@@ -95,7 +95,8 @@
             <div class="column">
               <div>
                 <q-avatar icon="menu_book" color="orange"></q-avatar>
-                {{ $t("appNSIName") }}
+                S-360
+                <div>{{ $t("appIndName") }}</div>
               </div>
             </div>
           </q-btn>
@@ -139,7 +140,7 @@
           >
             <div class="column">
               <div>
-                <q-avatar icon="update" color="orange"></q-avatar>
+                <q-avatar icon="analytics" color="orange"></q-avatar>
                 S-360
               </div>
               <div>{{$t("appReportName")}}</div>
