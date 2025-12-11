@@ -190,7 +190,7 @@ export default {
         })
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
-          this.$axios
+          api
             .post('', {
               method: "data/deleteOwnerWithProperties",
               params: [ rec.id, 1 ],

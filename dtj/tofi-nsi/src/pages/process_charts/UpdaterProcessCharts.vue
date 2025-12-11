@@ -211,7 +211,7 @@ export default {
       // before hiding the QDialog
 
       this.form.fullName = this.form["name"] + " [тк №" + this.form["NumberSource"] +" / "+ this.mapCollections.get(this.form.objCollections)+"]";
-      this.$axios
+      api
         .post('', {
           method: "data/saveProcessCharts",
           params: [ this.mode, this.form ],

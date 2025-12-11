@@ -138,6 +138,7 @@ import {
   pack,
   uncheckChilds
 } from "src/utils/jsutils";
+import {api} from "boot/axios";
 
 /////////////////////////////////////////////////////////////
 let checkeds = new Set()
@@ -364,7 +365,7 @@ export default {
         }
       }
 
-      this.$axios
+      api
           .post('', {
             method: "data/createGroupRelObj",
             params: [this.form.relTyp, rez],
@@ -415,7 +416,7 @@ export default {
     this.cols = this.getColumns();
 
     this.loading = ref(true);
-    this.$axios
+    api
         .post('', {
           method: "data/loadAllMembers",
           params: [this.form],

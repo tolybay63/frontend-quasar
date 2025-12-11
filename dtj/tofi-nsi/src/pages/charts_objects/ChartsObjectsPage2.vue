@@ -85,6 +85,7 @@
 
 import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
 import UpdateChartsObjects2 from "pages/charts_objects/UpdateChartsObjects2.vue";
+import {api} from "boot/axios";
 
 export default {
   name: "ChartsObjectsPage2",
@@ -106,7 +107,7 @@ export default {
 
     fetchData() {
       this.loading = true;
-      this.$axios
+      api
         .post('', {
           method: "data/loadComponentsObject2",
           params: ["RT_Works", "Typ_Work", "Typ_ObjectTyp"],
@@ -173,7 +174,7 @@ export default {
         })
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
-          this.$axios
+          api
             .post('', {
               method: "data/deleteOwnerWithProperties",
               params: [rec.idro, 0],

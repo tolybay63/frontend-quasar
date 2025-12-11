@@ -186,7 +186,7 @@ export default {
       // emit "ok" event (with optional payload)
       // before hiding the QDialog
 
-      this.$axios
+      api
         .post('', {
           method: "data/saveParams",
           params: [ this.mode, this.form ],

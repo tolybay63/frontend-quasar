@@ -28,6 +28,7 @@
 
 
 import {notifyError} from "src/utils/jsutils";
+import {api} from "boot/axios";
 
 export default {
   props: ["id", "fileName"],
@@ -50,7 +51,7 @@ export default {
       formData.append("id", this.id);
       formData.append("model", "nsidata");
       formData.append("filename", this.fileName);
-      this.$axios
+      api
         .post('/loadpdf',
         formData,
         {
@@ -94,7 +95,7 @@ export default {
   beforeUnmount() {
     let formData = new FormData();
     formData.append("filename", this.fileName);
-    this.$axios
+    api
       .post('/deletefile',
         formData,
         )

@@ -472,7 +472,7 @@ export default {
         })
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
-          this.$axios
+          this.api
             .post('', {
               method: "data/deleteOwnerWithProperties",
               params: [rec.id, 1],
@@ -568,7 +568,7 @@ export default {
           focus: "cancel",
         })
         .onOk(() => {
-          this.$axios
+          this.api
             .post('', {
               method: "data/deleteFileValue",
               params: [row],
@@ -629,7 +629,7 @@ export default {
 
       //console.info("formData", formData)
 
-      this.$axios
+      this.api
         .post("/download",
           formData,
           {

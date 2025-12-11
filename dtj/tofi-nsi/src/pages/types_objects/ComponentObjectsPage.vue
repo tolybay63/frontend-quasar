@@ -333,7 +333,7 @@ export default {
           focus: "cancel",
         })
         .onOk(() => {
-          this.$axios
+          api
             .post('', {
               method: "data/deleteOwner",
               params: [rec.id, 0],
@@ -356,7 +356,7 @@ export default {
 
     fetchData() {
       this.loading = ref(true);
-      this.$axios
+      api
         .post('', {
           method: "data/loadComponentsObject",
           params: [this.reltyp],
@@ -497,7 +497,7 @@ export default {
 
   created() {
     this.loading = true
-    this.$axios
+    api
       .post('', {
         method: "data/getIdRelTyp",
         params: [this.codRelTyp],

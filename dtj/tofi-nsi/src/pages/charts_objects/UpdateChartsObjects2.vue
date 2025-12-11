@@ -199,7 +199,7 @@ export default {
       let err = false;
       this.form['codRelTyp'] = this.codRelTyp;
       this.form['name'] = this.name;
-      this.$axios
+      api
           .post('', {
             id: this.form.id,
             method: "data/saveRelObj",

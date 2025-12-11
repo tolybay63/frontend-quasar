@@ -93,6 +93,7 @@ import {ref} from "vue";
 import {hasTarget, notifyError} from "src/utils/jsutils";
 import UpdaterObj from "pages/types_objects/UpdaterObj.vue";
 import {extend} from "quasar";
+import {api} from "boot/axios";
 
 
 export default {
@@ -156,7 +157,7 @@ export default {
     fetchData(relobj) {
       this.loading = ref(true);
 
-      this.$axios
+      api
         .post('', {
           method: "data/loadRelObjMember",
           params: [relobj],

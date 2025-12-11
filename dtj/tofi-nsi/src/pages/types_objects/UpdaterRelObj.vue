@@ -59,6 +59,7 @@
 
 <script>
 import {notifyError} from "src/utils/jsutils";
+import {api} from "boot/axios";
 
 export default {
   props: ["mode", "data"],
@@ -108,7 +109,7 @@ export default {
       // emit "ok" event (with optional payload)
       // before hiding the QDialog
 
-      this.$axios
+      api
         .post('', {
           method: "data/editRelObj",
           params: [this.form ],

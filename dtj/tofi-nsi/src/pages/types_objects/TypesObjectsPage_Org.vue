@@ -298,7 +298,7 @@ export default {
           focus: "cancel",
         })
         .onOk(() => {
-          this.$axios
+          api
             .post('', {
               method: "data/deleteOwnerWithProperties",
               params: [rec.id, 1],

@@ -125,6 +125,7 @@
 <script>
 import {ref} from "vue";
 import {checkChilds, collapsAll, expandAll, notifyError, notifySuccess, pack, uncheckChilds} from "src/utils/jsutils";
+import {api} from "boot/axios";
 
 /////////////////////////////////////////////////////////////
 let checkedMembers = []
@@ -291,7 +292,7 @@ export default {
         getCheckets(this.rows[i])
       }
 
-      this.$axios
+      api
           .post('', {
             method: "data/deleteGroupRelObj",
             params: [checkedMembers],
@@ -342,7 +343,7 @@ export default {
     this.cols = this.getColumns();
 
     this.loading = ref(true);
-    this.$axios
+    api
         .post('', {
           method: "data/loadAllRelObj",
           params: [this.relTyp],

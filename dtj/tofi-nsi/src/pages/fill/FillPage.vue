@@ -66,6 +66,7 @@
 
 <script>
 import {ref} from 'vue'
+import {api} from "boot/axios";
 
 export default {
   name: 'FillPage',
@@ -119,14 +120,14 @@ export default {
       fd.append('filename', this.file.name)
       fd.append('fill', fill)
 
-      this.$axios
+      api
         .post('/filldata', fd, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         })
         .then(() => {
-          this.$axios
+          api
             .post('', {
               method: 'fill/loadLog',
               params: []

@@ -148,7 +148,7 @@ export default {
 
       let err = false;
 
-      this.$axios
+      api
           .post('', {
             id: this.form.id,
             method: "relcls/updateRelClsMember",

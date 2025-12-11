@@ -139,7 +139,7 @@ export default {
 
       let method = this.mode === "ins" ? "insertObj" : "updateObj";
 
-      this.$axios
+      api
         .post('', {
           method: "data/" + method,
           params: [ this.form ],

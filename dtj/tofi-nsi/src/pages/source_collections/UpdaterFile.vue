@@ -66,6 +66,7 @@
 import {ref} from "vue";
 import {extend} from "quasar";
 import {useUserStore} from "stores/user-store";
+import {api} from "boot/axios";
 
 const store = useUserStore();
 
@@ -144,7 +145,7 @@ export default {
       //console.info("form", this.form)
       //console.info("fd", fd)
 
-      this.$axios
+      api
         .post("/upload", fd, {
           headers: {
             "Content-Type": "multipart/form-data",

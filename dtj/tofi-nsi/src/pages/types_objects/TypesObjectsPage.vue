@@ -173,7 +173,7 @@ export default {
         })
         .onOk(() => {
           //let index = this.rows.findIndex((row) => row.id === rec.id);
-          this.$axios
+          this.api
             .post('', {
               method: "data/deleteTypesObjects",
               params: [rec.id],
