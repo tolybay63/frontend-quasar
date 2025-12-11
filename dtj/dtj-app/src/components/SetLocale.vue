@@ -61,22 +61,6 @@ export default {
       { id: 3, text: "English", code: "en", sign: "en-US" },
     ];
 
-    /*
-    this.$axios
-      .post(baseURL, {
-        method: "dict/load",
-        params: [{ dict: "FD_Lang" }],
-      })
-      .then((response) => {
-        langs = response.data.result.records.map((lang) => lang["sign"]);
-        appLanguages = languages.filter((lang) => langs.includes(lang.isoName));
-        //
-        localeOptions = appLanguages.map((lang) => ({
-          label: lang.nativeName,
-          value: lang.isoName,
-        }));
-      });
-*/
     langs = FD_Lang.map((lang) => lang["sign"]);
     appLanguages = languages.filter((lang) => langs.includes(lang.isoName));
     //
