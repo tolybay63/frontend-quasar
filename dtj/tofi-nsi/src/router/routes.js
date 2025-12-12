@@ -10,14 +10,16 @@ const routes = [
       {path: '/charts_objects', name: "ChartsObjectsPage2", component: () => import('pages/charts_objects/ChartsObjectsPage2.vue')},
       {path: '/param_objects', name: "ParamObjectsPage", component: () => import('pages/param_objects/ParamObjectsSelectPage.vue')},
       {path: '/defect_objects', name: "DefectObjectsPage", component: () => import('pages/defect_objects/DefectObjectsPage.vue')},
-      {path: '/section', name: "SectionPage", component: () => import('pages/section/SectionPage.vue')},
-      {path: '/separation_point', name: "SeparationPointPage", component: () => import('pages/separation_point/SeparationPointPage.vue')},
-      {path: '/hauls', name: "HaulsPage", component: () => import('pages/hauls/HaulsPage.vue')},
+
       {path: '/fill', name: "FillPage", component: () => import('pages/fill/FillPage.vue')},
     ]
   },
 
   //{path: '/charts_objects', name: "ChartsObjectsPage", component: () => import('pages/charts_objects/ChartsObjectsPage.vue')},
+  //{path: '/section', name: "SectionPage", component: () => import('pages/section/SectionPage.vue')},
+  //{path: '/separation_point', name: "SeparationPointPage", component: () => import('pages/separation_point/SeparationPointPage.vue')},
+  //{path: '/hauls', name: "HaulsPage", component: () => import('pages/hauls/HaulsPage.vue')},
+
 
 
   // Always leave this as last one,

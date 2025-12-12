@@ -210,7 +210,6 @@ const NAVIGATION_LINKS = [
     link: "/charts_objects",
     target: "nsi:ose",
   },
-*/
   {
     title: "section",       //Участки жд пути
     info: "",
@@ -218,7 +217,6 @@ const NAVIGATION_LINKS = [
     link: "/section",
     target: "nsi:uch",
   },
-
   {
     title: "separation_point",  //Раздельные пункты
     info: "",
@@ -233,7 +231,7 @@ const NAVIGATION_LINKS = [
     link: "/hauls",
     target: "nsi:pg",
   },
-
+*/
   {
     title: 'filling',
     info: '',
