@@ -275,14 +275,15 @@ const loginOnOff = () => {
 const regUser = async () => {
   const lang = localStorage.getItem('curLang')
   try {
-    const result = await $q.dialog({
+    $q.dialog({
       component: RegUser,
-      componentProps: { lg: lang }
+      componentProps: {lg: lang}
     })
-
-    if (result?.res) {
-      notifySuccess(t('success'))
-    }
+      .onOk((response)=> {
+        if (response.res) {
+          notifySuccess(t('success'))
+        }
+      })
   } catch (error) {
     notifyError(error.message)
   }
