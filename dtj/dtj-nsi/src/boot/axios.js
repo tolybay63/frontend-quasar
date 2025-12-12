@@ -17,7 +17,6 @@ let authURL = url + "/auth"
 let baseURL = url + "/api"
 
 if (import.meta.env.PROD) {
-  url = ""
   authURL = "/auth"
   baseURL = "/api"
 }
