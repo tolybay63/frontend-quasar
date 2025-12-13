@@ -4,12 +4,15 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
 
-import {defineConfig} from '#q-app/wrappers'
-import {fileURLToPath} from 'node:url'
+//import {defineConfig} from '#q-app/wrappers'
+//import {fileURLToPath} from 'node:url'
+const { configure } = require('quasar/wrappers');
+const path = require('path');
+
 
 let url = process.env.VITE_PRODUCT_URL || 'http://127.0.0.1:8080'
 
-export default defineConfig((ctx) => {
+module.exports = configure((ctx) => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
@@ -78,7 +81,7 @@ export default defineConfig((ctx) => {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        ['@intlify/unplugin-vue-i18n/vite', {
+        ['@intlify/vite-plugin-vue-i18n', {
           // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
           // compositionOnly: false,
 
@@ -86,10 +89,8 @@ export default defineConfig((ctx) => {
           // you need to set `runtimeOnly: false`
           // runtimeOnly: false,
 
-          ssr: ctx.modeName === 'ssr',
-
           // you need to set i18n resource including paths !
-          include: [ fileURLToPath(new URL('./src/i18n', import.meta.url)) ],
+          include: path.resolve(__dirname, './src/i18n/**')
         }]
       ]
     },

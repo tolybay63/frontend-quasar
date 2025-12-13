@@ -236,8 +236,7 @@
                         </q-tooltip>
                       </q-btn>
 
-<!--
-                      <q-btn v-if=false
+                      <q-btn
                              :disable="props.row['fileVal'] === undefined"
                              round size="sm" icon="visibility" flat dense color="blue"
                              @click="fnViewFile(props.row)"
@@ -248,7 +247,6 @@
                           {{ $t("view") }}
                         </q-tooltip>
                       </q-btn>
--->
 
                     </div>
 
