@@ -67,6 +67,7 @@ import {ref} from "vue";
 import {extend} from "quasar";
 import {useUserStore} from "stores/user-store";
 import {api} from "boot/axios";
+import {notifyError} from "src/utils/jsutils";
 
 const store = useUserStore();
 
@@ -156,13 +157,15 @@ export default {
           this.$emit("ok", {res: true})
           //notifySuccess(this.$t("success"))
         })
-        .catch(() => {
+        .catch((error) => {
           err = true
-          //console.log("error=>>>", error.message)
-          //console.log("error.response=>>>", error.response)
-          //console.log("error.response.data=>>>", error.response.data)
-          //setUserStore({})
-          //notifyError(this.$t("notLogined"))
+          let msg = error.message;
+          if (error.response) {
+            msg = this.$t(error.response.data.error.message);
+            if (error.response.data.error.message.includes("notLogined"))
+              msg = this.$t("notLogined")
+          }
+          notifyError(msg)
         })
         .finally(() => {
           this.loading = false
