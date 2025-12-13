@@ -67,6 +67,7 @@
 <script>
 import {ref} from 'vue'
 import {api} from "boot/axios";
+import {notifyError} from "src/utils/jsutils";
 
 export default {
   name: 'FillPage',
@@ -146,6 +147,10 @@ export default {
         })
         .catch((error) => {
           console.log(error.message)
+          let msg = error.message
+          if (error.response)
+            msg = error.response.data.error.message
+          notifyError(msg)
         })
         .finally(() => {
           if (this.isFill) this.filled = true

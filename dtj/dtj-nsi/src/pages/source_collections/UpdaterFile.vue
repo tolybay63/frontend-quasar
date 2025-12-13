@@ -160,8 +160,10 @@ export default {
         .catch((error) => {
           err = true
           let msg = error.message;
+          console.info("error.message", error.message)
           if (error.response) {
             msg = this.$t(error.response.data.error.message);
+            console.info("error.response", msg)
             if (error.response.data.error.message.includes("notLogined"))
               msg = this.$t("notLogined")
           }
