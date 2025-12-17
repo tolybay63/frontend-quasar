@@ -2,15 +2,15 @@
 
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
-//import { defineConfig } from '#q-app/wrappers'
 
-import { configure } from 'quasar/wrappers'
-import { fileURLToPath } from 'node:url';
+import {defineConfig} from '#q-app/wrappers'
+import {fileURLToPath} from 'node:url'
+
 
 let url = process.env.VITE_PRODUCT_URL || 'http://127.0.0.1:8080'
 
 
-export default configure((ctx) => {
+export default defineConfig((ctx) => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,

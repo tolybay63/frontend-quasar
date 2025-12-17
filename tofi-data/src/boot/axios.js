@@ -16,7 +16,6 @@ let authURL = url + "/auth"
 let baseURL = url + "/api"
 
 if (import.meta.env.PROD) {
-  //url = process.env.VITE_PRODUCT_URL_MAIN_APP
   authURL = "/auth"
   baseURL = "/api"
 }
