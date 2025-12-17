@@ -4,16 +4,14 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
 
-//import {defineConfig} from '#q-app/wrappers'
-//import {fileURLToPath} from 'node:url'
-const { configure } = require('quasar/wrappers');
-const path = require('path');
+import {defineConfig} from '#q-app/wrappers'
+import {fileURLToPath} from 'node:url'
 
 
 let url = process.env.VITE_PRODUCT_URL || 'http://127.0.0.1:8080'
 
-module.exports = configure((ctx) => {
-  return {
+export default defineConfig((ctx) => {
+  return ({
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
 
@@ -81,17 +79,22 @@ module.exports = configure((ctx) => {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        ['@intlify/vite-plugin-vue-i18n', {
-          // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-          // compositionOnly: false,
+        [
+          '@intlify/unplugin-vue-i18n/vite',
+          {
+            // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+            // compositionOnly: false,
 
-          // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
-          // you need to set `runtimeOnly: false`
-          // runtimeOnly: false,
+            // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
+            // you need to set `runtimeOnly: false`
+            // runtimeOnly: false,
 
-          // you need to set i18n resource including paths !
-          include: path.resolve(__dirname, './src/i18n/**')
-        }]
+            ssr: ctx.modeName === 'ssr',
+
+            // you need to set i18n resource including paths !
+            include: [fileURLToPath(new URL('./src/i18n', import.meta.url))],
+          },
+        ],
       ]
     },
 
@@ -272,5 +275,5 @@ module.exports = configure((ctx) => {
         'my-content-script'
       ]
     }
-  }
+  })
 });
