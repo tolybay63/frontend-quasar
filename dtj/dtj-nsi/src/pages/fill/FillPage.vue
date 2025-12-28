@@ -97,7 +97,6 @@ export default {
       this.msg = "Успешно"
       this.isFill = false
       this.filled = false
-
     },
 
     clickFile() {
