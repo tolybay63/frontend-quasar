@@ -257,6 +257,7 @@ export default defineComponent({
         let menu = [];
 
         //todo Добавлен 07.02.24, permis не настроен...
+        //Настройка БД
         const mn_as = [
           {
             id: "/database",
@@ -266,6 +267,7 @@ export default defineComponent({
           },
         ];
 
+        //Настройка данных
         const mn_ds = [
           {
             id: "/measure",
@@ -340,6 +342,8 @@ export default defineComponent({
             target: "mdl:mn_ds:cgp",
           },
         ];
+
+        //Настройка обработки данных
         const mn_dp = [
           {
             id: "/scale/0",
@@ -373,6 +377,16 @@ export default defineComponent({
             target: "mdl:mn_dp:cube",
           },
         ];
+
+        //Вспомогательные сущности
+/*
+        "Системы кодирования"
+        "Источники и стоки данных"
+        "Шкалы"
+*/
+
+
+        //Инструменты аналитика
         const mn_tool = [
           /*          {
                       id: "/impObj",
