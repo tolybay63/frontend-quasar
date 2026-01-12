@@ -430,8 +430,8 @@ export default defineComponent({
 
         const el0 = setMenu(
           {
-            id: "/dopEntities",
-            label: this.$t("dopEntities"),
+            id: "/dbSetting",
+            label: this.$t("dbSetting"),
             icon: "settings",
             target: "mdl:mn_as",
           },

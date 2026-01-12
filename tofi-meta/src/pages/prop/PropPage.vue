@@ -196,18 +196,18 @@ export default {
 
   data() {
     return {
-      splitterModel: ref(30),
+      splitterModel: 30,
       cols: [],
       rows: [],
       currentNode: null,
-      visible: ref(false),
+      visible: false,
 
       dense: true,
       //
       cols2: [],
       rows2: [],
       FD_PropType: null,
-      loading2: ref(false),
+      //loading2: ref(false),
       //
       currentNode2: null,
       meterStruct: 0,
@@ -359,7 +359,7 @@ export default {
     },*/
 
     fetchDataGr() {
-      this.visible = ref(true)
+      this.visible = true
       this.currentNode = null
 
       api
@@ -391,7 +391,7 @@ export default {
             }
           })
           .finally(() => {
-            this.visible = ref(false);
+            this.visible = false;
           });
     },
 
@@ -605,7 +605,7 @@ export default {
     },
 
     fetchData(propGr) {
-      this.visible = ref(true)
+      this.visible = true
       this.currentNode2 = null
 
       api
@@ -636,7 +636,7 @@ export default {
             }
           })
           .finally(() => {
-            this.visible = ref(false);
+            this.visible = false;
           });
     },
 
