@@ -379,6 +379,28 @@ export default defineComponent({
         ];
 
         //Вспомогательные сущности
+        const mn_dop_entity = [
+          {
+            id: "/stocks/0/0",
+            label: this.$t("stocks"),
+            icon: "app_registration",
+            target: "mdl:mn_dop:stocks",
+          },
+
+          {
+            id: "/syscoding",
+            label: this.$t("syscoding"),
+            icon: "app_registration",
+            target: "mdl:mn_dop:syscoding",
+          },
+          {
+            id: "/scale/0",
+            label: this.$t("scales"),
+            icon: "device_thermostat",
+            target: "mdl:mn_dop:scale",
+          },
+
+        ]
 /*
         "Системы кодирования"
         "Источники и стоки данных"
@@ -408,8 +430,8 @@ export default defineComponent({
 
         const el0 = setMenu(
           {
-            id: "/dbSetting",
-            label: this.$t("dbSetting"),
+            id: "/dopEntities",
+            label: this.$t("dopEntities"),
             icon: "settings",
             target: "mdl:mn_as",
           },
@@ -439,6 +461,19 @@ export default defineComponent({
           mn_dp
         );
         menu.push(el2);
+        //
+        const el3 = setMenu(
+          {
+            id: "/dopEntities",
+            label: this.$t("dopEntities"),
+            icon: "settings",
+            target: "mdl:mn_dop_entity",
+          },
+          mn_dop_entity
+        );
+        menu.push(el3);
+
+
         //
         const el4 = setMenu(
           {
