@@ -45,15 +45,15 @@
 
         <!-- ScaleType -->
         <q-select
-            v-model="st"
-            :options="optionsST"
-            :label="$t('scaleType')"
+            v-model="ss"
+            :model-value="ss"
+            :options="optionsSS"
+            :label="$t('stocks')"
             option-value="id"
-            option-label="text"
+            option-label="name"
             map-options
             dense options-dense
-            :model-value="st"
-            @update:model-value="fnSelectST()"
+            @update:model-value="fnSelectSS()"
         />
 
         <!-- AccessLevel -->
@@ -115,10 +115,10 @@ export default {
     return {
       form: this.data,
       optionsAL: [],
-      optionsST: [],
-      loading: ref(false),
+      optionsSS: [],
+      loading: false,
       al: this.data.accessLevel,
-      st: this.data.scaleType,
+      ss: this.data.sourceStock,
     };
   },
   //al: this.form.accessLevel===0 ? 1 : this.form.accessLevel
@@ -144,8 +144,9 @@ export default {
     fnSelectAL() {
       this.form.accessLevel = this.al.id;
     },
-    fnSelectST() {
-      this.form.scaleType = this.st.id;
+
+    fnSelectSS() {
+      this.form.sourceStock = this.ss.id;
     },
 
     validSave() {
@@ -180,13 +181,13 @@ export default {
       const method = this.mode === "ins" ? "insert" : "update";
       this.form.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
-      this.form.scaleType =
-          typeof this.st === "object" ? this.st.id : this.st;
+      this.form.sourceStock =
+          typeof this.ss === "object" ? this.ss.id : this.ss;
 
       api
           .post('', {
             id: this.form.id,
-            method: "scale/" + method,
+            method: "syscoding/" + method,
             params: [ this.form ],
           })
           .then(
@@ -224,12 +225,11 @@ export default {
 
     api
         .post('', {
-          method: "dict/load",
-          params: [{dict: "FD_ScaleType"}],
+          method: "stock/loadStockForSelect",
+          params: [],
         })
         .then((response) => {
-          //console.log("FD_AttribValType", response.data.result.records)
-          this.optionsST = response.data.result.records;
+          this.optionsSS = response.data.result.records;
         });
   },
 };

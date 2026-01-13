@@ -478,9 +478,10 @@ export default {
               data = response.data.result.records[0];
             },
             (error) => {
-              const store = useUserStore();
-              let {setUserName} = store;
-              setUserName("");
+              //const store = useUserStore();
+              //let {setUserName} = store;
+              //setUserName("");
+
               let msg = error.message;
               if (error.response)
                 msg = this.$t(error.response.data.error.message);

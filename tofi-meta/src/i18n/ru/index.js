@@ -341,6 +341,7 @@ export default {
   stocks: "Источники и стоки данных",
   syscoding: "Системы кодирования",
   stocksGr: "Группы источников",
+  sysCodingType: "Тип системы кодирования",
 
   dimsPeriod: "Измерения периодов",
   dimsProp: "Измерения свойств",

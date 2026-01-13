@@ -338,6 +338,7 @@ export default {
   stocks: "Data Sources and Sinks",
   syscoding: "Coding Systems",
   stocksGr: "Source Groups",
+  sysCodingType: "Type of coding system",
 
   dimsPeriod: "Period measurements",
   dimsProp: "Property measurements",

@@ -273,6 +273,7 @@ export default {
   stocks: "Деректер көздері мен жинақтары",
   syscoding: "Кодтау жүйелері",
   stocksGr: "Дереккөз топтары",
+  sysCodingType: "Кодтау жүйесінің түрі",
 
   dimsPeriod: "Мерзім өлшемдері",
   dimsProp: "Қасиеттер өлшемдері",

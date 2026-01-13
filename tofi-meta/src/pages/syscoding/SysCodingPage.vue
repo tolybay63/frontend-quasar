@@ -100,6 +100,7 @@
   import {api} from "boot/axios";
   import {hasTarget, notifyError, notifySuccess} from "src/utils/jsutils";
   import UpdateSysCoding from "pages/syscoding/UpdateSysCoding.vue";
+  import UpdateStock from "pages/stocks/UpdateStock.vue";
 
 
   export default {
@@ -113,9 +114,7 @@
         FD_SysCodingType: new Map(),
         filter: "",
         loading: false,
-        page: 1,
         selected: [],
-        scale: 0,
       };
     },
 
@@ -203,7 +202,7 @@
 
       },
 
-      editRow(rec, mode) {
+/*      editRow(rec, mode) {
         let data = {
           id: 0,
           cod: "",
@@ -251,6 +250,66 @@
           });
 
 
+      },*/
+
+      editRow(rec, mode) {
+        let data = {};
+        if (mode === "ins") {
+          this.loading = true;
+          api
+            .post('', {
+              method: "syscoding/newRec",
+              params: [],
+            })
+            .then(
+              (response) => {
+                data = response.data.result.records[0];
+              },
+              (error) => {
+                let msg = error.message;
+                if (error.response)
+                  msg = this.$t(error.response.data.error.message);
+                notifyError(msg);
+              }
+            )
+            .finally(() => {
+              this.loading = false;
+            });
+        } else {
+          data = {
+            id: rec.id,
+            cod: rec.cod,
+            accessLevel: rec.accessLevel,
+            sysCodingType: rec.sysCodingType,
+            sourceStock: rec.sourceStock,
+            name: rec.name,
+            fullName: rec.fullName,
+            cmt: rec.cmt,
+          };
+        }
+
+        this.$q
+          .dialog({
+            component: UpdateSysCoding,
+            componentProps: {
+              data: data,
+              mode: mode,
+              // ...
+            },
+          })
+          .onOk((r) => {
+            if (mode === "ins") {
+              this.rows.push(r);
+              this.selected = [];
+              this.selected.push(r);
+            } else {
+              for (let key in r) {
+                if (r.hasOwnProperty(key)) {
+                  rec[key] = r[key];
+                }
+              }
+            }
+          });
       },
 
       infoSelected(row) {
@@ -292,7 +351,7 @@
             classes: "bg-blue-grey-1",
             headerStyle: "font-size: 1.2em; width: 15%",
             format: (val) =>
-              this.FD_ScaleType ? this.FD_ScaleType.get(val) : null,
+              this.FD_SysCodingType ? this.FD_SysCodingType.get(val) : null,
           },
           {
             name: "accessLevel",
