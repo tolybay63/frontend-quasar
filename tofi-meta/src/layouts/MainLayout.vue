@@ -346,13 +346,6 @@ export default defineComponent({
         //Настройка обработки данных
         const mn_dp = [
           {
-            id: "/scale/0",
-            label: this.$t("scales"),
-            icon: "device_thermostat",
-            target: null,
-          },
-
-          {
             id: "/dimsperiod/0",
             label: this.$t("dimsPeriod"),
             icon: "pending_actions",
@@ -383,14 +376,14 @@ export default defineComponent({
           {
             id: "/stocks/0/0",
             label: this.$t("stocks"),
-            icon: "app_registration",
+            icon: "devices",
             target: "mdl:mn_dop:stocks",
           },
 
           {
             id: "/syscoding",
             label: this.$t("syscoding"),
-            icon: "app_registration",
+            icon: "pin",
             target: "mdl:mn_dop:syscoding",
           },
           {

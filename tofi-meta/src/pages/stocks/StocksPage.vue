@@ -74,7 +74,7 @@
                 </q-tooltip>
               </q-btn>
 
-              <q-inner-loading :showing="visible" color="secondary"/>
+              <q-inner-loading :showing="loading" color="secondary"/>
             </template>
           </q-banner>
 
@@ -90,6 +90,86 @@
       </template>
 
       <template v-slot:after>
+
+        <q-table
+          style="height: 100%; width: 100%"
+          color="primary"
+          card-class="bg-amber-1"
+          row-key="cod"
+          :columns="cols2"
+          :rows="rows2"
+          :wrap-cells="true"
+          :table-colspan="4"
+          table-header-class="text-bold text-white bg-blue-grey-13"
+          separator="cell"
+          :loading="loading"
+          dense
+          selection="single"
+          v-model:selected="selected"
+        >
+          <template #bottom-row>
+            <q-td colspan="100%" v-if="selected.length > 0">
+              <span class="text-blue"> {{ $t("selectedRow") }}: </span>
+              <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
+            </q-td>
+            <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
+              {{ $t("infoApp") }}
+            </q-td>
+          </template>
+
+          <template v-slot:top>
+            <div style="font-size: 1.2em; font-weight: bold;">
+              <q-avatar color="black" text-color="white" icon="storage"></q-avatar>
+              {{ $t("stocks") }}
+            </div>
+
+            <q-space/>
+            <q-btn
+              v-if="hasTarget('mdl:mn_ds:fac:ins')"
+              icon="post_add"
+              color="secondary"
+              dense
+              :disable="loading || currentNode == null"
+              @click="editRow(null, 'ins')"
+            >
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                {{ $t("newRecord") }}
+              </q-tooltip>
+            </q-btn>
+            <q-btn
+              v-if="hasTarget('mdl:mn_ds:fac:upd')"
+              dense
+              icon="edit"
+              color="secondary"
+              class="q-ml-sm"
+              :disable="loading || selected.length === 0"
+              @click="editRow(selected[0], 'upd')"
+            >
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                {{ $t("editRecord") }}
+              </q-tooltip>
+            </q-btn>
+            <q-btn
+              v-if="hasTarget('mdl:mn_ds:fac:del')"
+              dense
+              icon="delete"
+              color="secondary"
+              class="q-ml-sm"
+              :disable="loading || selected.length === 0"
+              @click="removeRow(selected[0])"
+            >
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                {{ $t("deletingRecord") }}
+              </q-tooltip>
+            </q-btn>
+
+          </template>
+
+          <template #loading>
+            <q-inner-loading showing color="secondary"></q-inner-loading>
+          </template>
+        </q-table>
+
 
 
       </template>
@@ -111,11 +191,14 @@ import {
   getParentNode,
   hasTarget,
   notifyError,
-  notifyInfo,
+  notifyInfo, notifySuccess,
   pack
 } from "src/utils/jsutils.js";
 import {api} from "boot/axios.js";
 import UpdateGroup from "pages/group/UpdateGroup.vue";
+import {useUserStore} from "stores/user-store.js";
+import UpdateDataBase from "pages/database/UpdateDataBase.vue";
+import UpdateStock from "pages/stocks/UpdateStock.vue";
 
 export default {
   name: "StocksPage",
@@ -128,10 +211,13 @@ export default {
       cols: [],
       rows: [],
       currentNode: null,
-      visible: false,
-
+      loading: false,
       stockId: 0,
-      stockGrId: 0
+      stockGrId: 0,
+      cols2: [],
+      rows2: [],
+      selected: [],
+
 
     }
   },
@@ -164,7 +250,7 @@ export default {
     },
 
     fetchDataGr() {
-      this.visible = true
+      this.loading = true
       this.currentNode = null
 
       api
@@ -196,7 +282,7 @@ export default {
           }
         })
         .finally(() => {
-          this.visible = false;
+          this.loading = false;
         });
     },
 
@@ -311,6 +397,40 @@ export default {
       ];
     },
 
+    getColumns2() {
+      return [
+        {
+          name: "cod",
+          label: this.$t("code"),
+          field: "cod",
+          align: "left",
+          headerStyle: "font-size: 1.2em; width: 20%",
+        },
+        {
+          name: "name",
+          label: this.$t("fldName"),
+          field: "name",
+          align: "left",
+          headerStyle: "font-size: 1.2em; width: 25%",
+        },
+        {
+          name: "fullName",
+          label: this.$t("fldFullName"),
+          field: "fullName",
+          align: "left",
+          headerStyle: "font-size: 1.2em; width: 35%",
+        },
+
+        {
+          name: "cmt",
+          label: this.$t("fldCmt"),
+          field: "cmt",
+          align: "left",
+          headerStyle: "font-size: 1.2em; width: 20%",
+        },
+      ];
+    },
+
     fnExpand() {
       expandAll(this.rows);
     },
@@ -319,8 +439,134 @@ export default {
       collapsAll(this.rows);
     },
 
+    fetchData(stockGr) {
+      this.loading = true
+      //this.currentNode2 = null
+      api
+        .post('', {
+          method: "stock/loadStocks",
+          params: [stockGr],
+        })
+        .then(
+          (response) => {
+            this.rows2 = response.data.result.records;
+          },
+          (error) => {
+            let msg = error.message;
+            if (error.response)
+              msg = this.$t(error.response.data.error.message);
+
+            notifyError(msg);
+          }
+        )
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+
+    editRow(rec, mode) {
+      let data = {};
+      if (mode === "ins") {
+        this.loading = true;
+        api
+          .post('', {
+            method: "stock/newRec",
+            params: [this.stockGrId],
+          })
+          .then(
+            (response) => {
+              data = response.data.result.records[0];
+            },
+            (error) => {
+              const store = useUserStore();
+              let {setUserName} = store;
+              setUserName("");
+              let msg = error.message;
+              if (error.response)
+                msg = this.$t(error.response.data.error.message);
+              notifyError(msg);
+            }
+          )
+          .finally(() => {
+            this.loading = false;
+          });
+      } else {
+        data = {
+          id: rec.id,
+          cod: rec.cod,
+          parent: rec.parent,
+          accessLevel: rec.accessLevel,
+          sourceStockType: rec.sourceStockType,
+          name: rec.name,
+          fullName: rec.fullName,
+          cmt: rec.cmt,
+        };
+      }
+
+      this.$q
+        .dialog({
+          component: UpdateStock,
+          componentProps: {
+            data: data,
+            mode: mode,
+            // ...
+          },
+        })
+        .onOk((r) => {
+          if (mode === "ins") {
+            this.rows.push(r);
+            this.selected = [];
+            this.selected.push(r);
+          } else {
+            for (let key in r) {
+              if (r.hasOwnProperty(key)) {
+                rec[key] = r[key];
+              }
+            }
+          }
+        });
+    },
+
+    removeRow(rec) {
+      this.$q
+        .dialog({
+          title: this.$t("confirmation"),
+          message:
+            this.$t("deleteRecord") +
+            '<div style="color: plum">(' +
+            rec.cod +
+            ": " +
+            rec.name +
+            ")</div>",
+          html: true,
+          cancel: true,
+          persistent: true,
+          focus: "cancel",
+        })
+        .onOk(() => {
+          let index = this.rows.findIndex((row) => row.id === rec.id);
+          api
+            .post('', {
+              method: "stock/delete",
+              params: [rec],
+            })
+            .then(
+              () => {
+                this.rows.splice(index, 1);
+                this.selected = [];
+                notifySuccess(this.$t("success"));
+              },
+              (error) => {
+                notifyInfo(error.message);
+              }
+            );
+        });
+    },
 
 
+    infoSelected(row) {
+      return " " + row.cod + " - " + row.name;
+    },
   },
 
 
@@ -336,7 +582,7 @@ export default {
 
   created() {
     this.cols = this.getColumns();
-    //this.cols2 = this.getColumns2();
+    this.cols2 = this.getColumns2();
   }
 
 

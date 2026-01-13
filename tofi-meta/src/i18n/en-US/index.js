@@ -334,6 +334,10 @@ export default {
   dataMatrix: "Entering multidimensional data",
   dataFlat: "Entering flat data",
   toolsAnalitic: "Analytics tools",
+  dopEntities: "Auxiliary Entities",
+  stocks: "Data Sources and Sinks",
+  syscoding: "Coding Systems",
+  stocksGr: "Source Groups",
 
   dimsPeriod: "Period measurements",
   dimsProp: "Property measurements",

@@ -78,7 +78,7 @@
             dense
             debounce="300"
             color="primary"
-            :model-value="filter.value"
+            :model-value="filter"
             v-model="filter"
             :label="$t('txt_filter')"
         >
@@ -96,20 +96,20 @@
 </template>
 
 <script>
-import {defineComponent, ref} from "vue";
+import {defineComponent} from "vue";
 import {useUserStore} from "stores/user-store";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
-import UpdateDataBase from "pages/database/UpdateDataBase.vue";
+import UpdateStock from "pages/stocks/UpdateStock.vue";
 
 export default defineComponent({
   data: function () {
     return {
       cols: [],
       rows: [],
-      filter: ref(""),
-      loading: ref(false),
-      selected: ref([]),
+      filter: "",
+      loading: false,
+      selected: [],
       FD_DataBaseType: null,
     };
   },
@@ -183,7 +183,7 @@ export default defineComponent({
     },
 
     load() {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post('', {
             method: "database/load",
@@ -205,14 +205,14 @@ export default defineComponent({
               }
           )
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 
     editRow(rec, mode) {
       let data = {};
       if (mode === "ins") {
-        this.loading = ref(true);
+        this.loading = true;
         api
             .post('', {
               method: "database/newRec",
@@ -233,7 +233,7 @@ export default defineComponent({
                 }
             )
             .finally(() => {
-              this.loading = ref(false);
+              this.loading = false;
             });
       } else {
         data = {
@@ -249,7 +249,7 @@ export default defineComponent({
 
       this.$q
           .dialog({
-            component: UpdateDataBase,
+            component: UpdateStock,
             componentProps: {
               data: data,
               mode: mode,
@@ -297,7 +297,7 @@ export default defineComponent({
                 .then(
                     () => {
                       this.rows.splice(index, 1);
-                      this.selected = ref([]);
+                      this.selected = [];
                       notifySuccess(this.$t("success"));
                     },
                     (error) => {
