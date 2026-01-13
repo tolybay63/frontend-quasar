@@ -128,13 +128,12 @@
 import SetLocale from "components/SetLocale.vue";
 import {computed, defineComponent, ref} from "vue";
 import LoginUser from "components/LoginUser.vue";
-import {api, authURL, baseURL, fnMeta, urlMainApp} from "boot/axios";
+import {api, authURL, fnMeta, urlMainApp} from "boot/axios";
 import {notifyError} from "src/utils/jsutils";
 import {useUserStore} from "stores/user-store";
 import {storeToRefs} from "pinia";
 import {useRouter} from "vue-router";
-import {extend} from "quasar";
-import {useQuasar} from "quasar";
+import {extend, useQuasar} from "quasar";
 
 export default defineComponent({
   components: {

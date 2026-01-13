@@ -120,9 +120,9 @@ export default {
       FD_AccessLevel: null,
       FD_ScaleType: null,
       filter: ref(""),
-      loading: ref(false),
+      loading: false,
       page: 1,
-      selected: ref([]),
+      selected: [],
       scale: 0,
     };
   },
@@ -135,7 +135,7 @@ export default {
     },
 
     fetchData(reqParams) {
-      this.loading = ref(true);
+      this.loading = true;
       //
       api
           .post('', {
@@ -156,7 +156,7 @@ export default {
                 this.pagination.rowsNumber = meta.total;
 */
 
-                this.selected = ref([]);
+                this.selected = [];
                 if (this.scale > 0) {
                   let index = this.rows.findIndex((row) => row.id === this.scale);
                   this.selected.push(this.rows[index]);
@@ -174,7 +174,7 @@ export default {
           )
           .finally(() => {
             //setTimeout(() => {
-            this.loading = ref(false);
+            this.loading = false;
             //}, 500)
           });
     },
@@ -216,7 +216,7 @@ export default {
                     () => {
                       //console.log("response=>>>", response.data)
                       this.rows.splice(index, 1);
-                      this.selected = ref([]);
+                      this.selected = [];
                       notifySuccess(this.$t("success"));
                     },
                     (error) => {
