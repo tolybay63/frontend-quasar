@@ -253,10 +253,6 @@ export default {
           at = " (" + this.$t("dttm") + ")";
         else if (item.attribValType === allConsts.FD_AttribValType.tm)
           at = " (" + this.$t("tm") + ")";
-        else if (item.attribValType === allConsts.FD_AttribValType.integ)
-          at = " (" + this.$t("integ") + ")";
-        else if (item.attribValType === allConsts.FD_AttribValType.num)
-          at = " (" + this.$t("num") + ")";
         else if (item.attribValType === allConsts.FD_AttribValType.file)
           at = " (" + this.$t("file") + ")";
         else if (item.attribValType === allConsts.FD_AttribValType.multistr)

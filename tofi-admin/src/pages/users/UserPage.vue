@@ -162,8 +162,9 @@
           </template>
         </q-banner>
 
-        <div style="height: calc(100vh - 215px); width: 100%" class="scroll">
+        <div style="height: calc(100vh - 230px); width: 100%" class="scroll">
           <q-table
+            class="sticky-header-table"
             style="height: 100%; width: 100%"
             color="primary"
             card-class="bg-amber-1"
@@ -237,7 +238,7 @@ export default {
       //
       cols2: [],
       rows2: [],
-      FD_AccessLevel: null,
+      FD_AccessLevel: new Map(),
       loading2: ref(false),
       //
       selected2: [],
@@ -664,9 +665,36 @@ export default {
 };
 </script>
 
-<style scoped>
-.img-vert {
-  transform: scaleY(-1);
-  -ms-filter: "FlipV";
-}
+<style lang="sass">
+
+.img-vert
+  transform: scaleY(-1)
+  -ms-filter: "FlipV"
+
+.sticky-header-table
+  /* height or max-height is important */
+  height: calc(100vh - 140px)
+  /* bg color is important for th; just specify one */
+  background-color: #bdbdbd
+
+  thead tr th
+    position: sticky
+    z-index: 1
+
+  thead tr:first-child th
+    top: 0
+
+  /* this is when the loading indicator appears */
+
+
+  &.q-table--loading thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+
+  /* prevent scrolling behind sticky top row on focus */
+
+
+  tbody
+    /* height of all previous header rows */
+    scroll-margin-top: 48px
 </style>
