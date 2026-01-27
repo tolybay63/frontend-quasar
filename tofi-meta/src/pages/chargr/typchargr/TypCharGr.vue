@@ -2,23 +2,24 @@
 
   <div class="no-padding no-margin">
     <q-table
-        style="height: calc(100vh - 220px); width: 100%"
-        color="primary"
-        card-class="bg-amber-1"
-        table-class="text-grey-8"
-        row-key="id"
-        :columns="cols"
-        :rows="rows"
-        :wrap-cells="true"
-        table-header-class="text-bold text-white bg-blue-grey-13"
-        :dense="dense"
-        separator="cell"
-        :filter="filter"
-        :loading="loading"
-        :rows-per-page-options="[0]"
-        selection="single"
-        v-model:selected="selected"
-        @update:selected="selectedRow"
+      class="sticky-header-table"
+      style="height: calc(100vh - 220px); width: 100%"
+      color="primary"
+      card-class="bg-amber-1"
+      table-class="text-grey-8"
+      row-key="id"
+      :columns="cols"
+      :rows="rows"
+      :wrap-cells="true"
+      table-header-class="text-bold text-white bg-blue-grey-13"
+      :dense="dense"
+      separator="cell"
+      :filter="filter"
+      :loading="loading"
+      :rows-per-page-options="[0]"
+      selection="single"
+      v-model:selected="selected"
+      @update:selected="selectedRow"
     >
       <template #bottom-row>
         <q-td colspan="100%" v-if="selected.length > 0">
@@ -35,38 +36,38 @@
 
         <q-space/>
         <q-btn
-            v-if="hasTarget('mdl:mn_ds:typ:sel:char:ins')"
-            :dense="dense"
-            icon="post_add"
-            color="secondary"
-            :disable="loading"
-            @click="editRow(null, 'ins')"
+          v-if="hasTarget('mdl:mn_ds:typ:sel:char:ins')"
+          :dense="dense"
+          icon="post_add"
+          color="secondary"
+          :disable="loading"
+          @click="editRow(null, 'ins')"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
             {{ $t("newRecord") }}
           </q-tooltip>
         </q-btn>
         <q-btn
-            v-if="hasTarget('mdl:mn_ds:typ:sel:char:upd')"
-            :dense="dense"
-            icon="edit"
-            color="secondary"
-            class="q-ml-sm"
-            :disable="loading || selected.length === 0"
-            @click="editRow(selected[0], 'upd')"
+          v-if="hasTarget('mdl:mn_ds:typ:sel:char:upd')"
+          :dense="dense"
+          icon="edit"
+          color="secondary"
+          class="q-ml-sm"
+          :disable="loading || selected.length === 0"
+          @click="editRow(selected[0], 'upd')"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
             {{ $t("editRecord") }}
           </q-tooltip>
         </q-btn>
         <q-btn
-            v-if="hasTarget('mdl:mn_ds:cgt:del')"
-            :dense="dense"
-            icon="delete"
-            color="secondary"
-            class="q-ml-sm"
-            :disable="loading || selected.length === 0"
-            @click="removeRow(selected[0])"
+          v-if="hasTarget('mdl:mn_ds:cgt:del')"
+          :dense="dense"
+          icon="delete"
+          color="secondary"
+          class="q-ml-sm"
+          :disable="loading || selected.length === 0"
+          @click="removeRow(selected[0])"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
             {{ $t("deletingRecord") }}
@@ -74,13 +75,13 @@
         </q-btn>
 
         <q-btn
-            v-if="hasTarget('mdl:mn_ds:cgt:sel')"
-            :dense="dense"
-            icon="pan_tool_alt"
-            color="secondary"
-            class="q-ml-lg"
-            :disable="loading || selected.length === 0"
-            @click="charGrTypSel"
+          v-if="hasTarget('mdl:mn_ds:cgt:sel')"
+          :dense="dense"
+          icon="pan_tool_alt"
+          color="secondary"
+          class="q-ml-lg"
+          :disable="loading || selected.length === 0"
+          @click="charGrTypSel"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
             {{ $t("chooseRecord") }}
@@ -88,22 +89,22 @@
         </q-btn>
 
         <q-toggle
-            style="margin-left: 10px"
-            :dense="dense"
-            v-model="dense"
-            :model-value="dense"
-            :label="$t('isDense')"
-            @update:model-value="fnToggle"
+          style="margin-left: 10px"
+          :dense="dense"
+          v-model="dense"
+          :model-value="dense"
+          :label="$t('isDense')"
+          @update:model-value="fnToggle"
         />
 
         <q-space/>
         <q-input
-            :dense="dense"
-            debounce="300"
-            color="primary"
-            :model-value="filter.value"
-            v-model="filter"
-            :label="$t('txt_filter')"
+          :dense="dense"
+          debounce="300"
+          color="primary"
+          :model-value="filter"
+          v-model="filter"
+          :label="$t('txt_filter')"
         >
           <template v-slot:append>
             <q-icon name="search"/>
@@ -121,19 +122,19 @@
 
 
 <script>
-import {defineComponent, ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {defineComponent} from "vue";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 import UpdateTypCharGr from "pages/chargr/typchargr/UpdateTypCharGr.vue";
 
-const requestParam = {
+/*const requestParam = {
   page: 1,
   rowsPerPage: 20,
   rowsNumber: 0,
   filter: "",
   descending: false,
   sortBy: null,
-};
+};*/
 
 export default defineComponent({
   name: "TypCharGr",
@@ -146,9 +147,9 @@ export default defineComponent({
     return {
       cols: [],
       rows: [],
-      filter: ref(""),
-      loading: ref(false),
-      selected: ref([]),
+      filter: "",
+      loading: false,
+      selected: [],
       dense: true,
       tcg: 0
     };
@@ -200,106 +201,106 @@ export default defineComponent({
       const lg = {name: this.lang};
 
       this.$q
-          .dialog({
-            component: UpdateTypCharGr,
-            componentProps: {
-              data: data,
-              mode: mode,
-              lg: lg,
-              dense: this.dense,
-              // ...
-            },
-          })
-          .onOk((r) => {
-            if (mode === "ins") {
-              this.rows.push(r);
-              this.selected = [];
-              this.selected.push(r);
-              this.selectedRow(this.selected);
-            } else {
-              for (let key in r) {
-                if (r.hasOwnProperty(key)) {
-                  rec[key] = r[key];
-                }
+        .dialog({
+          component: UpdateTypCharGr,
+          componentProps: {
+            data: data,
+            mode: mode,
+            lg: lg,
+            dense: this.dense,
+            // ...
+          },
+        })
+        .onOk((r) => {
+          if (mode === "ins") {
+            this.rows.push(r);
+            this.selected = [];
+            this.selected.push(r);
+            this.selectedRow(this.selected);
+          } else {
+            for (let key in r) {
+              if (r.hasOwnProperty(key)) {
+                rec[key] = r[key];
               }
             }
-          });
+          }
+        });
     },
 
     fetchData() {
-      this.loading = ref(true);
-      this.selected = ref([]);
+      this.loading = true;
+      this.selected = [];
       //
       api
-          .post('', {
-            method: "typ/loadTypCharGr",
-            params: [],
-          })
-          .then((response) => {
-            this.rows = response.data.result.records;
-          })
-          .then(()=> {
-            if (this.tcg > 0) {
-              let index = this.rows.findIndex((row) => row.id === this.tcg)
+        .post('', {
+          method: "typ/loadTypCharGr",
+          params: [],
+        })
+        .then((response) => {
+          this.rows = response.data.result.records;
+        })
+        .then(() => {
+          if (this.tcg > 0) {
+            let index = this.rows.findIndex((row) => row.id === this.tcg)
 
-              this.selected.push(this.rows[index])
-            }
-          })
-          .catch((error) => {
+            this.selected.push(this.rows[index])
+          }
+        })
+        .catch((error) => {
 
-            let msg = error.message;
-            if (error.response) msg = error.response.data.error.message;
+          let msg = error.message;
+          if (error.response) msg = error.response.data.error.message;
 
-            notifyError(msg);
-            //
-          })
-          .finally(() => {
-            //setTimeout(() => {
-            this.loading = ref(false);
-            //}, 500)
-          });
+          notifyError(msg);
+          //
+        })
+        .finally(() => {
+          //setTimeout(() => {
+          this.loading = false;
+          //}, 500)
+        });
     },
 
     removeRow(rec) {
       this.$q
-          .dialog({
-            title: this.$t("confirmation"),
-            message:
-                this.$t("deleteRecord") +
-                '<div style="color: plum">(' +
-                rec.cod +
-                ": " +
-                rec.name +
-                ")</div>",
-            html: true,
-            cancel: true,
-            persistent: true,
-            focus: "cancel",
-          })
-          .onOk(() => {
-            let index = this.rows.findIndex((row) => row.id === rec.id);
-            api
-                .post('', {
-                  method: "typ/deleteTypCharGr",
-                  params: [rec],
-                })
-                .then(
-                    () => {
-                      this.rows.splice(index, 1);
-                      this.selected = ref([]);
-                      notifySuccess(this.$t("success"));
-                    },
-                    (error) => {
-                      let msg
-                      if (error.response) msg = error.response.data.error.message;
-                      else msg = error.message;
-                      notifyError(msg);
-                    }
-                );
-          })
-          .onCancel(() => {
-            notifyInfo(this.$t("canceled"));
-          });
+        .dialog({
+          title: this.$t("confirmation"),
+          message:
+            this.$t("deleteRecord") +
+            '<div style="color: plum">(' +
+            rec.cod +
+            ": " +
+            rec.name +
+            ")</div>",
+          html: true,
+          cancel: true,
+          persistent: true,
+          focus: "cancel",
+        })
+        .onOk(() => {
+          let index = this.rows.findIndex((row) => row.id === rec.id);
+          api
+            .post('', {
+              method: "typ/deleteTypCharGr",
+              params: [rec],
+            })
+            .then(
+              () => {
+                this.rows.splice(index, 1);
+                this.selected = [];
+                notifySuccess(this.$t("success"));
+              },
+              (error) => {
+                let msg
+                if (error.response) msg = error.response.data.error.message;
+                else msg = error.message;
+                notifyError(msg);
+              }
+            );
+        })
+        .onCancel(() => {
+          notifyInfo(this.$t("canceled"));
+        });
     },
 
     getColumns() {
@@ -377,7 +378,7 @@ export default defineComponent({
   mounted() {
     let tab = this.$route["params"].tab
     this.tcg = 0
-    if (tab==='typchargr')
+    if (tab === 'typchargr')
       this.tcg = parseInt(this.$route["params"].chargr, 10);
     this.fetchData();
   },
@@ -388,4 +389,32 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style lang="sass">
+.sticky-header-table
+  /* height or max-height is important */
+  height: calc(100vh - 140px)
+  /* bg color is important for th; just specify one */
+  background-color: #bdbdbd
+
+  thead tr th
+    position: sticky
+    z-index: 1
+
+  thead tr:first-child th
+    top: 0
+
+  /* this is when the loading indicator appears */
+
+
+  &.q-table--loading thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+
+  /* prevent scrolling behind sticky top row on focus */
+
+
+  tbody
+    /* height of all previous header rows */
+    scroll-margin-top: 48px
+</style>
+
