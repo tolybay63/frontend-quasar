@@ -226,7 +226,7 @@ export default {
       return "";
     },
 
-    toggle(item, index) {
+    toggle(item) {
       let vm = this;
       vm.itemId = item.id;
 
@@ -445,13 +445,6 @@ export default {
 };
 </script>
 
-<!--<style scoped>
-.img-vert {
-  transform: scaleY(-1);
-  filter: "FlipV";
-  -ms-filter: "FlipV";
-}
-</style>-->
 
 <style scoped>
 .img-vert {
