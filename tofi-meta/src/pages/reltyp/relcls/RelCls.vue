@@ -1,44 +1,44 @@
-
 <template>
   <div class="no-padding no-margin">
     <q-splitter
-        v-model="splitterModel"
-        :model-value="splitterModel"
-        class="no-padding no-margin"
-        horizontal
-        style="height: calc(100vh - 300px); width: 100%"
-        separator-class="bg-red"
+      v-model="splitterModel"
+      :model-value="splitterModel"
+      class="no-padding no-margin"
+      horizontal
+      separator-class="bg-red"
+      style="height: calc(100vh - 300px); width: 100%"
 
     >
 
       <template v-slot:before>
         <q-table
-            style="height: 100%; width: 100%"
-            color="primary"
-            card-class="bg-amber-1"
-            row-key="id"
-            :columns="cols"
-            :rows="rows"
-            :wrap-cells="true"
-            table-header-class="text-bold text-white bg-blue-grey-13"
-            separator="cell"
-            :loading="loading"
-            dense
-            selection="single"
-            v-model:selected="selected"
-            :rows-per-page-options="[10, 15, 20, 0]"
-            @update:selected="updSelected"
+          v-model:selected="selected"
+          :columns="cols"
+          :loading="loading"
+          :rows="rows"
+          :rows-per-page-options="[15, 20, 0]"
+          :wrap-cells="true"
+          card-class="bg-amber-1"
+          class="sticky-header-table"
+          color="primary"
+          dense
+          row-key="id"
+          selection="single"
+          separator="cell"
+          style="height: 100%; width: 100%"
+          table-header-class="text-bold text-white bg-blue-grey-13"
+          @update:selected="updSelected"
         >
 
           <template #bottom-row>
-            <q-td colspan="100%" v-if="selected.length > 0">
+            <q-td v-if="selected.length > 0" colspan="100%">
               <span class="text-blue"> {{ $t("selectedRow") }}: </span>
               <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
             </q-td>
             <q-td
-                colspan="100%"
-                v-else-if="this.rows.length > 0"
-                class="text-bold"
+              v-else-if="this.rows.length > 0"
+              class="text-bold"
+              colspan="100%"
             >
               {{ $t("infoRow") }}
             </q-td>
@@ -49,68 +49,68 @@
             <q-space/>
 
             <q-btn
-                v-if="hasTarget('mdl:mn_ds:reltyp:memb:ins')"
-                dense
-                icon="edit_note"
-                color="secondary"
-                :disable="loading"
-                @click="createGroup()"
+              v-if="hasTarget('mdl:mn_ds:reltyp:memb:ins')"
+              :disable="loading"
+              color="secondary"
+              dense
+              icon="edit_note"
+              @click="createGroup()"
             >
-              <q-tooltip transition-show="rotate" transition-hide="rotate">
+              <q-tooltip transition-hide="rotate" transition-show="rotate">
                 {{ $t("addGroupRecords") }}
               </q-tooltip>
             </q-btn>
 
             <q-btn
-                v-if="hasTarget('mdl:mn_ds:reltyp:memb:ins')"
-                dense
-                class="q-ml-sm"
-                icon="delete_sweep"
-                color="secondary"
-                :disable="loading"
-                @click="deleteGroup()"
+              v-if="hasTarget('mdl:mn_ds:reltyp:memb:ins')"
+              :disable="loading"
+              class="q-ml-sm"
+              color="secondary"
+              dense
+              icon="delete_sweep"
+              @click="deleteGroup()"
             >
-              <q-tooltip transition-show="rotate" transition-hide="rotate">
+              <q-tooltip transition-hide="rotate" transition-show="rotate">
                 {{ $t("deleteGroupRecords") }}
               </q-tooltip>
             </q-btn>
             <q-btn
-                v-if="hasTarget('mdl:mn_ds:reltyp:memb:upd')"
-                dense
-                icon="edit"
-                color="secondary"
-                class="q-ml-sm"
-                :disable="loading || selected.length === 0"
-                @click="editRow(selected[0], 'upd')"
+              v-if="hasTarget('mdl:mn_ds:reltyp:memb:upd')"
+              :disable="loading || selected.length === 0"
+              class="q-ml-sm"
+              color="secondary"
+              dense
+              icon="edit"
+              @click="editRow(selected[0], 'upd')"
             >
-              <q-tooltip transition-show="rotate" transition-hide="rotate">
+              <q-tooltip transition-hide="rotate" transition-show="rotate">
                 {{ $t("editRecord") }}
               </q-tooltip>
             </q-btn>
             <q-btn
-                v-if="hasTarget('mdl:mn_ds:reltyp:memb:del')"
-                dense
-                icon="delete"
-                color="secondary"
-                class="q-ml-sm"
-                :disable="loading || selected.length === 0"
-                @click="removeRow(selected[0])"
+              v-if="hasTarget('mdl:mn_ds:reltyp:memb:del')"
+              :disable="loading || selected.length === 0"
+              class="q-ml-sm"
+              color="secondary"
+              dense
+              icon="delete"
+              @click="removeRow(selected[0])"
             >
-              <q-tooltip transition-show="rotate" transition-hide="rotate">
+              <q-tooltip transition-hide="rotate" transition-show="rotate">
                 {{ $t("deletingRecord") }}
               </q-tooltip>
             </q-btn>
 
             <q-btn
-                v-if="hasTarget('mdl:mn_ds:typ:sel')"
-                dense
-                icon="pan_tool_alt"
-                color="secondary"
-                class="q-ml-lg"
-                :disable="loading || selected.length === 0"
-                @click="relClsSelect()"
+              v-if="hasTarget('mdl:mn_ds:typ:sel')"
+              :disable="loading || selected.length === 0"
+              class="q-ml-lg"
+              color="secondary"
+              dense
+              icon="pan_tool_alt"
+              @click="relClsSelect()"
             >
-              <q-tooltip transition-show="rotate" transition-hide="rotate">
+              <q-tooltip transition-hide="rotate" transition-show="rotate">
                 {{ $t("chooseRecord") }}
               </q-tooltip>
             </q-btn>
@@ -119,13 +119,13 @@
           </template>
 
           <template #loading>
-            <q-inner-loading showing color="secondary"></q-inner-loading>
+            <q-inner-loading color="secondary" showing></q-inner-loading>
           </template>
         </q-table>
       </template>
 
       <template v-slot:after>
-        <rel-cls-member :relcls="relclsId" ref="childMember" />
+        <rel-cls-member ref="childMember" :relcls="relclsId"/>
       </template>
 
     </q-splitter>
@@ -133,8 +133,7 @@
 </template>
 
 <script>
-import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 import FD_Consts from "pages/all-consts";
 import UpdateRelCls from "pages/reltyp/relcls/UpdateRelCls.vue";
@@ -149,12 +148,12 @@ export default {
   data() {
 
     return {
-      splitterModel: ref(70),
+      splitterModel: 70,
       cols: [],
       rows: [],
-      loading: ref(false),
+      loading: false,
       //separator: ref("cell"),
-      selected: ref([]),
+      selected: [],
       FD_AccessLevel: null,
       dataBase: null,
       reltypId: 0,
@@ -190,46 +189,46 @@ export default {
     createGroup() {
       const lg = {name: this.lang}
       this.$q
-          .dialog({
-            component: UpdateGroupRelCls,
-            componentProps: {
-              data: {relTyp: this.reltypId},
-              lg: lg,
-              //dense: this.dense,
-              // ...
-            },
-          })
-          .onOk((r) => {
-            //console.log("Ok! updated", r);
-            if (r.res) {
-              //reload...
-              this.fetchData(this.reltypId);
-            }
-          });
+        .dialog({
+          component: UpdateGroupRelCls,
+          componentProps: {
+            data: {relTyp: this.reltypId},
+            lg: lg,
+            //dense: this.dense,
+            // ...
+          },
+        })
+        .onOk((r) => {
+          //console.log("Ok! updated", r);
+          if (r.res) {
+            //reload...
+            this.fetchData(this.reltypId);
+          }
+        });
     },
 
     deleteGroup() {
       const lg = {name: this.lang}
       this.$q
-          .dialog({
-            component: DeleteGroupRelCls,
-            componentProps: {
-              relTyp: this.reltypId,
-              lg: lg,
-              //dense: this.dense,
-              // ...
-            },
-          })
-          .onOk((r) => {
-            //console.log("Ok! updated", r);
-            this.fetchData(this.reltypId);
-            this.selected = ref([]);
-            this.updSelected(this.selected)
+        .dialog({
+          component: DeleteGroupRelCls,
+          componentProps: {
+            relTyp: this.reltypId,
+            lg: lg,
+            //dense: this.dense,
+            // ...
+          },
+        })
+        .onOk((r) => {
+          //console.log("Ok! updated", r);
+          this.fetchData(this.reltypId);
+          this.selected = [];
+          this.updSelected(this.selected)
 
-            if (r !== "") {
-              notifyInfo(r)
-            }
-          });
+          if (r !== "") {
+            notifyInfo(r)
+          }
+        });
     },
 
     editRow(rec, mode) {
@@ -263,101 +262,101 @@ export default {
       //const lg = { name: this.lang };
 
       this.$q
-          .dialog({
-            component: UpdateRelCls,
-            componentProps: {
-              data: data,
-              mode: mode,
-              //lg: lg,
-              dense: true,
-              // ...
-            },
-          })
-          .onOk((r) => {
-            //console.log("Ok! updated", r);
-            if (mode === "ins") {
-              this.rows.push(r);
-              this.selected = [];
-              this.selected.push(r);
-            } else {
-              for (let key in r) {
-                if (r.hasOwnProperty(key)) {
-                  rec[key] = r[key];
-                }
+        .dialog({
+          component: UpdateRelCls,
+          componentProps: {
+            data: data,
+            mode: mode,
+            //lg: lg,
+            dense: true,
+            // ...
+          },
+        })
+        .onOk((r) => {
+          //console.log("Ok! updated", r);
+          if (mode === "ins") {
+            this.rows.push(r);
+            this.selected = [];
+            this.selected.push(r);
+          } else {
+            for (let key in r) {
+              if (r.hasOwnProperty(key)) {
+                rec[key] = r[key];
               }
             }
-          });
+          }
+        });
     },
 
     removeRow(rec) {
       this.$q
-          .dialog({
-            title: this.$t("confirmation"),
-            message:
-                this.$t("deleteRecord") +
-                '<div style="color: plum">(' +
-                rec.cod + "-" + rec.name +
-                ")</div>",
-            html: true,
-            cancel: true,
-            persistent: true,
-            focus: "cancel",
-          })
-          .onOk(() => {
-            let index = this.rows.findIndex((row) => row.id === rec.id);
-            api
-                .post('', {
-                  method: "relcls/delete",
-                  params: [rec],
-                })
-                .then(
-                    () => {
-                      //console.log("response=>>>", response.data)
-                      this.rows.splice(index, 1);
-                      this.selected = ref([]);
-                      this.updSelected(this.selected)
-                      notifySuccess(this.$t("success"));
-                    },
-                    (error) => {
-                      let msg = error.message;
-                      if (error.response) msg = error.response.data.error.message;
+        .dialog({
+          title: this.$t("confirmation"),
+          message:
+            this.$t("deleteRecord") +
+            '<div style="color: plum">(' +
+            rec.cod + "-" + rec.name +
+            ")</div>",
+          html: true,
+          cancel: true,
+          persistent: true,
+          focus: "cancel",
+        })
+        .onOk(() => {
+          let index = this.rows.findIndex((row) => row.id === rec.id);
+          api
+            .post('', {
+              method: "relcls/delete",
+              params: [rec],
+            })
+            .then(
+              () => {
+                //console.log("response=>>>", response.data)
+                this.rows.splice(index, 1);
+                this.selected = [];
+                this.updSelected(this.selected)
+                notifySuccess(this.$t("success"));
+              },
+              (error) => {
+                let msg = error.message;
+                if (error.response) msg = error.response.data.error.message;
 
-                      notifyError(msg);
-                    }
-                );
-          })
+                notifyError(msg);
+              }
+            );
+        })
     },
 
     fetchData(reltyp) {
-      this.loading = ref(true);
+      this.loading = true;
 
       api
-          .post('', {
-            method: "relcls/load",
-            params: [reltyp],
-          })
-          .then((response) => {
-            this.rows = response.data.result.records;
-            //
-            this.selected = ref([]);
+        .post('', {
+          method: "relcls/load",
+          params: [reltyp],
+        })
+        .then((response) => {
+          this.rows = response.data.result.records;
+          //
+          this.selected = [];
 
-            if (this.relclsId > 0) {
-              let index = this.rows.findIndex((row) => row.id === this.relclsId);
-              this.selected.push(this.rows[index]);
+          if (this.relclsId > 0) {
+            let index = this.rows.findIndex((row) => row.id === this.relclsId);
+            this.selected.push(this.rows[index]);
 
-              this.updSelected(this.selected)
-            }
-          })
-          .catch((error) => {
+            this.updSelected(this.selected)
+          }
+        })
+        .catch((error) => {
 
-            let msg = error.message;
-            if (error.response) msg = this.$t(error.response.data.error.message);
+          let msg = error.message;
+          if (error.response) msg = this.$t(error.response.data.error.message);
 
-            notifyError(msg);
-          })
-          .finally(() => {
-            this.loading = ref(false);
-          });
+          notifyError(msg);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
 
     getColumns() {
@@ -394,7 +393,7 @@ export default {
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em; width: 10%",
           format: (val) =>
-              this.FD_AccessLevel ? this.FD_AccessLevel.get(val) : null,
+            this.FD_AccessLevel ? this.FD_AccessLevel.get(val) : null,
         },
 
         {
@@ -405,7 +404,7 @@ export default {
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em; width: 10%",
           format: (val) =>
-              this.dataBase ? this.dataBase.get(val) : null,
+            this.dataBase ? this.dataBase.get(val) : null,
         },
 
         {
@@ -428,29 +427,29 @@ export default {
     this.lang = this.lang === "en-US" ? "en" : this.lang;
 
     api
-        .post('', {
-          method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
-        })
-        .then((response) => {
-          this.FD_AccessLevel = new Map();
-          response.data.result.records.forEach((it) => {
-            this.FD_AccessLevel.set(it["id"], it["text"]);
-          });
+      .post('', {
+        method: "dict/load",
+        params: [{dict: "FD_AccessLevel"}],
+      })
+      .then((response) => {
+        this.FD_AccessLevel = new Map();
+        response.data.result.records.forEach((it) => {
+          this.FD_AccessLevel.set(it["id"], it["text"]);
         });
+      });
 
     api
-        .post('', {
-          method: "database/loadDbForSelect",
-          params: [],
-        })
-        .then((response) => {
-          //console.info("db", response.data.result.records)
-          this.dataBase = new Map();
-          response.data.result.records.forEach((it) => {
-            this.dataBase.set(it["id"], it["name"]);
-          });
+      .post('', {
+        method: "database/loadDbForSelect",
+        params: [],
+      })
+      .then((response) => {
+        //console.info("db", response.data.result.records)
+        this.dataBase = new Map();
+        response.data.result.records.forEach((it) => {
+          this.dataBase.set(it["id"], it["name"]);
         });
+      });
 
     this.cols = this.getColumns();
 
@@ -474,3 +473,33 @@ export default {
 
 }
 </script>
+
+
+<style lang="sass">
+.sticky-header-table
+  /* height or max-height is important */
+  height: calc(100vh - 140px)
+  /* bg color is important for th; just specify one */
+  background-color: #bdbdbd
+
+  thead tr th
+    position: sticky
+    z-index: 1
+
+  thead tr:first-child th
+    top: 0
+
+  /* this is when the loading indicator appears */
+
+
+  &.q-table--loading thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+
+  /* prevent scrolling behind sticky top row on focus */
+
+
+  tbody
+    /* height of all previous header rows */
+    scroll-margin-top: 48px
+</style>

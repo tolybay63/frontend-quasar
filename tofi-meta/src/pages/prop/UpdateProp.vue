@@ -520,7 +520,7 @@ export default {
   props: ["rec", "mode", "lg", "isComplexProp"],
 
   data() {
-    console.info("UpdateProp", this.rec)
+    //console.info("UpdateProp", this.rec)
     return {
       dense: true,  //???????????????????????????
 
@@ -1111,7 +1111,7 @@ export default {
   },
 
   created() {
-    console.info("UpdateProp Created")
+    //console.info("UpdateProp Created")
     this.getDict("FD_AccessLevel");
     this.getDict("FD_PropType");
     this.getDict("FD_MeterBehavior");

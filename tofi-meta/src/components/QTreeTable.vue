@@ -390,7 +390,7 @@ export default {
 <style scoped>
 .sticky-header-table {
   /* Ограничиваем высоту контейнера, чтобы появилась прокрутка */
-  max-height: 95%;
+  max-height: 90%;
   overflow: auto;
 }
 

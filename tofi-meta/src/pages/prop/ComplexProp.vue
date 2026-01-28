@@ -222,7 +222,7 @@ export default {
           })
           .onOk((data) => {
             if (data.res) {
-              console.info("edit, fetch, mod", mode, this.parentNode.id)
+              //console.info("edit, fetch, mod", mode, this.parentNode.id)
               this.fetchData(this.parentNode.id);
             }
           });
@@ -239,7 +239,7 @@ export default {
               this.edit(response.data.result.records[0], mode);
             });
       } else {
-        console.log("this.currentNode", this.currentNode);
+        //console.log("this.currentNode", this.currentNode);
         this.edit(this.currentNode, mode);
       }
     },
@@ -367,7 +367,7 @@ export default {
   },
 
   created() {
-    console.log("create ParentNode", this.parentNode)
+    //console.log("create ParentNode", this.parentNode)
     this.lang = localStorage.getItem("curLang");
     this.lang = this.lang === "en-US" ? "en" : this.lang;
 

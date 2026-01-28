@@ -7,7 +7,8 @@
         before-class="overflow-hidden q-mr-sm"
         after-class="overflow-hidden q-ml-sm"
         separator-class="bg-red"
-        class="bg-amber-1"
+        class="bg-amber-1 scroll"
+        style="height: calc(100vh - 150px); width: 100%"
     >
       <template v-slot:before>
         <div class="q-pa-sm-sm">
@@ -144,7 +145,7 @@
                 icon="pan_tool_alt"
                 color="secondary"
                 class="q-ml-lg"
-                :disable="currentNode2 == null"
+                :disable="currentNode2 == null || this.currentNode2.propType===4"
                 @click="propSelect()"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
@@ -154,7 +155,6 @@
           </template>
         </q-banner>
 
-        <div style="height: calc(100vh - 220px); width: 100%" class="scroll">
           <QTreeTable
               :cols="cols2"
               :rows="rows2"
@@ -165,7 +165,7 @@
               ref="childComp2"
               checked_visible="true"
           />
-        </div>
+
       </template>
     </q-splitter>
   </div>
@@ -206,7 +206,7 @@ export default {
       //
       cols2: [],
       rows2: [],
-      FD_PropType: null,
+      FD_PropType: new Map(),
       //loading2: ref(false),
       //
       currentNode2: null,
@@ -259,7 +259,7 @@ export default {
       this.currentNode2 = item.selected !== undefined ? item.selected : null;
       if (this.currentNode2) {
 
-        //console.info("this.currentNode2", this.currentNode2)
+        console.info("this.currentNode2", this.currentNode2)
 
         api
             .post('', {
@@ -723,7 +723,6 @@ export default {
           params: [{dict: "FD_PropType"}],
         })
         .then((response) => {
-          this.FD_PropType = new Map();
           response.data.result.records.forEach((it) => {
             this.FD_PropType.set(it["id"], it["text"]);
           });
