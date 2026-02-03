@@ -173,6 +173,7 @@ export default {
       const method = this.mode === "ins" ? "insert" : "update";
       this.form.permis =
           typeof this.dbType === "object" ? this.dbType.id : this.dbType;
+      this.form.lang = localStorage.getItem("curLang")
       api
           .post('', {
             id: this.form.id,
@@ -221,10 +222,11 @@ export default {
   },
 
   created() {
+    const lang = localStorage.getItem("curLang")
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_DataBaseType"}],
+          params: [{dict: "FD_DataBaseType", lang: lang}],
         })
         .then((response) => {
           this.optionsDB = response.data.result.records;

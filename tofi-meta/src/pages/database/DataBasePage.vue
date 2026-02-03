@@ -16,6 +16,7 @@
         dense
         selection="single"
         v-model:selected="selected"
+        :rows-per-page-options="[25, 0]"
     >
       <template #bottom-row>
         <q-td colspan="100%" v-if="selected.length > 0">
@@ -100,7 +101,7 @@ import {defineComponent} from "vue";
 import {useUserStore} from "stores/user-store";
 import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
-import UpdateStock from "pages/stocks/UpdateStock.vue";
+import UpdateDataBase from "pages/database/UpdateDataBase.vue";
 
 export default defineComponent({
   data: function () {
@@ -184,10 +185,11 @@ export default defineComponent({
 
     load() {
       this.loading = true;
+      let lang = localStorage.getItem("curLang")
       api
           .post('', {
             method: "database/load",
-            params: [],
+            params: [{lang: lang}],
           })
           .then(
               (response) => {
@@ -249,7 +251,7 @@ export default defineComponent({
 
       this.$q
           .dialog({
-            component: UpdateStock,
+            component: UpdateDataBase,
             componentProps: {
               data: data,
               mode: mode,
@@ -310,10 +312,11 @@ export default defineComponent({
 
   created() {
     this.cols = this.getColumns();
+    let lang = localStorage.getItem("curLang")
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_DataBaseType"}],
+          params: [{dict: "FD_DataBaseType", lang: lang}],
         })
         .then((response) => {
           this.FD_DataBaseType = new Map();
