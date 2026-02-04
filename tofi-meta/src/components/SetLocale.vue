@@ -63,9 +63,9 @@ export default {
     cpyStore() {
       const store = useUserStore();
       const {getUserId, getUserName, getTarget, metamodel} = storeToRefs(store);
-      infoStore.id = getUserId()
-      infoStore.fullname = getUserName()
-      infoStore.target = getTarget()
+      infoStore.id = getUserId.value
+      infoStore.fullname = getUserName.value
+      infoStore.target = getTarget.value
     },
 
     restoreStore() {
