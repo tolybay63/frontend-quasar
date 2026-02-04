@@ -196,12 +196,16 @@ export default defineComponent({
                 this.rows = response.data.result.records;
               },
               (error) => {
-                const store = useUserStore();
-                let {setUserName} = store;
-                setUserName("");
+                //const store = useUserStore();
+                //let {setUserName} = store;
+                //setUserName("");
+
                 let msg = error.message;
                 if (error.response)
                   msg = this.$t(error.response.data.error.message);
+
+                console.error("ERROR", msg)
+                console.info("ERROR", msg)
 
                 notifyError(msg);
               }

@@ -145,7 +145,7 @@
                 :rows="vals.rows"
                 table-header-class="text-bold text-white bg-blue-grey-13"
                 separator="cell"
-                :loading="loading2.value"
+                :loading="loading2"
                 selection="single"
                 v-model:selected="selected2"
                 :rows-per-page-options="[0]"
@@ -218,7 +218,7 @@
 <script>
 import {defineComponent, ref} from "vue";
 import {exportFile} from "quasar";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 import UpdateAttrib from "pages/attrib/UpdateAttrib.vue";
 import UpdateAttribChar from "pages/attrib/UpdateAttribChar.vue";
@@ -258,7 +258,7 @@ export default defineComponent({
       const attribValType = par[0].attribValType;
       //
       if (this.visVals.includes(attribValType)) {
-        this.loading2 = ref(true);
+        this.loading2 = true;
         api
             .post('', {
               method: "attrib/loadAttribChar",
@@ -277,7 +277,7 @@ export default defineComponent({
               notifyError(msg);
             })
             .finally(() => {
-              this.loading2 = ref(false);
+              this.loading2 = false;
             });
       }
     },
@@ -509,7 +509,7 @@ export default defineComponent({
     },
 
     fetchData(requestProps) {
-      this.loading = ref(true);
+      this.loading = true;
 
       const page =
           requestProps.rowsPerPage === undefined ? 1 : requestProps.page;
@@ -553,7 +553,7 @@ export default defineComponent({
           )
           .finally(() => {
             //setTimeout(() => {
-            this.loading = ref(false);
+            this.loading = false;
             //}, 500)
           });
     },
