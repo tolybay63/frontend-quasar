@@ -36,8 +36,12 @@
 import languages from "quasar/lang/index.json";
 import {Quasar} from "quasar";
 import {useI18n} from "vue-i18n";
+import {useUserStore} from "stores/user-store.js";
+import {storeToRefs} from "pinia";
 
 let localeOptions
+
+let infoStore = {id: 0, user: "", target: "", metamodel:""}
 
 export default {
 
@@ -49,13 +53,31 @@ export default {
         let curLang = l.default.isoName;
         //
         localStorage.setItem("curLang", curLang);
-      }).then(()=> {
+      }).then(() => {
+        this.cpyStore()
         location.reload();
-      });
+        this.restoreStore()
+      })
     },
+
+    cpyStore() {
+      const store = useUserStore();
+      const {getUserId, getUserName, getTarget, metamodel} = storeToRefs(store);
+      infoStore.id = getUserId()
+      infoStore.fullname = getUserName()
+      infoStore.target = getTarget()
+    },
+
+    restoreStore() {
+      const store = useUserStore();
+      const { setUserStore } = store;
+      setUserStore(infoStore)
+    }
+
   },
 
-  created() {},
+  created() {
+  },
 
   setup() {
     console.info("setup")

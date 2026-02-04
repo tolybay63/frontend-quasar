@@ -103,7 +103,7 @@ export default {
       cols: [],
       rows: [],
       currentNode: null,
-      visible: ref(false),
+      visible: false,
     };
   },
 
@@ -119,11 +119,12 @@ export default {
     },
 
     fetchData() {
-      this.visible = ref(true);
+      this.visible = true;
+      let lang = localStorage.getItem("curLang")
       api
         .post('', {
           method: "measure/load",
-          params: [{}],
+          params: [{lang: lang}],
         })
         .then(
           (response) => {
@@ -140,7 +141,7 @@ export default {
         )
         .finally(() => {
           //setTimeout(() => {
-          this.visible = ref(false);
+          this.visible = false;
           //}, 3000)
         });
     },
@@ -321,11 +322,11 @@ export default {
 
   created() {
     this.cols = this.getColumns();
-
+    let lang = localStorage.getItem("curLang")
     api
       .post('', {
         method: "dict/load",
-        params: [{dict: "FD_AccessLevel"}],
+        params: [{dict: "FD_AccessLevel", lang: lang}],
       })
       .then((response) => {
         this.FD_AccessLevel = new Map();

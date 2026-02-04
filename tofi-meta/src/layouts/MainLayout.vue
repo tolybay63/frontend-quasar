@@ -148,6 +148,8 @@ export default defineComponent({
 
     fnMeta()
 
+    console.info("Created!", getUserId.value);
+
     if (!getUserId.value > 0) {
       setUserStore({})
       this.$router["push"]("/")
