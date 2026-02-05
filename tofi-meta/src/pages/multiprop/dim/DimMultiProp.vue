@@ -299,7 +299,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {
   collapsAll,
   expandAll,

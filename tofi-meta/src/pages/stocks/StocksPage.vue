@@ -191,13 +191,12 @@ import {
   getParentNode,
   hasTarget,
   notifyError,
-  notifyInfo, notifySuccess,
+  notifyInfo,
+  notifySuccess,
   pack
 } from "src/utils/jsutils.js";
 import {api} from "boot/axios.js";
 import UpdateGroup from "pages/group/UpdateGroup.vue";
-import {useUserStore} from "stores/user-store.js";
-import UpdateDataBase from "pages/database/UpdateDataBase.vue";
 import UpdateStock from "pages/stocks/UpdateStock.vue";
 
 export default {

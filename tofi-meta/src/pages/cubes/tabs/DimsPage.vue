@@ -103,7 +103,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL, tofi_dbeg, tofi_dend} from "boot/axios.js";
+import {api, tofi_dbeg, tofi_dend} from "boot/axios.js";
 import {date} from "quasar";
 import UpdateDims from "pages/cubes/tabs/UpdateDims.vue";
 import {notifyError, notifySuccess} from "src/utils/jsutils.js";

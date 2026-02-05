@@ -114,7 +114,7 @@
 <script>
 import {ref} from "vue";
 import {collapsAll, expandAll, hasTarget, notifyError, pack} from "src/utils/jsutils";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import UpdateTypCharGrMultiPropUpd from "pages/chargr/typchargr/UpdateTypCharGrMultiPropUpd.vue";
 import UpdateTypCharGrMultiProp from "pages/chargr/typchargr/UpdateTypCharGrMultiProp.vue";
 

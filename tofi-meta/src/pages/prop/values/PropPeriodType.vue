@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {ref} from "vue";
 import UpdaterPropPeriodType from "pages/prop/values/UpdaterPropPeriodType.vue";
 import {hasTarget, notifyError} from "src/utils/jsutils";

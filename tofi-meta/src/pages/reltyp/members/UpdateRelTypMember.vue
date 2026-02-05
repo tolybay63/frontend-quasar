@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import allConsts from "pages/all-consts.js";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 

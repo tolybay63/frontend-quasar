@@ -50,7 +50,7 @@
 <script>
 
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import RelTypCharGrProp from "pages/chargr/relchargr/RelTypCharGrProp.vue";
 import RelTypCharGrMultiProp from "pages/chargr/relchargr/RelTypCharGrMultiProp.vue";
 

@@ -195,7 +195,7 @@
 <script>
 import QTreeTable from "components/QTreeTable.vue";
 import {ref} from "vue";
-import {api, baseURL, tofi_dbeg, tofi_dend} from "boot/axios.js";
+import {api, tofi_dbeg, tofi_dend} from "boot/axios.js";
 import {
   collapsAll,
   expandAll,

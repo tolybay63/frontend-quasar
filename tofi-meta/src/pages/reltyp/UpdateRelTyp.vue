@@ -132,7 +132,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {

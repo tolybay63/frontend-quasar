@@ -158,7 +158,7 @@
 
 <script>
 import {defineComponent, ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {collapsAll, expandAll, hasTarget, notifyError, notifyInfo, pack,} from "src/utils/jsutils";
 import UpdateMeterFactors from "pages/meter/UpdateMeterFactors.vue";
 

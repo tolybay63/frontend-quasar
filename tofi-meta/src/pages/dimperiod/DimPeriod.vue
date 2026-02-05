@@ -139,7 +139,7 @@
 
 <script>
 import {defineComponent, ref} from "vue";
-import {api, baseURL, tofi_dbeg, tofi_dend} from "boot/axios";
+import {api, tofi_dbeg, tofi_dend} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 
 import {date, extend} from "quasar";

@@ -240,7 +240,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {collapsAll, expandAll, notifyError, notifySuccess, pack,} from "src/utils/jsutils";
 import {ref} from "vue";
 

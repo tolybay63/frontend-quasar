@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {ref} from "vue";
 import {checkChilds, collapsAll, expandAll, notifyError, pack, uncheckChilds} from "src/utils/jsutils";
 

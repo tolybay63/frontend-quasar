@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 import SelectFV from "pages/dimprop/SelectFV.vue";
 import {extend} from "quasar";

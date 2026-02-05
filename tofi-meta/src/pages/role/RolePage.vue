@@ -112,7 +112,7 @@
 import {defineComponent, ref} from "vue";
 import UpdateRole from "pages/role/UpdateRole.vue";
 
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 
 const requestParam = {

@@ -116,7 +116,7 @@
 <script>
 import {ref} from "vue";
 import {collapsAll, expandAll, hasTarget, notifyError, pack} from "src/utils/jsutils";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import allConsts from "pages/all-consts";
 import UpdaterRelTypCharGrPropUpd from "pages/chargr/relchargr/UpdaterRelTypCharGrPropUpd.vue";
 import UpdaterRelTypCharGrProp from "pages/chargr/relchargr/UpdaterRelTypCharGrProp.vue";

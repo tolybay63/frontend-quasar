@@ -139,7 +139,7 @@
 import {defineComponent, ref} from "vue";
 import UpdateTyp from "pages/typ/UpdateTyp.vue";
 import {date, exportFile} from "quasar";
-import {api, baseURL, tofi_dbeg, tofi_dend} from "boot/axios";
+import {api, tofi_dbeg, tofi_dend} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 
 const requestParam = {

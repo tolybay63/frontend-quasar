@@ -79,7 +79,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {collapsAll, expandAll, hasTarget, notifyError, pack} from "src/utils/jsutils";
 import UpdaterPropEntityValTreePropUpd from "pages/prop/values/UpdaterPropEntityValTreePropUpd.vue";
 import allConsts from "pages/all-consts";

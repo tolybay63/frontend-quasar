@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError, notifySuccess, pack} from "src/utils/jsutils";
 import treeselect from "vue3-treeselect";
 import "vue3-treeselect/dist/vue3-treeselect.css";

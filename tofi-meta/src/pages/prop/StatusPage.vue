@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {ref} from "vue";
 import UpdaterStatus from "pages/prop/UpdaterStatus.vue";
 import {hasTarget} from "src/utils/jsutils.js";

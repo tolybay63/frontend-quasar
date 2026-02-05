@@ -89,7 +89,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios.js";
+import {api} from "boot/axios.js";
 import DimsPage from "pages/cubes/tabs/DimsPage.vue";
 import EdjesPropPage from "pages/cubes/tabs/EdjesPropPage.vue";
 import EdjesPropFltPage from "pages/cubes/tabs/EdjesPropFltPage.vue";

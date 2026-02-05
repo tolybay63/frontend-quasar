@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {ref} from "vue";
 import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
 import allConsts from "pages/all-consts";

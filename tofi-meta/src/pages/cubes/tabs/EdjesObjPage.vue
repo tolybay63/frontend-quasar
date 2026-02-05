@@ -132,7 +132,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios.js";
+import {api} from "boot/axios.js";
 import {ref} from "vue";
 import EdjesProp from "pages/cubes/tabs/prop/EdjesProp.vue";
 import EdjesObj from "pages/cubes/tabs/obj/EdjesObj.vue";

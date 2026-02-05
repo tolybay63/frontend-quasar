@@ -150,7 +150,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL, tofi_dbeg, tofi_dend} from "boot/axios";
+import {api, tofi_dbeg, tofi_dend} from "boot/axios";
 import {hasTarget, notifyError, notifySuccess} from "src/utils/jsutils";
 import {date} from "quasar";
 import UpdateScaleAsgn from "pages/scale/UpdateScaleAsgn.vue";

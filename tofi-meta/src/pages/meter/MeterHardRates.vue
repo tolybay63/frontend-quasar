@@ -156,7 +156,7 @@
 
 <script>
 import {defineComponent, ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {collapsAll, expand, expandAll, getParentNode, hasTarget, notifyInfo, pack,} from "src/utils/jsutils";
 import UpdateHardMeterRate from "pages/meter/UpdateHardMeterRate.vue";
 

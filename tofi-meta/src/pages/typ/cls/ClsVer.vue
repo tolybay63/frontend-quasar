@@ -138,7 +138,7 @@
 <script>
 import {ref} from "vue";
 import {date} from "quasar";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 import UpdateClsVer from "pages/typ/cls/UpdateClsVer.vue";
 

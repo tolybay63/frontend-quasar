@@ -169,7 +169,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {date} from "quasar";
 import UpdateTypRole from "pages/typ/typrole/UpdateTypRole.vue";
 import UpdateTypRoleLifeInterval from "pages/typ/typrole/UpdateTypRoleLifeInterval.vue";

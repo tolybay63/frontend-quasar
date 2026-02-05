@@ -82,7 +82,7 @@
 
 <script>
 
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError} from "src/utils/jsutils";
 import {ref} from "vue";
 import UpdateDimMultiPropItemFactor from "pages/multiprop/dim/UpdateDimMultiPropItemFactor.vue";

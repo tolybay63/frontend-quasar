@@ -146,7 +146,7 @@
 
 <script>
 import {extend} from "quasar";
-import {api, baseURL} from "boot/axios.js";
+import {api} from "boot/axios.js";
 import {notifyError, notifySuccess, pack} from "src/utils/jsutils.js";
 import treeselect from "vue3-treeselect";
 import "vue3-treeselect/dist/vue3-treeselect.css";

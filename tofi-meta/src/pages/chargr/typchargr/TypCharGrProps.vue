@@ -52,7 +52,7 @@
 import TypCharGrMultiProp from "pages/chargr/typchargr/TypCharGrMultiProp.vue";
 import TypCharGrProp from "pages/chargr/typchargr/TypCharGrProp.vue";
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 
 export default {
   name: 'TypCharGrProps',

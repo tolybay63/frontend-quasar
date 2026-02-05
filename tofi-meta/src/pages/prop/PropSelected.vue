@@ -163,7 +163,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import allConsts from "pages/all-consts";
 import PropPeriodType from "pages/prop/values/PropPeriodType.vue";
 import PropRefVal from "pages/prop/values/PropRefVal.vue";

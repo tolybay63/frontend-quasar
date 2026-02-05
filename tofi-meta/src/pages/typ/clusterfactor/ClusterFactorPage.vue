@@ -135,7 +135,7 @@
 
 <script>
 import {defineComponent, ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 import UpdateClusterFactor from "pages/typ/clusterfactor/UpdateClusterFactor.vue";
 

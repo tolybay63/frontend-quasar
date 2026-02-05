@@ -157,7 +157,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 import FD_Consts from "pages/all-consts.js";
 import UpdateRelTypMember from "pages/reltyp/members/UpdateRelTypMember.vue";

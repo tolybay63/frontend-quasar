@@ -238,7 +238,7 @@
 
 import {ref} from "vue";
 import {collapsAll, expandAll, getParentNode, hasTarget, notifyError, notifyInfo, pack,} from "src/utils/jsutils";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import allConsts from "pages/all-consts";
 import UpdaterDimPropItemProp from "pages/dimprop/UpdaterDimPropItemProp.vue";
 import UpdaterDimPropItemFactor from "pages/dimprop/UpdaterDimPropItemFactor.vue";

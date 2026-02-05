@@ -405,7 +405,7 @@ import {
   notifyInfo,
   pack,
 } from "src/utils/jsutils";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import allConsts from "pages/all-consts";
 import UpdaterDimObjItem from "pages/dimobj/UpdaterDimObjItem.vue";
 import DimObjView from "pages/dimobj/DimObjView.vue";

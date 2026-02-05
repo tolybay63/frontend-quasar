@@ -95,7 +95,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import MultiPropDim from "pages/multiprop/MultiPropDim.vue";
 import MultiPropPeriodType from "pages/multiprop/MultiPropPeriodType.vue";
 import MultiPropCond from "pages/multiprop/MultiPropCond.vue";

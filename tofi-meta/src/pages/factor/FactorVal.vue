@@ -149,7 +149,7 @@
 import {defineComponent, ref} from "vue";
 import UpdateFactor from "pages/factor/UpdateFactor.vue";
 import {exportFile} from "quasar";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 
 const requestParam = {

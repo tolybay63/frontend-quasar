@@ -100,7 +100,6 @@
   import {api} from "boot/axios";
   import {hasTarget, notifyError, notifySuccess} from "src/utils/jsutils";
   import UpdateSysCoding from "pages/syscoding/UpdateSysCoding.vue";
-  import UpdateStock from "pages/stocks/UpdateStock.vue";
 
 
   export default {

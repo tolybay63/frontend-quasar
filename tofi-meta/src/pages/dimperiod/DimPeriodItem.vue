@@ -163,7 +163,7 @@
 
 <script>
 import QTreeTable from "components/QTreeTable.vue";
-import {api, baseURL, tofi_dbeg, tofi_dend} from "boot/axios";
+import {api, tofi_dbeg, tofi_dend} from "boot/axios";
 import {getParentNode, hasTarget, notifyError, notifyInfo, pack,} from "src/utils/jsutils";
 import {date, extend} from "quasar";
 import UpdaterDimPeriodItem from "pages/dimperiod/UpdaterDimPeriodItem.vue";

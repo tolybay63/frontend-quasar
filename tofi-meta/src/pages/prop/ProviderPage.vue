@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {ref} from "vue";
 import UpdaterProvider from "pages/prop/UpdaterProvider.vue";
 import {hasTarget, notifyError, notifySuccess} from "src/utils/jsutils";

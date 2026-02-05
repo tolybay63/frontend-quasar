@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios.js";
+import {api} from "boot/axios.js";
 import treeselect from "vue3-treeselect";
 import "vue3-treeselect/dist/vue3-treeselect.css";
 import {notifyError, pack} from "src/utils/jsutils.js";

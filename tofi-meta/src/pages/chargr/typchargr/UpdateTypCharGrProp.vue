@@ -117,7 +117,7 @@
 <script>
 import treeselect from "vue3-treeselect";
 import "vue3-treeselect/dist/vue3-treeselect.css";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError, pack} from "src/utils/jsutils";
 import allConsts from "pages/all-consts";
 import {ref} from "vue";

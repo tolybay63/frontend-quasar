@@ -1,5 +1,5 @@
 <script>
-import {api, baseURL} from "boot/axios.js";
+import {api} from "boot/axios.js";
 import {notifyError, notifySuccess} from "src/utils/jsutils.js";
 
 export default {

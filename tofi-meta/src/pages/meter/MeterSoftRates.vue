@@ -130,7 +130,7 @@
 
 <script>
 import {defineComponent, ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {collapsAll, expandAll, getParentNode, hasTarget, notifyError, notifyInfo, pack,} from "src/utils/jsutils";
 import UpdateSoftMeterRate from "pages/meter/UpdateSoftMeterRate.vue";
 import UpdaterMeterSoftRatesUpd from "pages/meter/UpdaterMeterSoftRatesUpd.vue";

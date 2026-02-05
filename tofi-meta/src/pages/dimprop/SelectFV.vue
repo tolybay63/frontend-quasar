@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {collapsAll, expandAll, pack} from "src/utils/jsutils";
 import {ref} from "vue";
 

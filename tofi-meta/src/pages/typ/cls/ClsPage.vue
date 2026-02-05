@@ -254,7 +254,7 @@ style="height: calc(100vh - 220px); width: 100%"
 
 <script>
 import {ref} from "vue";
-import {api, baseURL, tofi_dbeg, tofi_dend} from "boot/axios";
+import {api, tofi_dbeg, tofi_dend} from "boot/axios";
 import UpdateCls from "pages/typ/cls/UpdateCls.vue";
 import {
   collapsAll,

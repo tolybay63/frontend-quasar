@@ -109,7 +109,7 @@
 import QTreeTable from "components/QTreeTable.vue";
 import {ref} from "vue";
 import allConsts from "pages/all-consts";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import UpdateProp from "pages/prop/UpdateProp.vue";
 import {collapsAll, expandAll, hasTarget, notifyError, notifyInfo, pack,} from "src/utils/jsutils";
 

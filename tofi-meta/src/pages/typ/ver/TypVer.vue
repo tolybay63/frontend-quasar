@@ -116,7 +116,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {date} from "quasar";
 import UpdateTypVer from "pages/typ/ver/UpdateTypVer.vue";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";

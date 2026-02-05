@@ -43,7 +43,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError} from "src/utils/jsutils";
 import RelClsVer from "pages/reltyp/relcls/RelClsVer.vue";
 

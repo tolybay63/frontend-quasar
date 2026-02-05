@@ -112,7 +112,7 @@
 
 <script>
 import {collaps, collapsAll, expand, expandAll, notifyError, notifySuccess, pack} from "src/utils/jsutils.js";
-import {api, baseURL} from "boot/axios.js";
+import {api} from "boot/axios.js";
 import treeselect from "vue3-treeselect";
 
 

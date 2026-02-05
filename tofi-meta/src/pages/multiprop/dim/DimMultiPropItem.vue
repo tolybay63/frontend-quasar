@@ -135,7 +135,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {collapsAll, expandAll, getParentNode, hasTarget, notifyError, notifyInfo, pack,} from "src/utils/jsutils";
 import QTreeTable from "components/QTreeTable.vue";
 import UpdateDimMultiPropItem from "pages/multiprop/dim/UpdateDimMultiPropItem.vue";
