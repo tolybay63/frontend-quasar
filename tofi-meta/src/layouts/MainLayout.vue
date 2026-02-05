@@ -160,7 +160,7 @@ export default defineComponent({
   setup() {
     console.info("Setup")
 
-    const selected = ref(null);
+    const selected = ref({});
     const leftDrawerOpen = ref(false);
 
     const store = useUserStore();
@@ -204,7 +204,7 @@ export default defineComponent({
       },
 
       updateSelected() {
-        router.push(selected.value);
+        router.push(selected["value"]);
       },
 
       loginOnOff() {

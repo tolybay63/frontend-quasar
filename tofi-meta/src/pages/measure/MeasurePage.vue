@@ -87,7 +87,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {expandAll, getParentNode, hasTarget, notifyError, notifyInfo, pack,} from "src/utils/jsutils";
 import UpdateMeasure from "pages/measure/UpdateMeasure.vue";
 import QTreeTable from "components/QTreeTable.vue";
@@ -128,7 +128,7 @@ export default {
         })
         .then(
           (response) => {
-            this.rows = pack(response.data.result.records, "ord");
+            this.rows = pack(response.data.result.records, "id");
             expandAll(this.rows);
           },
           (error) => {
@@ -347,7 +347,6 @@ export default {
 
 .img-vert {
   -moz-transform: scaleY(-1);
-  -o-transform: scaleY(-1);
   -webkit-transform: scaleY(-1);
   transform: scaleY(-1);
   -ms-filter: "FlipV";

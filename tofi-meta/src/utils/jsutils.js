@@ -249,6 +249,10 @@ const hasTarget = (tg) => {
   return getTarget.value?.includes(tg) ?? false;
 };
 
+const txt_lang = function (txt) {
+  return this.$t(txt)
+};
+
 export {
   hasChild,
   findNode,
@@ -265,5 +269,6 @@ export {
   expand,
   collaps,
   convertNodeIds,
-  hasTarget
+  hasTarget,
+  txt_lang,
 };

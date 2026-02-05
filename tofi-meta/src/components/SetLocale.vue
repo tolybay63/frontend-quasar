@@ -53,9 +53,10 @@ export default {
         let curLang = l.default.isoName;
         //
         localStorage.setItem("curLang", curLang);
-      }).then(() => {
         this.cpyStore()
+      }).then(() => {
         location.reload();
+      }).then(() => {
         this.restoreStore()
       })
     },

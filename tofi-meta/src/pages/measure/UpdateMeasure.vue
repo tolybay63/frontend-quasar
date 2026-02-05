@@ -1,12 +1,12 @@
 <template>
   <q-dialog
-      ref="dialog"
-      @hide="onDialogHide"
-      persistent
-      autofocus
-      transition-show="slide-up"
-      transition-hide="slide-down"
-      style="width: 600px"
+    ref="dialog"
+    autofocus
+    persistent
+    style="width: 600px"
+    transition-hide="slide-down"
+    transition-show="slide-up"
+    @hide="onDialogHide"
   >
     <q-card class="q-dialog-plugin" style="width: 600px">
       <q-bar v-if="mode === 'ins'" class="text-white bg-primary">
@@ -23,59 +23,59 @@
 
         <!-- name -->
         <q-input
-            v-model="form.name"
-            :model-value="form.name"
-            autofocus
-            @blur="onBlurName"
-            :label="$t('fldName')"
-            :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"
+          v-model="form.name"
+          :label="$t('fldName')"
+          :model-value="form.name"
+          :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"
+          autofocus
+          @blur="onBlurName"
         >
         </q-input>
         <!-- fullName-->
         <q-input
-            v-model="form.fullName"
-            :model-value="form.fullName"
-            :label="$t('fldFullName')"
-            :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"
+          v-model="form.fullName"
+          :label="$t('fldFullName')"
+          :model-value="form.fullName"
+          :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"
         >
         </q-input>
 
         <!-- cod -->
         <q-input
-            v-model="form.cod"
-            :model-value="form.cod"
-            :label="$t('code')"
-            :placeholder="$t('msgCodeGen')"
+          v-model="form.cod"
+          :label="$t('code')"
+          :model-value="form.cod"
+          :placeholder="$t('msgCodeGen')"
         />
         <!-- accessLevel -->
         <q-select
-            v-model="al"
-            :options="options"
-            :label="$t('accessLevel')"
-            option-value="id"
-            :option-label="dictText()"
-            map-options
-            :model-value="al"
-            @update:model-value="fnSelect()"
+          v-model="al"
+          :label="$t('accessLevel')"
+          :model-value="al"
+          :option-label="dictText()"
+          :options="options"
+          map-options
+          option-value="id"
+          @update:model-value="fnSelect()"
         />
 
         <!-- kFromBase -->
         <q-input
-            v-if="isChild"
-            :model-value="form.kFromBase"
-            v-model="form.kFromBase"
-            :label="$t('kfcMeasure')"
-            type="number"
-            input-class="text-right"
+          v-if="isChild"
+          v-model="form.kFromBase"
+          :label="$t('kfcMeasure')"
+          :model-value="form.kFromBase"
+          input-class="text-right"
+          type="number"
         >
         </q-input>
 
         <!-- cmt -->
         <q-input
-            :model-value="form.cmt"
-            v-model="form.cmt"
-            type="textarea"
-            :label="$t('fldCmt')"
+          v-model="form.cmt"
+          :label="$t('fldCmt')"
+          :model-value="form.cmt"
+          type="textarea"
         >
         </q-input>
         <!---->
@@ -83,17 +83,17 @@
 
       <q-card-actions align="right">
         <q-btn
-            color="primary"
-            icon="save"
-            :label="$t('save')"
-            @click="onOKClick"
-            :disable="validName()"
+          :disable="validName()"
+          :label="$t('save')"
+          color="primary"
+          icon="save"
+          @click="onOKClick"
         />
         <q-btn
-            color="primary"
-            icon="cancel"
-            :label="$t('cancel')"
-            @click="onCancelClick"
+          :label="$t('cancel')"
+          color="primary"
+          icon="cancel"
+          @click="onCancelClick"
         />
       </q-card-actions>
     </q-card>
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
@@ -126,8 +126,8 @@ export default {
       if (this.form.name) {
         this.form.name = this.form.name.trim();
         if (
-            !this.form.fullName ||
-            (this.form.fullName && this.form.fullName.trim() === "")
+          !this.form.fullName ||
+          (this.form.fullName && this.form.fullName.trim() === "")
         ) {
           this.form.fullName = this.form.name;
         }
@@ -145,22 +145,22 @@ export default {
 
     validName() {
       return (
-          !this.form.name ||
-          !this.form.fullName ||
-          parseFloat(this.form.kFromBase) <= 0
+        !this.form.name ||
+        !this.form.fullName ||
+        parseFloat(this.form.kFromBase) <= 0
       );
     },
 
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs.dialog["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs.dialog["hide"]();
     },
 
     onDialogHide() {
@@ -177,30 +177,31 @@ export default {
       delete this.form["accessLevel_text"];
       const method = this.mode === "ins" ? "insert" : "update";
       this.form.accessLevel =
-          typeof this.al === "object" ? this.al.id : this.al;
+        typeof this.al === "object" ? this.al.id : this.al;
+      this.form.lang = localStorage.getItem("curLang")
 
       api
-          .post('', {
-            method: "measure/" + method,
-            params: [{rec: this.form}],
-          })
-          .then(
-              (response) => {
-                //this.$emit("ok", {res: true});
-                this.$emit("ok", response.data.result.records[0]);
-                notifySuccess(this.$t("success"));
-              },
-              (error) => {
-                //console.log("error.response.data=>>>", error.response.data.error.message)
-                let msg = error.response.data.error.message
-                    ? error.response.data.error.message
-                    : error.message;
-                notifyError(msg);
-              }
-          )
-          .finally(() => {
-            this.hide();
-          });
+        .post('', {
+          method: "measure/" + method,
+          params: [{rec: this.form}],
+        })
+        .then(
+          (response) => {
+            //this.$emit("ok", {res: true});
+            this.$emit("ok", response.data.result.records[0]);
+            notifySuccess(this.$t("success"));
+          },
+          (error) => {
+            //console.log("error.response.data=>>>", error.response.data.error.message)
+            let msg = error.response.data.error.message
+              ? error.response.data.error.message
+              : error.message;
+            notifyError(msg);
+          }
+        )
+        .finally(() => {
+          this.hide();
+        });
     },
 
     onCancelClick() {
@@ -209,16 +210,15 @@ export default {
     },
   },
   created() {
+    let lang = localStorage.getItem("curLang")
     api
-        .post('', {
-          method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
-        })
-        .then((response) => {
-          this.options = response.data.result.records;
-        });
-
-    return {};
+      .post('', {
+        method: "dict/load",
+        params: [{dict: "FD_AccessLevel", lang: lang}],
+      })
+      .then((response) => {
+        this.options = response.data.result.records;
+      });
   },
 };
 </script>

@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
@@ -185,6 +185,8 @@ export default {
       const method = this.mode === "ins" ? "insert" : "update";
       this.form.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
+      this.form.lang = localStorage.getItem("curLang")
+
       api
           .post('', {
             id: this.form.id,
@@ -212,10 +214,11 @@ export default {
     },
   },
   created() {
+    let lang = localStorage.getItem("curLang");
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
           this.optionsLevel = response.data.result.records;
@@ -224,7 +227,7 @@ export default {
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AttribValType"}],
+          params: [{dict: "FD_AttribValType", lang: lang}],
         })
         .then((response) => {
           //console.log("FD_AttribValType", response.data.result.records)

@@ -1,118 +1,115 @@
 <template>
   <div class="q-pa-md" style="height: 100%">
     <q-splitter
-        v-model="splitterModel"
-        :model-value ="splitterModel"
-        class="no-padding no-margin"
-        horizontal
-        style="height: calc(100vh - 150px); width: 100%"
-        separator-class="bg-red"
+      v-model="splitterModel"
+      :model-value ="splitterModel"
+      class="no-padding no-margin"
+      horizontal
+      style="height: calc(100vh - 150px); width: 100%"
+      separator-class="bg-red"
     >
       <template v-slot:before>
         <q-table
-            style="height: 100%; width: 100%"
-            color="primary"
-            card-class="bg-amber-1"
-            row-key="id"
-            dense
-            :columns="cols"
-            :rows="rows"
-            :wrap-cells="true"
-            :table-colspan="4"
-            table-header-class="text-bold text-white bg-blue-grey-13"
-            separator="cell"
-            :filter="filter"
-            :loading="loading"
-            @update:pagination="updPagination"
-            :rows-per-page-options="[20, 25, 0]"
-            @request="requestData"
-            selection="single"
-            @update:selected="updSelection"
-            v-model:selected="selected"
-            v-model:pagination="pagination"
+          style="height: 100%; width: 100%"
+          color="primary"
+          card-class="bg-amber-1"
+          row-key="id"
+          dense
+          :columns="cols"
+          :rows="rows"
+          :wrap-cells="true"
+          :table-colspan="4"
+          table-header-class="text-bold text-white bg-blue-grey-13"
+          separator="cell"
+          :filter="filter"
+          :loading="loading"
+          :rows-per-page-options="[25, 0]"
+          selection="single"
+          @update:selected="updSelection"
+          v-model:selected="selected"
         >
           <template #bottom-row>
             <q-td colspan="100%" v-if="selected.length > 0">
-              <span class="text-blue"> {{ $t("selectedRow") }}: </span>
+              <span class="text-blue"> {{ txt_lang("selectedRow") }}: </span>
               <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
             </q-td>
             <q-td
-                v-else-if="this.rows.length > 0" colspan="100%" class="text-bold">
-              {{ $t("infoAttrib") }}
+              v-else-if="this.rows.length > 0" colspan="100%" class="text-bold">
+              {{ txt_lang("infoAttrib") }}
             </q-td>
           </template>
 
           <template v-slot:top>
             <div style="font-size: 1.2em; font-weight: bold;">
               <q-avatar color="black" text-color="white" icon="format_shapes"></q-avatar>
-              {{ $t("attributs") }}
+              {{ txt_lang("attributs") }}
             </div>
 
             <q-space/>
             <q-btn
-                v-if="hasTarget('mdl:mn_ds:attr:ins')"
-                dense
-                icon="post_add"
-                color="secondary"
-                :disable="loading"
-                @click="editRow(null, 'ins')"
+              v-if="hasTarget('mdl:mn_ds:attr:ins')"
+              dense
+              icon="post_add"
+              color="secondary"
+              :disable="loading"
+              @click="editRow(null, 'ins')"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("newRecord") }}
+                {{ txt_lang("newRecord") }}
               </q-tooltip>
             </q-btn>
             <q-btn
-                v-if="hasTarget('mdl:mn_ds:attr:upd')"
-                dense icon="edit"
-                color="secondary"
-                class="q-ml-sm"
-                :disable="loading || selected.length === 0"
-                @click="editRow(selected[0], 'upd')"
+              v-if="hasTarget('mdl:mn_ds:attr:upd')"
+              dense icon="edit"
+              color="secondary"
+              class="q-ml-sm"
+              :disable="loading || selected.length === 0"
+              @click="editRow(selected[0], 'upd')"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("editRecord") }}
+                {{ txt_lang("editRecord") }}
               </q-tooltip>
             </q-btn>
             <q-btn
-                v-if="hasTarget('mdl:mn_ds:attr:del')"
-                dense icon="delete"
-                color="secondary"
-                class="q-ml-sm"
-                :disable="loading || selected.length === 0"
-                @click="removeRow(selected[0])"
+              v-if="hasTarget('mdl:mn_ds:attr:del')"
+              dense icon="delete"
+              color="secondary"
+              class="q-ml-sm"
+              :disable="loading || selected.length === 0"
+              @click="removeRow(selected[0])"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("deletingRecord") }}
+                {{ txt_lang("deletingRecord") }}
               </q-tooltip>
             </q-btn>
 
             <q-btn
-                dense class="q-ml-lg"
-                icon-right="archive"
-                color="secondary"
-                no-caps
-                @click="exportTable"
+              dense class="q-ml-lg"
+              icon-right="archive"
+              color="secondary"
+              no-caps
+              @click="exportTable"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("msgToFile") }}
+                {{ txt_lang("msgToFile") }}
               </q-tooltip>
             </q-btn>
 
             <q-toggle
-                style="margin-left: 10px"
-                v-model="dense"
-                :model-value="dense"
-                :label="$t('isDense')" dense
+              style="margin-left: 10px"
+              v-model="dense"
+              :model-value="dense"
+              :label="txt_lang('isDense')" dense
             />
 
             <q-space/>
             <q-input
-                dense
-                debounce="300"
-                color="primary"
-                :model-value="filter"
-                v-model="filter"
-                :label="$t('txt_filter')"
+              dense
+              debounce="300"
+              color="primary"
+              :model-value="filter"
+              v-model="filter"
+              :label="txt_lang('txt_filter')"
             >
               <template v-slot:append>
                 <q-icon name="search"/>
@@ -128,53 +125,53 @@
 
       <template v-slot:after>
         <div
-            v-if="selected.length > 0 && visVals.includes(selected[0].attribValType)"
+          v-if="selected.length > 0 && visVals.includes(selected[0].attribValType)"
         >
           <q-bar class="bg-green-1" style="font-size: 1.2em; font-weight: bold;">
-            {{ $t("formatValue") }}
+            {{ txt_lang("formatValue") }}
           </q-bar>
 
           <div>
             <q-table
-                style="height: 100%; width: 100%"
-                color="primary"
-                card-class="bg-amber-1 text-brown"
-                row-key="id"
-                dense
-                :columns="vals.cols"
-                :rows="vals.rows"
-                table-header-class="text-bold text-white bg-blue-grey-13"
-                separator="cell"
-                :loading="loading2"
-                selection="single"
-                v-model:selected="selected2"
-                :rows-per-page-options="[0]"
+              style="height: 100%; width: 100%"
+              color="primary"
+              card-class="bg-amber-1 text-brown"
+              row-key="id"
+              dense
+              :columns="vals.cols"
+              :rows="vals.rows"
+              table-header-class="text-bold text-white bg-blue-grey-13"
+              separator="cell"
+              :loading="loading2"
+              selection="single"
+              v-model:selected="selected2"
+              :rows-per-page-options="[0]"
             >
               <template v-slot:top>
                 <div style="align-self: center">
                   <q-btn
-                      v-if="hasTarget('mdl:mn_ds:attr:val:ins')"
-                      dense
-                      icon="post_add"
-                      color="secondary"
-                      :disable="loading || vals.rows.length === 1"
-                      @click="editRowChar(selected[0].attribValType, null, 'ins')"
+                    v-if="hasTarget('mdl:mn_ds:attr:val:ins')"
+                    dense
+                    icon="post_add"
+                    color="secondary"
+                    :disable="loading || vals.rows.length === 1"
+                    @click="editRowChar(selected[0].attribValType, null, 'ins')"
                   >
                     <q-tooltip
-                        transition-show="rotate"
-                        transition-hide="rotate"
+                      transition-show="rotate"
+                      transition-hide="rotate"
                     >
-                      {{ $t("newRecord") }}
+                      {{ txt_lang("newRecord") }}
                     </q-tooltip>
                   </q-btn>
                   <q-btn
-                      v-if="hasTarget('mdl:mn_ds:attr:val:upd')"
-                      dense
-                      icon="edit"
-                      color="secondary"
-                      class="q-ml-sm"
-                      :disable="loading2 || selected2.length === 0"
-                      @click="
+                    v-if="hasTarget('mdl:mn_ds:attr:val:upd')"
+                    dense
+                    icon="edit"
+                    color="secondary"
+                    class="q-ml-sm"
+                    :disable="loading2 || selected2.length === 0"
+                    @click="
                       editRowChar(
                         selected[0].attribValType,
                         selected2[0],
@@ -183,26 +180,26 @@
                     "
                   >
                     <q-tooltip
-                        transition-show="rotate"
-                        transition-hide="rotate"
+                      transition-show="rotate"
+                      transition-hide="rotate"
                     >
-                      {{ $t("editRecord") }}
+                      {{ txt_lang("editRecord") }}
                     </q-tooltip>
                   </q-btn>
                   <q-btn
-                      v-if="hasTarget('mdl:mn_ds:attr:val:del')"
-                      dense
-                      icon="delete"
-                      color="secondary"
-                      class="q-ml-sm"
-                      :disable="loading2 || selected2.length === 0"
-                      @click="removeRowChar(selected2[0])"
+                    v-if="hasTarget('mdl:mn_ds:attr:val:del')"
+                    dense
+                    icon="delete"
+                    color="secondary"
+                    class="q-ml-sm"
+                    :disable="loading2 || selected2.length === 0"
+                    @click="removeRowChar(selected2[0])"
                   >
                     <q-tooltip
-                        transition-show="rotate"
-                        transition-hide="rotate"
+                      transition-show="rotate"
+                      transition-hide="rotate"
                     >
-                      {{ $t("deletingRecord") }}
+                      {{ txt_lang("deletingRecord") }}
                     </q-tooltip>
                   </q-btn>
                 </div>
@@ -219,23 +216,15 @@
 import {defineComponent, ref} from "vue";
 import {exportFile} from "quasar";
 import {api} from "boot/axios";
-import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
+import {hasTarget, notifyError, notifyInfo, notifySuccess, txt_lang} from "src/utils/jsutils";
 import UpdateAttrib from "pages/attrib/UpdateAttrib.vue";
 import UpdateAttribChar from "pages/attrib/UpdateAttribChar.vue";
 
-const requestParam = {
-  page: 1,
-  rowsPerPage: 20,
-  rowsNumber: 0,
-  filter: "",
-  descending: false,
-  sortBy: null,
-};
 
 function wrapCsvValue(val, formatFn) {
   let formatted = formatFn !== void 0 ? formatFn(val) : val;
   formatted =
-      formatted === void 0 || formatted === null ? "" : String(formatted);
+    formatted === void 0 || formatted === null ? "" : String(formatted);
 
   formatted = formatted.split('"').join('""');
   /**
@@ -248,7 +237,44 @@ function wrapCsvValue(val, formatFn) {
 }
 
 export default defineComponent({
+
+  data: function () {
+    return {
+      cols: [],
+      rows: [],
+      FD_AccessLevel: new Map(),
+      FD_AttribValType: new Map(),
+      FD_EntityType: new Map(),
+      FD_PeriodType: new Map(),
+
+      filter: "",
+      loading: false,
+      dense: true,
+
+      selected: [],
+      splitterModel: 60,
+      visVals: [2,3,4,5,7,8,9],
+
+      /*      visVals: [allConsts.FD_AttribValType.mask,
+              allConsts.FD_AttribValType.dt,
+              allConsts.FD_AttribValType.dt,
+              allConsts.FD_AttribValType.tm,
+              allConsts.FD_AttribValType.file,
+              allConsts.FD_AttribValType.entity,
+              allConsts.FD_AttribValType.period],*/
+      //
+      loading2: false,
+      selected2: [],
+      vals: {
+        rows: [],
+        cols: [],
+      },
+    };
+  },
+
+
   methods: {
+    txt_lang,
     hasTarget,
     updSelection(par) {
       if (par[0] === undefined) return;
@@ -260,25 +286,25 @@ export default defineComponent({
       if (this.visVals.includes(attribValType)) {
         this.loading2 = true;
         api
-            .post('', {
-              method: "attrib/loadAttribChar",
-              params: [{attrib: attrib}],
-            })
-            .then((response) => {
-              this.vals.rows = response.data.result.records;
-              this.vals.cols = this.getValsColumns(attribValType);
-            })
-            .catch((error) => {
-              //console.log(error)
-              let msg = error.message;
-              if (error.response)
-                msg = this.$t(error.response.data.error.message);
+          .post("", {
+            method: "attrib/loadAttribChar",
+            params: [{attrib: attrib}],
+          })
+          .then((response) => {
+            this.vals.rows = response.data.result.records;
+            this.vals.cols = this.getValsColumns(attribValType);
+          })
+          .catch((error) => {
+            //console.log(error)
+            let msg = error.message;
+            if (error.response)
+              msg = this.$t(error.response.data.error.message);
 
-              notifyError(msg);
-            })
-            .finally(() => {
-              this.loading2 = false;
-            });
+            notifyError(msg);
+          })
+          .finally(() => {
+            this.loading2 = false;
+          });
       }
     },
 
@@ -309,73 +335,73 @@ export default defineComponent({
       //console.log("data",data)
 
       this.$q
-          .dialog({
-            component: UpdateAttrib,
-            componentProps: {
-              data: data,
-              mode: mode,
-              // ...
-            },
-          })
-          .onOk((r) => {
-            //console.log("Ok! updated", r);
-            if (mode === "ins") {
-              this.rows.push(r);
-              this.selected = [];
-              this.selected.push(r);
-              this.updSelection(this.selected);
-            } else {
-              for (let key in r) {
-                if (r.hasOwnProperty(key)) {
-                  rec[key] = r[key];
-                }
+        .dialog({
+          component: UpdateAttrib,
+          componentProps: {
+            data: data,
+            mode: mode,
+            // ...
+          },
+        })
+        .onOk((r) => {
+          //console.log("Ok! updated", r);
+          if (mode === "ins") {
+            this.rows.push(r);
+            this.selected = [];
+            this.selected.push(r);
+            this.updSelection(this.selected);
+          } else {
+            for (let key in r) {
+              if (r.hasOwnProperty(key)) {
+                rec[key] = r[key];
               }
             }
-          });
+          }
+        });
     },
 
     removeRow(rec) {
       //console.log("Delete Row:", JSON.stringify(rec))
       this.$q
-          .dialog({
-            title: this.$t("confirmation"),
-            message:
-                this.$t("deleteRecord") +
-                '<div style="color: plum">(' +
-                rec.cod +
-                ": " +
-                rec.name +
-                ")</div>",
-            html: true,
-            cancel: true,
-            persistent: true,
-            focus: "cancel",
-          })
-          .onOk(() => {
-            let index = this.rows.findIndex((row) => row.id === rec.id);
-            api
-                .post('', {
-                  method: "attrib/delete",
-                  params: [{rec: rec}],
-                })
-                .then(
-                    () => {
-                      //console.log("response=>>>", response.data)
-                      this.rows.splice(index, 1);
-                      this.selected = ref([]);
-                      notifySuccess(this.$t("success"));
-                    },
-                    () => {
-                      /*
-                                            let msg = "";
-                                            if (error.response) msg = error.response.data.error.message;
-                                            else msg = error.message;
-                                            notifyError(msg)
-                            */
-                      notifyInfo(this.$t("hasValue"));
-                    }
-                );
-          });
+        .dialog({
+          title: this.$t("confirmation"),
+          message:
+            this.$t("deleteRecord") +
+            '<div style="color: plum">(' +
+            rec.cod +
+            ": " +
+            rec.name +
+            ")</div>",
+          html: true,
+          cancel: true,
+          persistent: true,
+          focus: "cancel",
+        })
+        .onOk(() => {
+          let index = this.rows.findIndex((row) => row.id === rec.id);
+          api
+            .post("", {
+              method: "attrib/delete",
+              params: [{rec: rec}],
+            })
+            .then(
+              () => {
+                //console.log("response=>>>", response.data)
+                this.rows.splice(index, 1);
+                this.selected = ref([]);
+                notifySuccess(this.$t("success"));
+              },
+              () => {
+                /*
+                                      let msg = "";
+                                      if (error.response) msg = error.response.data.error.message;
+                                      else msg = error.message;
+                                      notifyError(msg)
+                      */
+                notifyInfo(this.$t("hasValue"));
+              }
+            );
+        });
     },
 
     editRowChar(avt, rec, mode) {
@@ -386,8 +412,6 @@ export default defineComponent({
         fileExt: "",
         entityType: 1,
         periodType: 11,
-        //entityType_text: "",
-        //periodType_text: "",
       };
       if (mode === "upd") {
         data = {
@@ -397,82 +421,80 @@ export default defineComponent({
           fileExt: rec.fileExt,
           entityType: rec.entityType,
           periodType: rec.periodType,
-          //entityType_text: rec.entityType_text,
-          //periodType_text: rec.periodType_text,
         };
       }
 
       //console.log("data",data)
 
       this.$q
-          .dialog({
-            component: UpdateAttribChar,
-            componentProps: {
-              avt: avt,
-              data: data,
-              mode: mode,
-              attrib: this.selected[0].id,
-              // ...
-            },
-          })
-          .onOk((r) => {
-            //console.log("Ok! updated", r);
-            if (mode === "ins") {
-              this.vals.rows.push(r);
-              this.selected2 = [];
-              this.selected2.push(r);
-            } else {
-              for (let key in r) {
-                if (r.hasOwnProperty(key)) {
-                  rec[key] = r[key];
-                }
+        .dialog({
+          component: UpdateAttribChar,
+          componentProps: {
+            avt: avt,
+            data: data,
+            mode: mode,
+            attrib: this.selected[0].id,
+            // ...
+          },
+        })
+        .onOk((r) => {
+          //console.log("Ok! updated", r);
+          if (mode === "ins") {
+            this.vals.rows.push(r);
+            this.selected2 = [];
+            this.selected2.push(r);
+          } else {
+            for (let key in r) {
+              if (r.hasOwnProperty(key)) {
+                rec[key] = r[key];
               }
             }
-          })
-          .onCancel(() => {
-            //console.log('Cancel!')
-          });
+          }
+        })
+        .onCancel(() => {
+          //console.log('Cancel!')
+        });
     },
 
     removeRowChar(rec) {
       //console.log("Delete Row:", JSON.stringify(rec))
       this.$q
-          .dialog({
-            title: this.$t("confirmation"),
-            message: "Удалить запись?",
-            html: true,
-            cancel: true,
-            persistent: true,
-            focus: "cancel",
-          })
-          .onOk(() => {
-            let index = this.vals.rows.findIndex((row) => row.id === rec.id);
-            api
-                .post('', {
-                  method: "attrib/deleteChar",
-                  params: [{id: rec.id}],
-                })
-                .then(
-                    () => {
-                      //console.log("response=>>>", response.data)
-                      this.vals.rows.splice(index, 1);
-                      this.selected2 = ref([]);
-                      notifySuccess(this.$t("success"));
-                    },
-                    () => {
-                      /*
-                                            let msg = "";
-                                            if (error.response) msg = error.response.data.error.message;
-                                            else msg = error.message;
-                                            notifyError(msg)
-                            */
-                      notifyInfo(this.$t("hasValue"));
-                    }
-                );
-          })
-          .onCancel(() => {
-            notifyInfo(this.$t("canceled"));
-          });
+        .dialog({
+          title: this.$t("confirmation"),
+          message: "Удалить запись?",
+          html: true,
+          cancel: true,
+          persistent: true,
+          focus: "cancel",
+        })
+        .onOk(() => {
+          let index = this.vals.rows.findIndex((row) => row.id === rec.id);
+          api
+            .post("", {
+              method: "attrib/deleteChar",
+              params: [{id: rec.id}],
+            })
+            .then(
+              () => {
+                //console.log("response=>>>", response.data)
+                this.vals.rows.splice(index, 1);
+                this.selected2 = ref([]);
+                notifySuccess(this.$t("success"));
+              },
+              () => {
+                /*
+                                      let msg = "";
+                                      if (error.response) msg = error.response.data.error.message;
+                                      else msg = error.message;
+                                      notifyError(msg)
+                      */
+                notifyInfo(this.$t("hasValue"));
+              }
+            );
+        })
+        .onCancel(() => {
+          notifyInfo(this.$t("canceled"));
+        });
     },
 
     exportTable() {
@@ -481,26 +503,26 @@ export default defineComponent({
       //console.info("cols", cont)
 
       const content = [this.cols.map((col) => wrapCsvValue(col.label))]
-          .concat(
-              this.rows.map((row) =>
-                  this.cols
-                      .map((col) =>
-                          wrapCsvValue(
-                              typeof col.field === "function"
-                                  ? col.field(row)
-                                  : row[col.field === void 0 ? col.name : col.field],
-                              col.format
-                          )
-                      )
-                      .join("\t")
+        .concat(
+          this.rows.map((row) =>
+            this.cols
+              .map((col) =>
+                wrapCsvValue(
+                  typeof col.field === "function"
+                    ? col.field(row)
+                    : row[col.field === void 0 ? col.name : col.field],
+                  col.format
+                )
               )
+              .join("\t")
           )
-          .join("\r\n");
+        )
+        .join("\r\n");
 
       const status = exportFile(
-          this.$t("attributs") + ".txt",
-          content,
-          "text/cvs"
+        this.$t("attributs") + ".txt",
+        content,
+        "text/cvs"
       );
 
       if (status !== true) {
@@ -508,80 +530,36 @@ export default defineComponent({
       }
     },
 
-    fetchData(requestProps) {
-      this.loading = true;
-
-      const page =
-          requestProps.rowsPerPage === undefined ? 1 : requestProps.page;
-      const rowsPerPage =
-          requestProps.rowsPerPage === 0
-              ? this.pagination.rowsNumber
-              : requestProps.rowsPerPage;
-      const orderBy = requestProps.sortBy;
-      const filter = requestProps.filter;
+    fetchData() {
+      this.loading = ref(true);
+      let lang = localStorage.getItem("curLang")
       //
       api
-          .post('', {
-            method: "attrib/loadAttribPaginate",
-            params: [
-              {
-                page: page,
-                limit: rowsPerPage,
-                orderBy: orderBy,
-                filter: filter,
-              },
-            ],
-          })
-          .then(
-              (response) => {
-                //console.log("FD_AL", this.FD_AccessLevel)
-                this.rows = response.data.result.store.records;
-                const meta = response.data.result.meta;
-                this.pagination.page = meta.page;
-                this.pagination.rowsPerPage = meta.limit;
-                this.pagination.rowsNumber = meta.total;
-                this.selected = ref([]);
-              },
-              (error) => {
+        .post("", {
+          method: "attrib/loadAttrib",
+          params: [{lang: lang}],
+        })
+        .then(
+          (response) => {
+            //console.log("FD_AL", this.FD_AccessLevel)
+            this.rows = response.data.result.records;
+            this.selected = ref([]);
+            //console.info("Rows", this.rows)
+          },
+          (error) => {
 
-                let msg = error.message;
-                if (error.response)
-                  msg = this.$t(error.response.data.error.message);
+            let msg = error.message;
+            if (error.response)
+              msg = this.$t(error.response.data.error.message);
 
-                notifyError(msg);
-              }
-          )
-          .finally(() => {
-            //setTimeout(() => {
-            this.loading = false;
-            //}, 500)
-          });
-    },
-
-    requestData(requestProps) {
-      const sb = requestProps.pagination.sortBy;
-      const des = requestProps.pagination.descending;
-      //debugger
-      if (sb === null) {
-        requestParam.sortBy = null;
-      } else {
-        if (des === true) requestParam.sortBy = sb + " desc";
-        else requestParam.sortBy = sb;
-      }
-      requestParam.descending = requestProps.pagination.descending;
-      requestParam.filter = requestProps.filter;
-      requestParam.page = requestProps.pagination.page;
-      requestParam.rowsPerPage = requestProps.pagination.rowsPerPage;
-      requestParam.rowsNumber = requestProps.pagination.rowsNumber;
-
-      this.pagination.sortBy = requestProps.pagination.sortBy;
-      this.pagination.descending = requestProps.pagination.descending;
-      //
-      this.fetchData(requestParam);
-    },
-
-    updPagination() {
-      return (this.pagination.sortBy = requestParam.sortBy);
+            notifyError(msg);
+          }
+        )
+        .finally(() => {
+          //setTimeout(() => {
+          this.loading = ref(false);
+          //}, 500)
+        });
     },
 
     getColumns() {
@@ -722,105 +700,57 @@ export default defineComponent({
     },
   },
 
-  data: function () {
-    return {
-      cols: [],
-      rows: [],
-      FD_AccessLevel: null,
-      FD_AttribValType: null,
-      FD_EntityType: null,
-      FD_PeriodType: null,
-
-      filter: "",
-      loading: false,
-      dense: true,
-
-      pagination: {
-        sortBy: null,
-        descending: false,
-        page: 1,
-        rowsPerPage: 15,
-        rowsNumber: 0,
-      },
-      selected: [],
-      splitterModel: 60,
-      visVals: [2,3,4,5,7,8,9],
-
-/*      visVals: [allConsts.FD_AttribValType.mask,
-        allConsts.FD_AttribValType.dt,
-        allConsts.FD_AttribValType.dt,
-        allConsts.FD_AttribValType.tm,
-        allConsts.FD_AttribValType.file,
-        allConsts.FD_AttribValType.entity,
-        allConsts.FD_AttribValType.period],*/
-      //
-      loading2: false,
-      selected2: [],
-      vals: {
-        rows: [],
-        cols: [],
-      },
-    };
-  },
-
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
     this.cols = this.getColumns();
     //
     api
-        .post('', {
-          method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
-        })
-        .then((response) => {
-          this.FD_AccessLevel = new Map();
-          response.data.result.records.forEach((it) => {
-            this.FD_AccessLevel.set(it["id"], it["text"]);
-          });
+      .post("", {
+        method: "dict/load",
+        params: [{dict: "FD_AccessLevel", lang: lang}],
+      })
+      .then((response) => {
+        response.data.result.records.forEach((it) => {
+          this.FD_AccessLevel.set(it["id"], it["text"]);
         });
+      });
 
     api
-        .post('', {
-          method: "dict/load",
-          params: [{dict: "FD_AttribValType"}],
-        })
-        .then((response) => {
-          this.FD_AttribValType = new Map();
-          response.data.result.records.forEach((it) => {
-            this.FD_AttribValType.set(it["id"], it["text"]);
-          });
+      .post("", {
+        method: "dict/load",
+        params: [{dict: "FD_AttribValType", lang: lang}],
+      })
+      .then((response) => {
+        response.data.result.records.forEach((it) => {
+          this.FD_AttribValType.set(it["id"], it["text"]);
         });
+      });
 
     api
-        .post('', {
-          method: "dict/load",
-          params: [{dict: "FD_EntityType"}],
-        })
-        .then((response) => {
-          this.FD_EntityType = new Map();
-          response.data.result.records.forEach((it) => {
-            this.FD_EntityType.set(it["id"], it["text"]);
-          });
+      .post("", {
+        method: "dict/load",
+        params: [{dict: "FD_EntityType", lang: lang}],
+      })
+      .then((response) => {
+        response.data.result.records.forEach((it) => {
+          this.FD_EntityType.set(it["id"], it["text"]);
         });
+      });
 
     api
-        .post('', {
-          method: "dict/load",
-          params: [{dict: "FD_PeriodType"}],
-        })
-        .then((response) => {
-          this.FD_PeriodType = new Map();
-          response.data.result.records.forEach((it) => {
-            this.FD_PeriodType.set(["id"], it["text"]);
-          });
+      .post("", {
+        method: "dict/load",
+        params: [{dict: "FD_PeriodType", lang: lang}],
+      })
+      .then((response) => {
+        response.data.result.records.forEach((it) => {
+          this.FD_PeriodType.set(["id"], it["text"]);
         });
+      });
 
-    this.fetchData(requestParam);
+    this.fetchData();
   },
 
-  setup() {
-  },
 });
 </script>
 

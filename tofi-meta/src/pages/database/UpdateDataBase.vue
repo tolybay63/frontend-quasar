@@ -149,7 +149,7 @@ export default {
 
     // following method is REQUIRED
     // (don't change its name --> "show")
-    show() {
+    show: function () {
       this.$refs.dialog.show();
     },
 
