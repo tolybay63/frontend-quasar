@@ -93,17 +93,16 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["form", "upd", "lg", "action", "dense"],
+  props: ["form", "upd", "action", "dense"],
 
   data() {
     return {
       myData: this.form,
       isIns: this.upd,
-      lang: this.lg,
       act: this.action,
       options: [],
       al: this.form.accessLevel === undefined ? 1 : this.form.accessLevel,
@@ -170,6 +169,8 @@ export default {
       const method = this.isIns.isIns ? "insert" : "update";
       this.myData.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
+      this.myData.lang = localStorage.getItem("curLang");
+
       api
           .post('', {
             id: this.myData.id,
@@ -197,10 +198,11 @@ export default {
     },
   },
   created() {
+    let lang = localStorage.getItem("curLang");
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
           //console.log("FD_AccessLevel", response.data.result.records)

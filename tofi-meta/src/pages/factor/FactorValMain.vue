@@ -41,7 +41,7 @@
 
 <script>
 import {defineComponent, ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import FactorVal from "pages/factor/FactorVal.vue";
 import FactorRel from "pages/factor/FactorRel.vue";
 import {notifyError} from "src/utils/jsutils";
@@ -72,17 +72,15 @@ export default defineComponent({
   },
 
   mounted() {
-    this.factor1_id = parseInt(this.$route["params"].factor, 10);
-    //console.info("this.factor1_id", this.factor1_id)
-
-
-    // load factor
     this.loading = ref(true);
+    this.factor1_id = parseInt(this.$route["params"].factor, 10);
+    let lang = localStorage.getItem("curLang");
+
+    //console.info("this.factor1_id", this.factor1_id)
     api
         .post('', {
-          id: "1",
           method: "factor/loadRec",
-          params: [{id: this.factor1_id}],
+          params: [{id: this.factor1_id, lang: lang}],
         })
         .then((response) => {
           //console.log("f", response.data.result.records)
@@ -99,9 +97,6 @@ export default defineComponent({
   },
 
   created() {
-    //console.log("<<<<<  created")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
   },
 
   setup() {

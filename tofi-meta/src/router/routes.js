@@ -24,7 +24,7 @@ const routes = [
       },
       {
         path: "/factor/:factor",
-        name: "factorvalmain",
+        name: "factorValMain",
         component: () => import("pages/factor/FactorValMain.vue"),
       },
 

@@ -248,7 +248,6 @@ export default defineComponent({
       }
       data.parent = this.factor1_id;
       const upd = {isIns: ins};
-      const lg = {name: this.lang};
 
       //console.log("data",data)
 
@@ -258,7 +257,6 @@ export default defineComponent({
             componentProps: {
               form: data,
               upd: upd,
-              lg: lg,
               action: "factor",
               // ...
             },
@@ -317,7 +315,7 @@ export default defineComponent({
       const orderBy = requestProps.sortBy;
       const filter = requestProps.filter;
       const factor = requestProps.factor;
-
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             id: "1",
@@ -327,6 +325,7 @@ export default defineComponent({
                 factor: factor,
                 orderBy: orderBy,
                 filter: filter,
+                lang: lang
               },
             ],
           })
@@ -476,7 +475,7 @@ export default defineComponent({
     return {
       cols: [],
       rows: [],
-      FD_AccessLevel: {},
+      FD_AccessLevel: new Map(),
       filter: "",
       loading: false,
       selected: [],
@@ -494,15 +493,13 @@ export default defineComponent({
   },
 
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
-          this.FD_AccessLevel = new Map();
           response.data.result.records.forEach((it) => {
             this.FD_AccessLevel.set(it["id"], it["text"]);
           })
@@ -511,7 +508,6 @@ export default defineComponent({
     this.cols = this.getColumns();
   },
 
-  setup() {}
 
 });
 </script>

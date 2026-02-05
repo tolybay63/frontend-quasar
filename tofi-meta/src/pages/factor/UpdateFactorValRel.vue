@@ -184,7 +184,7 @@
 
 <script>
 import {ref} from "vue";
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError} from "src/utils/jsutils";
 
 export default {
@@ -204,8 +204,8 @@ export default {
     }
     return {
       //
-      loading: ref(false),
-      separator2: ref("cell"),
+      loading: false,
+      separator2: "cell",
       name_factor1: "",
       name_factor2: "",
       factor2: ref({id: 0, name: this.$t("notChosen")}),
@@ -275,7 +275,7 @@ export default {
     },
 
     fnCmt(p) {
-      let key = p.row.id + "_" + p.row[p.col.name];
+      let key = p["row"].id + "_" + p["row"][p.col.name];
       //console.log("key", key)
       //console.log("cmt", this.rels.cmt[key])
 
@@ -330,10 +330,11 @@ export default {
     },
 
     loadFactor(factor, id) {
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "factor/loadRec",
-            params: [{id: id}],
+            params: [{id: id, lang: lang}],
           })
           .then(
               (response) => {
@@ -351,14 +352,15 @@ export default {
     },
 
     loadData(factor1, factor2) {
-      this.loading = ref(true);
+      this.loading = true;
+      const lang = localStorage.getItem("curLang");
+
       api
           .post('', {
             method: "factorrel/factorValRel",
-            params: [{factor1: factor1, factor2: factor2}],
+            params: [{factor1: factor1, factor2: factor2, lang: lang}],
           })
           .then((response) => {
-            //console.log("cols", response.data.result.cols);
             this.rels.rows = response.data.result.rows.records;
             //
             this.rels.cols = response.data.result.cols;
@@ -370,15 +372,15 @@ export default {
             notifyError(error.message);
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 
     fnCell(p) {
-      if (p.row[p.col.name] === '0') {
-        p.row[p.col.name] = p.col.name.substring(2);
+      if (p["row"][p.col.name] === '0') {
+        p["row"][p.col.name] = p.col.name.substring(2);
       } else {
-        p.row[p.col.name] = '0';
+        p["row"][p.col.name] = '0';
       }
     },
 
@@ -389,13 +391,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -492,14 +494,10 @@ export default {
 
   created() {
     //console.log("************************* created")
-
-    return {};
   },
 
   setup() {
     //console.log("************************* setup")
-
-    return {};
   },
 };
 </script>
