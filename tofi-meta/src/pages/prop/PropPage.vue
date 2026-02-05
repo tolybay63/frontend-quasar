@@ -201,7 +201,6 @@ export default {
       cols2: [],
       rows2: [],
       FD_PropType: new Map(),
-      //loading2: ref(false),
       //
       currentNode2: null,
       meterStruct: 0,
