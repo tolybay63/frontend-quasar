@@ -469,9 +469,6 @@ export default defineComponent({
   },
 
   data: function () {
-    //console.log("<<<<<    data: lg", SetLocale.curLang)
-    //const cols = this.getColumns()
-    //console.log("colss", colss)
     return {
       cols: [],
       rows: [],
