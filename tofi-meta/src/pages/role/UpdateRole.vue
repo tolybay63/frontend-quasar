@@ -1,79 +1,80 @@
 <template>
   <q-dialog
-      ref="dialog"
-      @hide="onDialogHide"
-      persistent
-      autofocus
-      transition-show="slide-up"
-      transition-hide="slide-down"
-      style="width: 600px"
+    ref="dialog"
+    @hide="onDialogHide"
+    persistent
+    autofocus
+    transition-show="slide-up"
+    transition-hide="slide-down"
+    style="width: 600px"
   >
     <q-card class="q-dialog-plugin" style="width: 600px">
       <q-bar v-if="mode === 'ins'" class="text-white bg-primary">
-        <div>{{ $t("newRecord") }}</div>
+        <div>{{ txt_lang("newRecord") }}</div>
       </q-bar>
       <q-bar v-if="mode === 'upd'" class="text-white bg-primary">
-        <div>{{ $t("editRecord") }}</div>
+        <div>{{ txt_lang("editRecord") }}</div>
       </q-bar>
 
       <q-card-section>
         <q-input
-            :dense="dense"
-            v-model="myData.cod"
-            :model-value="myData.cod"
-            :label="$t('code')"
-            :placeholder="$t('msgCodeGen')"
+          :dense="dense"
+          v-model="myData.cod"
+          :model-value="myData.cod"
+          :label="txt_lang('code')"
+          :placeholder="txt_lang('msgCodeGen')"
         />
 
         <q-select
-            :dense="dense"
-            :options-dense="dense"
-            v-model="al"
-            :options="options"
-            :label="$t('accessLevel')"
-            option-value="id"
-            option-label="text"
-            map-options
-            :model-value="al"
-            @update:model-value="fnSelect()"
+          :dense="dense"
+          :options-dense="dense"
+          v-model="al"
+          :options="options"
+          :label="txt_lang('accessLevel')"
+          option-value="id"
+          option-label="text"
+          map-options
+          :model-value="al"
+          @update:model-value="fnSelect()"
         />
 
         <!-- name -->
         <q-input
-            :dense="dense"
-            :model-value="myData.name"
-            v-model="myData.name"
-            autofocus
-            @blur="onBlurName"
-            :label="$t('fldName')"
-            :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"
+          :dense="dense"
+          :model-value="myData.name"
+          v-model="myData.name"
+          autofocus class="q-pt-md"
+          @blur="onBlurName"
+          :label="txt_lang('fldName')"
+          :rules="[(val) => (!!val && !!val.trim()) || txt_lang('req')]"
         >
         </q-input>
         <!-- fullName-->
         <q-input
-            :dense="dense"
-            :model-value="myData.fullName"
-            v-model="myData.fullName"
-            :label="$t('fldFullName')"
-            :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"
+          :dense="dense"
+          :model-value="myData.fullName"
+          v-model="myData.fullName"
+          :label="txt_lang('fldFullName')"
+          :rules="[(val) => (!!val && !!val.trim()) || txt_lang('req')]"
         >
         </q-input>
         <!-- roleTag-->
         <q-input
-            :dense="dense"
-            :model-value="myData.roleTag"
-            v-model="myData.roleTag"
-            :label="$t('fldRoleTag')"
+          :dense="dense"
+          :model-value="myData['roleTag']"
+          v-model="myData['roleTag']"
+          :label="txt_lang('fldRoleTag')"
         >
         </q-input>
 
         <!-- cmt -->
         <q-input
-            :dense="dense"
-            :model-value="myData.cmt"
-            v-model="myData.cmt"
-            type="textarea"
-            :label="$t('fldCmt')"
+          :dense="dense"
+          :model-value="myData.cmt"
+          v-model="myData.cmt"
+          type="textarea"
+          class="q-pt-md"
+          :label="txt_lang('fldCmt')"
         >
         </q-input>
         <!---->
@@ -81,19 +82,19 @@
 
       <q-card-actions align="right">
         <q-btn
-            :dense="dense"
-            color="primary"
-            icon="save"
-            :label="$t('save')"
-            @click="onOKClick"
-            :disable="validName()"
+          :dense="dense"
+          color="primary"
+          icon="save"
+          :label="txt_lang('save')"
+          @click="onOKClick"
+          :disable="validName()"
         />
         <q-btn
-            :dense="dense"
-            color="primary"
-            icon="cancel"
-            :label="$t('cancel')"
-            @click="onCancelClick"
+          :dense="dense"
+          color="primary"
+          icon="cancel"
+          :label="txt_lang('cancel')"
+          @click="onCancelClick"
         />
       </q-card-actions>
     </q-card>
@@ -101,16 +102,15 @@
 </template>
 
 <script>
-import {api} from "boot/axios";
-import {notifyError, notifySuccess} from "src/utils/jsutils";
+import {api, baseURL} from "boot/axios";
+import {notifyError, notifySuccess, txt_lang} from "src/utils/jsutils";
 
 export default {
-  props: ["form", "mode", "lg", "action", "dense"],
+  props: ["form", "mode", "action", "dense"],
 
   data() {
     return {
       myData: this.form,
-      lang: this.lg,
       act: this.action,
       options: [],
       al: this.form.accessLevel === 0 ? 1 : this.form.accessLevel,
@@ -124,12 +124,13 @@ export default {
   ],
 
   methods: {
+    txt_lang,
     onBlurName() {
       if (this.myData.name) {
         this.myData.name = this.myData.name.trim();
         if (
-            !this.myData.fullName ||
-            (this.myData.fullName && this.myData.fullName.trim() === "")
+          !this.myData.fullName ||
+          (this.myData.fullName && this.myData.fullName.trim() === "")
         ) {
           this.myData.fullName = this.myData.name;
         }
@@ -150,13 +151,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -172,28 +173,29 @@ export default {
       let err = false
       const method = this.mode === "ins" ? "insert" : "update";
       this.myData.accessLevel =
-          typeof this.al === "object" ? this.al.id : this.al;
+        typeof this.al === "object" ? this.al.id : this.al;
+      this.myData.lang = localStorage.getItem("curLang")
       api
-          .post('', {
-            id: this.myData.id,
-            method: this.act + "/" + method,
-            params: [{rec: this.myData}],
-          })
-          .then(
-              (response) => {
-                err = false
-                this.$emit("ok", response.data.result.records[0]);
-                notifySuccess(this.$t("success"));
-              },
-              (error) => {
-                //console.log("error.response.data=>>>", error.response.data.error.message)
-                err = true
-                notifyError(error.response.data.error.message);
-              }
-          )
-          .finally(() => {
-            if (!err) this.hide();
-          });
+        .post(baseURL, {
+          id: this.myData.id,
+          method: this.act + "/" + method,
+          params: [{rec: this.myData}],
+        })
+        .then(
+          (response) => {
+            err = false
+            this.$emit("ok", response.data.result.records[0]);
+            notifySuccess(this.$t("success"));
+          },
+          (error) => {
+            //console.log("error.response.data=>>>", error.response.data.error.message)
+            err = true
+            notifyError(error.response.data.error.message);
+          }
+        )
+        .finally(() => {
+          if (!err) this.hide();
+        });
     },
 
     onCancelClick() {
@@ -203,14 +205,13 @@ export default {
   },
   created() {
     api
-        .post('', {
-          method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
-        })
-        .then((response) => {
-          //console.log("FD_AccessLevel", response.data.result.records)
-          this.options = response.data.result.records;
-        });
+      .post(baseURL, {
+        method: "dict/load",
+        params: [{dict: "FD_AccessLevel", lang: localStorage.getItem("curLang")}],
+      })
+      .then((response) => {
+        this.options = response.data.result.records;
+      });
 
     return {};
   },
