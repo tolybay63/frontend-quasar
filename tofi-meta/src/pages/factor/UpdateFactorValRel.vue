@@ -240,6 +240,7 @@ export default {
     if (this.mode === "upd") {
       this.loadFactor("factor2", this.params.factor2);
     } else {
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             id: 1,
@@ -247,6 +248,7 @@ export default {
             params: [
               {
                 factor: this.params.factor1,
+                lang: lang
               },
             ],
           })

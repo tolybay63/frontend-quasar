@@ -187,13 +187,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -214,6 +214,7 @@ export default {
       const method = this.mode === "ins" ? "insert" : "update";
       this.form.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
+      this.form.lang = localStorage.getItem("curLang")
 
       api
           .post('', {
@@ -242,13 +243,12 @@ export default {
       this.hide();
     },
   },
-  created() {
-    console.log("CREATE DATA", this.data);
 
+  created() {
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.optAL = response.data.result.records;
@@ -257,17 +257,15 @@ export default {
     api
         .post('', {
           method: "group/loadGroupForSelect",
-          params: [{id: this.data.id, tableName: this.tableName}],
+          params: [{id: this.data.id, tableName: this.tableName, lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.parents = pack(response.data.result.records, "ord");
           if (this.mode === "upd") {
             this.parents.push({id: 0, name: "Выбор...", children: []});
           }
-          console.log("PARENTS", this.parents);
         });
 
-    return {};
   },
 };
 </script>

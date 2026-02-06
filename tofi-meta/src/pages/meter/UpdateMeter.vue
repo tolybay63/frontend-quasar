@@ -324,13 +324,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -344,14 +344,9 @@ export default {
       // emit "ok" event (with optional payload)
       // before hiding the QDialog
 
-      //delete this.form.accessLevel_text
-      //delete this.form.attribValType_text
       const method = this.mode === "ins" ? "insert" : "update";
-
-      /*
-      this.form.accessLevel =
-        typeof this.al === "object" ? this.al.id : this.al;
-*/
+      this.form.lang = localStorage.getItem("curLang");
+      let err = false
 
       api
           .post('', {
@@ -365,11 +360,13 @@ export default {
               },
               (error) => {
                 //console.log("error.response.data=>>>", error.response.data.error.message)
+                err = true;
                 notifyError(error.response.data.error.message);
               }
           )
           .finally(() => {
-            this.hide();
+            if (!err)
+              this.hide();
           });
     },
 
@@ -379,10 +376,11 @@ export default {
     },
 
     getDict(dictName) {
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "dict/load",
-            params: [{dict: dictName}],
+            params: [{dict: dictName, lang: lang}],
           })
           .then((response) => {
             if (dictName === "FD_AccessLevel")
@@ -410,18 +408,16 @@ export default {
     this.getDict("FD_DistributionLaw");
     this.getDict("FD_MeterBehavior");
     this.getDict("FD_MeterType");
-
+    const lang = localStorage.getItem("curLang");
     api
         .post('', {
           method: "measure/loadBase",
-          params: [{}],
+          params: [{lang: lang}],
         })
         .then((response) => {
           //this.measures = pack(response.data.result.records)
           this.measures = response.data.result.records;
         });
-
-    return {};
   },
 };
 </script>

@@ -137,13 +137,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -161,7 +161,7 @@ export default {
       const method = this.mode === "ins" ? "insertHardMR" : "updateHardMR";
       this.form.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
-
+      this.form.lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "meterrate/" + method,
@@ -191,11 +191,13 @@ export default {
       this.hide();
     },
   },
+
   created() {
+    const lang = localStorage.getItem("curLang")
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
           this.options = response.data.result.records;

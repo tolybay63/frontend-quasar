@@ -138,15 +138,14 @@ const collaps = (item) => {
 };
 
 export default {
-  props: ["checkeds", "meter", "lg", "dense"],
+  props: ["checkeds", "meter", "lang", "dense"],
 
   data() {
     return {
-      lang: this.lg,
       cols: [],
       rows: [],
       separator: ref("cell"),
-      loading: ref(false),
+      loading: false,
       //
       isExpanded: true,
       currentNode: null,
@@ -166,7 +165,7 @@ export default {
     },
 
     loadData() {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post('', {
             method: "meterrate/loadMeterSoftForUpdSave",
@@ -178,7 +177,7 @@ export default {
             console.log("loadMeterSoftForUpdSave", this.rows);
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 
@@ -204,11 +203,11 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     onOKClick() {
-      this.loading = ref(true);
+      this.loading = true;
 
       let dta = [];
 
@@ -217,8 +216,6 @@ export default {
         let children = node.children;
         if (children.length > 0) {
           children.forEach((ch) => tt(ch, dta));
-        } else {
-
         }
       };
 

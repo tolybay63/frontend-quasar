@@ -128,13 +128,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -149,6 +149,7 @@ export default {
       // before hiding the QDialog
 
       this.form.meter = this.meterId;
+      this.form.lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "meterfactor/insert",
@@ -177,11 +178,13 @@ export default {
       this.hide();
     },
   },
+
   created() {
+    const lang = localStorage.getItem("curLang")
     api
         .post('', {
           method: "meterfactor/factors",
-          params: [{meter: this.meterId}],
+          params: [{meter: this.meterId, lang: lang}],
         })
         .then((response) => {
           this.optionsOrg = response.data.result.records;
@@ -193,4 +196,5 @@ export default {
     return {};
   },
 };
+
 </script>

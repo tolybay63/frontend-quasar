@@ -427,7 +427,7 @@ export default {
   dopProp: "Additional properties",
   meters: "Meters",
   meter: "Meter",
-
+  factors_of_meter: "There are no factors specified for this meter",
   meterFactors: "Meter Factors",
   rate: "Indicator",
   rates: "Indicators",

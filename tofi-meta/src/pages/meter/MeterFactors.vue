@@ -172,7 +172,7 @@ export default defineComponent({
       selected: ref([]),
       currentNode: null,
       itemId: null,
-      FD_AccessLevel: null,
+      FD_AccessLevel: new Map(),
       columns: [],
       table: [],
 
@@ -205,6 +205,7 @@ export default defineComponent({
         }
       });
     },
+
     iconName(item) {
       if (item.expend) {
         return "remove_circle_outline";
@@ -216,6 +217,7 @@ export default defineComponent({
 
       return "";
     },
+
     toggle(item) {
       let vm = this;
       vm.itemId = item.id;
@@ -304,10 +306,11 @@ export default defineComponent({
     },
 
     fnUp(up) {
+      const lang = localStorage.getItem("curLang")
       api
         .post('', {
           method: "meterfactor/changeOrd",
-          params: [{rec: this.currentNode, up: up}],
+          params: [{rec: this.currentNode, up: up, lang: lang}],
         })
         .then(
           () => {
@@ -324,10 +327,11 @@ export default defineComponent({
     },
 
     fnNewDim() {
+      const lang = localStorage.getItem("curLang");
       api
         .post('', {
           method: "meterfactor/newDimension",
-          params: [{rec: this.currentNode, maxDim: this.maxDim}],
+          params: [{rec: this.currentNode, maxDim: this.maxDim, lang: lang}],
         })
         .then(
           () => {
@@ -414,10 +418,11 @@ export default defineComponent({
     },
 
     fetchData(meter) {
+      const lang = localStorage.getItem("curLang");
       api
         .post('', {
           method: "meterfactor/load",
-          params: [{meter: meter}],
+          params: [{meter: meter, lang: lang}],
         })
         .then((response) => {
           this.table = pack(response.data.result.records, "ordDim");
@@ -496,18 +501,15 @@ export default defineComponent({
   },
 
   created() {
-    //this.lang = localStorage.getItem("curLang")
-    //this.lang = this.lang === "en-US" ? "en" : this.lang
     this.columns = this.getColumns();
-
+    const lang = localStorage.getItem("curLang")
     //
     api
       .post('', {
         method: "dict/load",
-        params: [{dict: "FD_AccessLevel"}],
+        params: [{dict: "FD_AccessLevel", lang: lang}],
       })
       .then((response) => {
-        this.FD_AccessLevel = new Map();
         response.data.result.records.forEach((it) => {
           this.FD_AccessLevel.set(it["id"], it["text"]);
         })
@@ -519,7 +521,6 @@ export default defineComponent({
       })
   },
 
-  setup() {}
 
 });
 </script>

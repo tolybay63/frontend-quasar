@@ -106,10 +106,10 @@ export default defineComponent({
   },
 
   methods: {
-    fnChangeTab(n,o) {
+    fnChangeTab(n) {
       if (n==="rates") {
         if (this.$refs.refFactors.isEmpty()) {
-          notifyError("Для данного измерителя не указаны факторы")
+          notifyError(this.$t("factors_of_meter"))
           this.tab = "factors"
         }
       }
@@ -132,16 +132,16 @@ export default defineComponent({
 
   mounted() {
     console.log("mounted!");
+    this.loading = ref(true);
     this.meter_id = parseInt(this.$route["params"].meter, 10);
     this.meter_struct = parseInt(this.$route["params"].meterStruct, 10);
+    const lang = localStorage.getItem("curLang");
 
-    // load meter
-    this.loading = ref(true);
     api
         .post('', {
           id: "1",
           method: "meter/loadRec",
-          params: [{id: this.meter_id}],
+          params: [{id: this.meter_id, lang: lang}],
         })
         .then((response) => {
           //console.log("f", response.data.result.records)
@@ -157,9 +157,6 @@ export default defineComponent({
   },
 
   created() {
-    //console.log("<<<<<  created")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
   },
 
   setup() {

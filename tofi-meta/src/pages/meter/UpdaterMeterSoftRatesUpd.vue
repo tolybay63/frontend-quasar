@@ -158,7 +158,7 @@ export default {
       cols: [],
       rows: [],
       separator: ref("cell"),
-      loading: ref(false),
+      loading: false,
       //
       isExpanded: true,
       currentNode: null,
@@ -184,11 +184,12 @@ export default {
     },
 
     loadData() {
-      this.loading = ref(true);
+      this.loading = true;
+      let lang = localStorage.getItem("curLang");
       api
         .post('', {
           method: "meterrate/loadMeterSoftForUpd",
-          params: [this.meter],
+          params: [this.meter, lang],
         })
         .then((response) => {
           this.sz = response.data.result.records.length;
@@ -200,7 +201,7 @@ export default {
           notifyError("Для данного измерителя не указаны факторы")
         })
         .finally(() => {
-          this.loading = ref(false);
+          this.loading = false;
         });
     },
 
@@ -233,11 +234,11 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     onOKClick() {
-      //this.loading = ref(true)
+      let lang = localStorage.getItem("curLang");
 
       let dta = [];
       const tt = (node, chks) => {
@@ -247,9 +248,7 @@ export default {
         let children = node.children;
         if (children.length > 0) {
           children.forEach((ch) => tt(ch, chks));
-        }/* else {
-          return;
-        }*/
+        }
       };
 
       const getCheckeds = (data, chks) => {
@@ -279,6 +278,7 @@ export default {
             meter: this.meter,
             checkeds: d0,
             dense: true,
+            lang: lang
           },
         })
         .onOk((data) => {
@@ -292,7 +292,7 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -359,7 +359,7 @@ export default {
   },
 
   created() {
-    console.info("UpdaterMeterSoftRatesUpd")
+    //console.info("UpdaterMeterSoftRatesUpd")
     this.cols = this.getColumns();
     this.loadData();
   },

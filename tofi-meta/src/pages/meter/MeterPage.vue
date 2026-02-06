@@ -166,8 +166,32 @@ function wrapCsvValue(val, formatFn) {
 }
 
 export default defineComponent({
+
+  data: function () {
+    return {
+      cols: [],
+      rows: [],
+      filter: "",
+      loading: false,
+      FD_AccessLevel: new Map(),
+      FD_MeterStruct: new Map(),
+
+      pagination: requestParam,
+      selected: [],
+      meter: 0,
+      dense: true,
+    };
+  },
+
   methods: {
     hasTarget,
+
+    infoSelected(row) {
+      if (!row) return ""
+      console.info("row", row)
+      return " " + row.cod + " - " + row.name;
+    },
+
     meterChoise() {
       this.$router["push"]({
         name: "meterSelected",
@@ -238,16 +262,18 @@ export default defineComponent({
       return 1;
     },
 
-    fetchData(requestParam) {
-      this.loading = ref(true);
+    fetchData(request) {
+      this.loading = true;
+      request.lang = localStorage.getItem("curLang");
       api
         .post('', {
-          id: "1",
           method: "meter/loadMeterPaginate",
-          params: [requestParam],
+          params: [request],
         })
         .then(
           (response) => {
+            //console.log("rows", response.data.result.store.records);
+
             this.rows = response.data.result.store.records;
             const meta = response.data.result.meta;
             this.pagination.page = meta.page;
@@ -271,18 +297,32 @@ export default defineComponent({
         )
         .finally(() => {
           //setTimeout(() => {
-          this.loading = ref(false);
+          this.loading = false;
           //}, 500)
         });
     },
 
-    requestData(requestProps) {
+    requestData(v) {
+      console.info("requestData", v)
+      v.pagination.filter = v.filter
+
+      extend(true, requestParam, v.pagination)
+      //requestParam.filter = v.filter;
+      //extend(true, this.pagination, requestProps.pagination)
+      //
+      this.fetchData(requestParam);
+    },
+
+
+/*    requestData(requestProps) {
+      console.info("requestData", requestProps)
+
       extend(true, requestParam, requestProps.pagination)
       requestParam.filter = requestProps.filter;
       extend(true, this.pagination, requestProps.pagination)
       //
       this.fetchData(requestParam);
-    },
+    },*/
 
     removeRow(rec) {
       //console.log("Delete Row:", JSON.stringify(rec))
@@ -429,36 +469,18 @@ export default defineComponent({
     },
   },
 
-  data: function () {
-    return {
-      cols: [],
-      rows: [],
-      filter: "",
-      loading: false,
-      FD_AccessLevel: null,
-      FD_MeterStruct: null,
-
-      pagination: this.requestData,
-      selected: [],
-      meter: 0,
-      dense: true,
-    };
-  },
-
   created() {
     console.info("Create")
 
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
     this.cols = this.getColumns();
 
     api
       .post('', {
         method: "dict/load",
-        params: [{dict: "FD_AccessLevel"}],
+        params: [{dict: "FD_AccessLevel", lang: lang}],
       })
       .then((response) => {
-        this.FD_AccessLevel = new Map();
         response.data.result.records.forEach((it) => {
           this.FD_AccessLevel.set(it["id"], it["text"]);
         });
@@ -467,10 +489,9 @@ export default defineComponent({
     api
       .post('', {
         method: "dict/load",
-        params: [{dict: "FD_MeterStruct"}],
+        params: [{dict: "FD_MeterStruct", lang: lang}],
       })
       .then((response) => {
-        this.FD_MeterStruct = new Map();
         response.data.result.records.forEach((it) => {
           this.FD_MeterStruct.set(it["id"], it["text"]);
         });
@@ -483,14 +504,6 @@ export default defineComponent({
     this.meter = parseInt(this.$route["params"].meter, 10);
   },
 
-
-  setup() {
-    return {
-      infoSelected(row) {
-        return " " + row.cod + " - " + row.name;
-      },
-    };
-  },
 });
 </script>
 

@@ -158,6 +158,7 @@ export default {
       const method = "updateSoftMR";
       this.form.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
+      this.form.lang = localStorage.getItem("curLang");
 
       api
           .post('', {
@@ -191,7 +192,7 @@ export default {
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.options = response.data.result.records;

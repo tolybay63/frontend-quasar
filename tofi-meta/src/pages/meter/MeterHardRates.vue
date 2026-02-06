@@ -169,7 +169,7 @@ export default defineComponent({
       selected: ref([]),
       currentNode: null,
       itemId: null,
-      FD_AccessLevel: null,
+      FD_AccessLevel: new Map(),
       columns: [],
       table: [],
 
@@ -187,17 +187,15 @@ export default defineComponent({
   },
 
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
     this.columns = this.getColumns();
 
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
-          this.FD_AccessLevel = new Map();
           response.data.result.records.forEach((it) => {
             this.FD_AccessLevel.set(it["id"], it["text"]);
           });
@@ -402,17 +400,14 @@ export default defineComponent({
 
     fetchData() {
       this.loading = ref(true);
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "meterrate/loadHardMR",
-            params: [this.meter_id],
+            params: [this.meter_id, lang],
           })
           .then((response) => {
-            //console.log("fd_al", response.data.result["dictdata"]["FD_AccessLevel"])
-            //console.log("records", response.data.result.records)
             this.table = pack(response.data.result.records, "ord");
-            //this.FD_AccessLevel = response.data.result["dictdata"]["FD_AccessLevel"]
-            //console.log("FD_AccessLevel 1", this.FD_AccessLevel[1].text)
           })
           .finally(() => {
             //test
@@ -517,7 +512,6 @@ export default defineComponent({
 
 .img-vert {
   -moz-transform: scaleY(-1);
-  -o-transform: scaleY(-1);
   -webkit-transform: scaleY(-1);
   transform: scaleY(-1);
   -ms-filter: "FlipV";
