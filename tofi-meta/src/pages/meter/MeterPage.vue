@@ -25,7 +25,7 @@
       <template #bottom-row>
         <q-td colspan="100%" v-if="selected.length > 0">
           <span class="text-blue"> {{ $t("selectedRow") }}: </span>
-          <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
+          <span class="text-bold"> {{ infoSelected(selected[0]) }} </span>
         </q-td>
         <q-td colspan="100%" v-else-if="this.rows.length > 0" class="text-bold">
           {{ $t("infoRow") }}
@@ -187,8 +187,7 @@ export default defineComponent({
     hasTarget,
 
     infoSelected(row) {
-      if (!row) return ""
-      console.info("row", row)
+      //console.info("row", row)
       return " " + row.cod + " - " + row.name;
     },
 
@@ -303,26 +302,11 @@ export default defineComponent({
     },
 
     requestData(v) {
-      console.info("requestData", v)
       v.pagination.filter = v.filter
-
       extend(true, requestParam, v.pagination)
-      //requestParam.filter = v.filter;
-      //extend(true, this.pagination, requestProps.pagination)
       //
       this.fetchData(requestParam);
     },
-
-
-/*    requestData(requestProps) {
-      console.info("requestData", requestProps)
-
-      extend(true, requestParam, requestProps.pagination)
-      requestParam.filter = requestProps.filter;
-      extend(true, this.pagination, requestProps.pagination)
-      //
-      this.fetchData(requestParam);
-    },*/
 
     removeRow(rec) {
       //console.log("Delete Row:", JSON.stringify(rec))
@@ -435,6 +419,7 @@ export default defineComponent({
         },
       ];
     },
+
     exportTable() {
       // naive encoding to csv format
       //const cont = [this.cols.map(col => col.label)].concat().join("\t")
