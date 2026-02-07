@@ -103,8 +103,8 @@ export default {
     fetchData(cls) {
       api
           .post('', {
-            method: "obj/loadObjTreeSelect",
-            params: [cls],
+            method: "typ/loadObjTreeSelect",
+            params: [cls, localStorage.getItem("curLang")],
           })
           .then(
               (response) => {
@@ -142,13 +142,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -164,6 +164,8 @@ export default {
 
       const method =
           this.mode === "ins" ? "insertNotExtended" : "updateNotExtended";
+      this.form.lang = localStorage.getItem("curLang");
+
       let err = false;
       api
           .post('', {
@@ -199,7 +201,7 @@ export default {
     api
         .post('', {
           method: "typ/loadClsTree",
-          params: [{typ: this.typ}],
+          params: [{typ: this.typ, lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.optCls = pack(response.data.result.records, "ord");

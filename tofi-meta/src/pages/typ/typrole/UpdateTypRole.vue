@@ -68,12 +68,11 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "typ", "mode", "lg", "dense"],
+  props: ["data", "typ", "mode", "dense"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
       typeroles: [],
       typerole: this.data.role,
     };
@@ -96,13 +95,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -118,10 +117,12 @@ export default {
 
       let err = false
       const method = this.mode === "ins" ? "insertTypRole" : "updateTypRole";
+      this.form.lang = localStorage.getItem("curLang")
+
       api
           .post('', {
             method: "typ/" + method,
-            params: [{rec: this.form}],
+            params: [this.form],
           })
           .then(
               (response) => {
@@ -149,14 +150,12 @@ export default {
     api
         .post('', {
           method: "typ/selectTypRole",
-          params: [this.typ],
+          params: [this.typ, localStorage.getItem("curLang")],
         })
         .then((response) => {
           this.typeroles = response.data.result.records;
           this.typeroles.unshift({id: 0, name: this.$t("notChosen")});
         });
-
-    return {};
   },
 };
 </script>

@@ -76,7 +76,7 @@
             :dense="dense"
             debounce="300"
             color="primary"
-            :model-value="filter.value"
+            :model-value="filter"
             v-model="filter"
             :label="$t('txt_filter')"
         >
@@ -94,7 +94,6 @@
 </template>
 
 <script>
-import {ref} from "vue";
 import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 import UpdateNotExtended from "pages/typ/notextended/UpdateNotExtended.vue";
@@ -107,10 +106,9 @@ export default {
     return {
       cols: [],
       rows: [],
-      filter: ref(""),
-      loading: ref(false),
-      separator: ref("cell"),
-      selected: ref([]),
+      filter: "",
+      loading: false,
+      selected: [],
       dense: true,
 
       typ: this.typParent,
@@ -128,10 +126,7 @@ export default {
 
     editRow(rec, mode) {
       let data = {
-        id: 0,
         typ: this.typParent,
-        clsOrObjCls: null,
-        obj: null,
       };
 
       if (mode === "upd") {
@@ -193,7 +188,7 @@ export default {
                 .then(
                     () => {
                       this.rows.splice(index, 1);
-                      this.selected = ref([]);
+                      this.selected = [];
                       notifySuccess(this.$t("success"));
                     },
                     (error) => {
@@ -210,11 +205,11 @@ export default {
     },
 
     fetchData(typ) {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post('', {
             method: "typ/loadNotExtended",
-            params: [typ],
+            params: [0, typ, localStorage.getItem("curLang")],
           })
           .then((response) => {
             this.rows = response.data.result.records;
@@ -229,7 +224,7 @@ export default {
           })
           .finally(() => {
             //setTimeout(() => {
-            this.loading = ref(false);
+            this.loading = false;
             //}, 1000)
           });
     },
@@ -239,7 +234,7 @@ export default {
         {
           name: "nameClass",
           label: this.$t("cls"),
-          field: "nameClass",
+          field: "name",
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em",
@@ -248,7 +243,7 @@ export default {
         {
           name: "nameObj",
           label: this.$t("obj"),
-          field: "nameObj",
+          field: "fullName",
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em",
@@ -266,8 +261,6 @@ export default {
   },
 
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
     this.cols = this.getColumns();
     //
   },

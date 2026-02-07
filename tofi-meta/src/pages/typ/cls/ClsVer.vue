@@ -150,7 +150,7 @@ export default {
       splitterModel: 30,
       cols: [],
       rows: [],
-      FD_AccessLevel: null,
+      FD_AccessLevel: new Map(),
 
       loading: false,
       selected: [],
@@ -231,11 +231,7 @@ export default {
 
     editRow(rec, mode) {
       let data = {
-        id: 0,
         ownerVer: this.clsId,
-        name: "",
-        fullName: "",
-        cmtVer: null,
       };
       if (mode === "upd") {
         data = {
@@ -245,10 +241,9 @@ export default {
           fullName: rec.fullName,
           dbeg: rec.dbeg > "1800-01-01" ? rec.dbeg : null,
           dend: rec.dend < "3333-12-31" ? rec.dend : null,
-          cmtVer: rec.cmtVer,
+          cmt: rec.cmt,
         };
       }
-      const lg = {name: this.lang};
 
       this.$q
           .dialog({
@@ -256,7 +251,6 @@ export default {
             componentProps: {
               form: data,
               mode: mode,
-              lg: lg,
               dense: true,
               // ...
             },
@@ -291,7 +285,7 @@ export default {
 
     getCmt() {
       if (this.selected.length > 0)
-        return this.selected[0].cmtVer ? this.selected[0].cmtVer : "-"
+        return this.selected[0].cmt ? this.selected[0].cmt : "-"
       else
         return "...";
     },
@@ -312,10 +306,11 @@ export default {
 
     fetchData(cls) {
       this.loading = ref(true);
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "typ/loadClsVer",
-            params: [cls],
+            params: [cls, lang],
           })
           .then(
               (response) => {
@@ -377,10 +372,11 @@ export default {
 
     loadInfo(cls) {
       this.loading = ref(true);
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "typ/loadRecCls",
-            params: [cls],
+            params: [cls, lang],
           })
           .then((response) => {
             this.cls = response.data.result.records[0];
@@ -396,8 +392,6 @@ export default {
   },
 
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
     this.cols = this.getColumns();
   },
 

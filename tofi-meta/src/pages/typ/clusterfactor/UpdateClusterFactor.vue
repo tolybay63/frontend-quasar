@@ -76,12 +76,11 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "mode", "lg", "dense"],
+  props: ["data", "mode", "dense"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
       factors: [],
       factor: this.data.factor,
     };
@@ -128,6 +127,7 @@ export default {
           this.mode === "ins"
               ? "insertTypClusterFactor"
               : "updateTypClusterFactor";
+      this.form.lang = localStorage.getItem("curLang")
       api
           .post('', {
             method: "typ/" + method,
@@ -155,19 +155,19 @@ export default {
       this.hide();
     },
   },
+
   created() {
+    const lang = localStorage.getItem("curLang");
     api
         .post('', {
           method: "typ/loadFactors",
-          params: [this.form.typ, this.mode],
+          params: [this.form.typ, this.mode, lang],
         })
         .then((response) => {
           //this.measures = pack(response.data.result.records)
           this.factors = response.data.result.records;
           this.factors.unshift({id: 0, name: this.$t("notChosen")});
         });
-
-    return {};
   },
 };
 </script>

@@ -106,7 +106,7 @@ export default {
           .post('', {
             id: "1",
             method: "typ/loadRec",
-            params: [typ],
+            params: [{id: typ, lang: localStorage.getItem("curLang")}],
           })
           .then((response) => {
             //console.log("typ", response.data.result.records)

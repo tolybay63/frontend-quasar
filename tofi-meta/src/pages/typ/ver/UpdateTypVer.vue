@@ -99,12 +99,11 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["form", "mode", "lg", "dense"],
+  props: ["form", "mode", "dense"],
 
   data() {
     return {
       myData: this.form,
-      lang: this.lg,
     };
   },
 
@@ -136,13 +135,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -157,6 +156,7 @@ export default {
       // before hiding the QDialog
       let err = false
       const method = this.mode === "ins" ? "insertVer" : "updateVer";
+      this.myData.lang = localStorage.getItem("curLang")
       api
           .post('', {
             id: this.myData.id,
@@ -186,7 +186,6 @@ export default {
     },
   },
   created() {
-    return {};
   },
 };
 </script>

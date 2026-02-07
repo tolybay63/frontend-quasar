@@ -163,7 +163,6 @@ export default {
       al: this.form.accessLevel,
       optCateg: [],
       typCateg: this.form.typCategory,
-
       parentTyps: [],
       parentTyp: this.form.parent,
     };
@@ -210,13 +209,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -230,14 +229,14 @@ export default {
       // emit "ok" event (with optional payload)
       // before hiding the QDialog
 
-      //delete this.myData.accessLevel_text
-      //console.log("al:", this.al)
       //console.log("this.myData:", this.myData)
 
       let err = false
       const method = this.mode === "ins" ? "insert" : "update";
       this.myData.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
+      this.myData.lang = localStorage.getItem("curLang");
+
       api
           .post('', {
             id: this.myData.id,
@@ -267,10 +266,11 @@ export default {
     },
   },
   created() {
+    const lang = localStorage.getItem("curLang")
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
           this.optAL = response.data.result.records;
@@ -279,7 +279,7 @@ export default {
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_TypCategory"}],
+          params: [{dict: "FD_TypCategory", lang: lang}],
         })
         .then((response) => {
           this.optCateg = response.data.result.records;
@@ -288,13 +288,12 @@ export default {
     api
         .post('', {
           method: "typ/loadTypParent",
-          params: [{}],
+          params: [{lang: lang}],
         })
         .then((response) => {
           this.parentTyps = response.data.result.records;
         });
 
-    return {};
   },
 };
 </script>

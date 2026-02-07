@@ -11,7 +11,7 @@
         :wrap-cells="true"
         :table-colspan="4"
         table-header-class="text-bold text-white bg-blue-grey-13"
-        :separator="separator"
+        separator="cell"
         :filter="filter"
         :loading="loading"
         :dense="dense"
@@ -188,7 +188,6 @@ export default defineComponent({
           isUniq: rec.isUniq,
         };
       }
-      const lg = {name: this.lang};
 
       this.$q
           .dialog({
@@ -196,7 +195,6 @@ export default defineComponent({
             componentProps: {
               data: data,
               mode: mode,
-              lg: lg,
               dense: this.dense,
               // ...
             },
@@ -221,16 +219,18 @@ export default defineComponent({
     },
 
     fetchData(typ) {
-      this.loading = ref(true);
+      this.loading = true;
+      const lang = localStorage.getItem("curLang");
       //
       api
           .post('', {
             method: "typ/loadTypClusterFactor",
-            params: [typ],
+            params: [0, typ, lang],
           })
           .then((response) => {
             this.rows = response.data.result.records;
-            this.selected = ref([]);
+            console.info("rows", this.rows)
+            this.selected = [];
           })
           .catch((error) => {
             let msg = error.message;
@@ -241,7 +241,7 @@ export default defineComponent({
           })
           .finally(() => {
             //setTimeout(() => {
-            this.loading = ref(false);
+            this.loading = false;
             //}, 500)
           });
     },
@@ -272,7 +272,7 @@ export default defineComponent({
                     () => {
                       //console.log("response=>>>", response.data)
                       this.rows.splice(index, 1);
-                      this.selected = ref([]);
+                      this.selected = [];
                       notifySuccess(this.$t("success"));
                     },
                     (error) => {
@@ -340,18 +340,15 @@ export default defineComponent({
     return {
       cols: [],
       rows: [],
-      filter: ref(""),
-      loading: ref(false),
-      separator: ref("cell"),
-      selected: ref([]),
+      filter: "",
+      loading: false,
+      selected: [],
       typId: 0,
       dense: true,
     };
   },
 
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
     this.cols = this.getColumns();
   },
 

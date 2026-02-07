@@ -99,7 +99,7 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["form", "mode", "lg", "dense"],
+  props: ["form", "mode", "dense"],
 
   data() {
     return {
@@ -136,13 +136,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -158,6 +158,7 @@ export default {
 
       let err = false
       const method = this.mode === "ins" ? "insertClsVer" : "updateClsVer";
+      this.myData.lang = localStorage.getItem("curLang");
       api
           .post('', {
             id: this.myData.id,
@@ -186,8 +187,6 @@ export default {
       this.hide();
     },
   },
-  created() {
-    return {};
-  },
+  created() {},
 };
 </script>

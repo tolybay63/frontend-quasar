@@ -204,9 +204,6 @@ export default {
       let data = {
         id: 0,
         ownerVer: this.typId,
-        name: "",
-        fullName: "",
-        cmtVer: null,
       };
       if (mode === "upd") {
         data = {
@@ -216,11 +213,9 @@ export default {
           fullName: rec.fullName,
           dbeg: rec.dbeg > "1800-01-01" ? rec.dbeg : null,
           dend: rec.dend < "3333-12-31" ? rec.dend : null,
-          cmtVer: rec.cmtVer,
+          cmt: rec.cmt,
         };
       }
-      //const upd = {isIns: ins};
-      const lg = {name: this.lang};
 
       //console.log("data",data)
 
@@ -230,7 +225,6 @@ export default {
             componentProps: {
               form: data,
               mode: mode,
-              lg: lg,
               dense: true,
               // ...
             },
@@ -268,7 +262,7 @@ export default {
 
     getCmt() {
       if (this.selected.length > 0)
-        return this.selected[0].cmtVer ? this.selected[0].cmtVer : "-"
+        return this.selected[0].cmt ? this.selected[0].cmt : "-"
       else
         return "...";
     },
@@ -289,10 +283,11 @@ export default {
 
     fetchData(typ) {
       this.loading = true;
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "typ/loadVer",
-            params: [typ],
+            params: [typ, lang],
           })
           .then(
               (response) => {
@@ -354,8 +349,6 @@ export default {
   },
 
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
     this.cols = this.getColumns();
   },
 

@@ -167,8 +167,31 @@ function wrapCsvValue(val, formatFn) {
 }
 
 export default defineComponent({
+
+  data: function () {
+    return {
+      cols: [],
+      rows: [],
+      FD_AccessLevel: new Map(),
+      filter: "",
+      loading: false,
+
+      pagination: {
+        sortBy: null,
+        descending: false,
+        page: 1,
+        rowsPerPage: 15,
+        rowsNumber: 0,
+      },
+      selected: [],
+      dense: true,
+      typId: 0,
+    };
+  },
+
   methods: {
     hasTarget,
+
     typSelect() {
       this.$router["push"]({
         name: "typSelected",
@@ -187,15 +210,10 @@ export default defineComponent({
     editRow(rec, mode) {
       let data = {
         id: 0,
-        cod: "",
         accessLevel: 1,
         typCategory: 1,
         isOpenness: true,
         lastVer: 1,
-        name: "",
-        fullName: "",
-        parent: null,
-        cmt: null,
       };
       if (mode === "upd") {
         data = {
@@ -249,14 +267,11 @@ export default defineComponent({
     fetchData(requestProps) {
       this.loading = true
 
-      const page =
-          requestProps.rowsPerPage === undefined ? 1 : requestProps.page;
-      const rowsPerPage =
-          requestProps.rowsPerPage === 0
-              ? this.pagination.rowsNumber
-              : requestProps.rowsPerPage;
+      const page = requestProps.rowsPerPage === undefined ? 1 : requestProps.page;
+      const rowsPerPage = requestProps.rowsPerPage;
       const orderBy = requestProps.sortBy;
       const filter = requestProps.filter;
+      const lang = localStorage.getItem("curLang");
       //
       api
           .post('', {
@@ -267,6 +282,7 @@ export default defineComponent({
                 limit: rowsPerPage,
                 orderBy: orderBy,
                 filter: filter,
+                lang: lang
               },
             ],
           })
@@ -474,39 +490,21 @@ export default defineComponent({
         notifyInfo(this.$t("browserDenied"));
       }
     },
-  },
 
-  data: function () {
-    return {
-      cols: [],
-      rows: [],
-      FD_AccessLevel: null,
-      filter: "",
-      loading: false,
-
-      pagination: {
-        sortBy: null,
-        descending: false,
-        page: 1,
-        rowsPerPage: 15,
-        rowsNumber: 0,
-      },
-      selected: [],
-      dense: true,
-      typId: 0,
-    };
+    infoSelected(row) {
+      if (row)
+        return " " + row.cod + " - " + row.name;
+    },
   },
 
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
-          this.FD_AccessLevel = new Map();
           response.data.result.records.forEach((it) => {
             this.FD_AccessLevel.set(it["id"], it["text"]);
           });
@@ -520,14 +518,7 @@ export default defineComponent({
     this.typId = parseInt(this.$route["params"].typ, 10);
   },
 
-  setup() {
-      return {
-      infoSelected(row) {
-        if (row)
-          return " " + row.cod + " - " + row.name;
-      },
-    }
-  }
+  setup() {}
 
 });
 </script>

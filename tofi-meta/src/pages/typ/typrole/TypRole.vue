@@ -229,7 +229,7 @@ export default {
             api
                 .post('', {
                   method: "typ/deleteTypRole",
-                  params: [{rec: rec}],
+                  params: [rec],
                 })
                 .then(
                     () => {
@@ -267,9 +267,6 @@ export default {
           cmt: rec.cmt,
         };
       }
-      //const upd = {isIns: ins};
-      const lg = {name: this.lang};
-
       //console.log("data",data)
 
       this.$q
@@ -279,7 +276,6 @@ export default {
               data: data,
               typ: this.typId,
               mode: mode,
-              lg: lg,
               dense: true,
               // ...
             },
@@ -309,7 +305,7 @@ export default {
       api
           .post('', {
             method: "typ/loadTypRole",
-            params: [typ],
+            params: [0, typ, localStorage.getItem("curLang")],
           })
           .then(
               (response) => {
@@ -363,7 +359,7 @@ export default {
             api
                 .post('', {
                   method: "typ/deleteTypRoleLife",
-                  params: [{rec: rec}],
+                  params: [rec],
                 })
                 .then(
                     () => {
@@ -387,9 +383,7 @@ export default {
 
     editRow2(rec, mode) {
       let data = {
-        id: 0,
         typrole: this.selected[0].id,
-        cmt: null,
       };
       if (mode === "upd") {
         data = {
@@ -400,9 +394,6 @@ export default {
           cmt: rec.cmt,
         };
       }
-      //const upd = {isIns: ins};
-      const lg = {name: this.lang};
-
       //console.log("data",data)
 
       this.$q
@@ -411,7 +402,6 @@ export default {
             componentProps: {
               data: data,
               mode: mode,
-              lg: lg,
               dense: true,
               // ...
             },
@@ -434,11 +424,10 @@ export default {
 
     fetchData2(typrole) {
       this.loading2 = true;
-
       api
           .post('', {
             method: "typ/loadTypRoleLife",
-            params: [typrole],
+            params: [0, typrole, localStorage.getItem("curLang")],
           })
           .then(
               (response) => {
@@ -548,8 +537,6 @@ export default {
   },
 
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
     this.cols = this.getColumns();
     this.cols2 = this.getColumns2();
   },

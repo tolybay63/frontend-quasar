@@ -245,7 +245,7 @@ import {collapsAll, expandAll, notifyError, notifySuccess, pack,} from "src/util
 import {ref} from "vue";
 
 export default {
-  props: ["data", "mode", "typ", "lg", "dense"],
+  props: ["data", "mode", "typ", "dense"],
 
   data() {
     //console.log("data", this.data)
@@ -253,8 +253,7 @@ export default {
       cols: [],
       rows: [],
       form: this.data,
-      loading: ref(false),
-      separator: ref("cell"),
+      loading: false,
       optionsLevel: [],
       al: this.data.accessLevel,
 
@@ -321,11 +320,8 @@ export default {
         } else {
           item.checked = 1;
         }
-
         item.checked = 1;
       }
-
-
     },
 
     fnIsReq(item) {
@@ -341,6 +337,7 @@ export default {
     fnExpand() {
       expandAll(this.rows);
     },
+
     fnCollapse() {
       collapsAll(this.rows);
     },
@@ -455,6 +452,7 @@ export default {
         }
       });
     },
+
     iconName(item) {
       if (item.expend) {
         return "remove_circle_outline";
@@ -466,6 +464,7 @@ export default {
 
       return "";
     },
+
     toggle(item) {
       let vm = this;
       vm.itemId = item.id;
@@ -492,19 +491,21 @@ export default {
         vm.itemId = null;
       }
     },
+
     setPadding(item) {
       return `padding-left: ${item.level * 30}px;`;
     },
 
     fetchData(typ, cls) {
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "typ/loadClsFVforUpd",
-            params: [typ, cls],
+            params: [typ, cls, lang],
           })
           .then((response) => {
             //console.log("cfvList", response.data.result.records)
-            this.rows = pack(response.data.result.records);
+            this.rows = pack(response.data.result.records, "ord");
             this.fnExpand();
             //console.log("cfvTree", this.rows)
           });
@@ -513,13 +514,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -541,6 +542,7 @@ export default {
         });
       });
       const method = this.mode === "ins" ? "insertCls" : "updateCls";
+      this.form.lang = localStorage.getItem("curLang");
       let err = false;
       api
           .post('', {
@@ -587,11 +589,12 @@ export default {
   created() {
 
     this.cols = this.getColumns();
+    const lang = localStorage.getItem("curLang");
 
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
           this.optionsLevel = response.data.result.records;
@@ -600,12 +603,11 @@ export default {
     api
         .post('', {
           method: "database/loadDbForSelect",
-          params: [],
+          params: [lang],
         })
         .then((response) => {
           this.optionsDB = response.data.result.records;
         });
-
 
     let cls = this.data.id === null ? 0 : this.data.id;
     this.fetchData(this.typ, cls);

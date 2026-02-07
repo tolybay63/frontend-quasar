@@ -1,6 +1,3 @@
-<!--
-style="height: calc(100vh - 220px); width: 100%"
--->
 <template>
   <div class="q-pa-sm-sm">
     <q-splitter
@@ -277,11 +274,10 @@ export default {
 
       cols: [],
       rows: [],
-      FD_AccessLevel: null,
-      dataBase: null,
-      loading: ref(false),
-      separator: ref("cell"),
-      selected: ref([]),
+      FD_AccessLevel: new Map(),
+      dataBase: new Map(),
+      loading: false,
+      selected: [],
       isExpanded: true,
       selectedRowID: {},
       currentNode: null,
@@ -290,7 +286,6 @@ export default {
       //
       cols2: [],
       rows2: [],
-      //loading2: ref(false),
       //
       isExpanded2: true,
       selectedRowID2: {},
@@ -331,7 +326,6 @@ export default {
       return this.dataBase ? this.dataBase.get(val) : null;
     },
 
-
     selectedRow(item) {
       let vm = this;
       if (vm.selected.length > 0 && item.id === vm.selected[0].id)
@@ -356,11 +350,12 @@ export default {
     },
 
     fetchData2(typ, cls) {
-      this.loading = ref(false);
+      this.loading = false;
+      const lang = localStorage.getItem("curLang");
       api
         .post('', {
           method: "typ/loadClsFV",
-          params: [typ, cls],
+          params: [typ, cls, lang],
         })
         .then((response) => {
           this.rows2 = pack(response.data.result.records, "ord");
@@ -377,19 +372,19 @@ export default {
         })
         .finally(() => {
           //setTimeout(() => {
-          this.loading = ref(false);
+          this.loading = false;
           //}, 500)
         });
     },
 
     fetchData(typ) {
-      this.loading = ref(true)
-
-      this.selected = ref([])
+      this.loading = true
+      const lang = localStorage.getItem("curLang");
+      this.selected = []
       api
         .post('', {
           method: "typ/loadClsTree",
-          params: [{typ: typ, typNodeVisible: false}],
+          params: [{typ: typ, typNodeVisible: false, lang: lang}],
         })
         .then((response) => {
           this.rows = pack(response.data.result.records, "ord");
@@ -413,7 +408,7 @@ export default {
         })
         .finally(() => {
           //setTimeout(() => {
-          this.loading = ref(false);
+          this.loading = false;
           //}, 500)
         });
     },
@@ -464,16 +459,11 @@ export default {
 
     editRow(rec, mode) {
       let data = {
-        id: 0,
-        cod: "",
         accessLevel: 1,
         typ: this.typId,
         isOpenness: true,
         dataBase: null,
         lastVer: 1,
-        name: "",
-        fullName: "",
-        cmt: null,
         isOwn: 1,
       };
       if (mode === "upd") {
@@ -494,8 +484,6 @@ export default {
         };
       }
 
-      const lg = {name: this.lang};
-
       //console.log("data",data)
 
       this.$q
@@ -505,7 +493,6 @@ export default {
             data: data,
             mode: mode,
             typ: this.typId,
-            lg: lg,
             dense: this.dense,
             // ...
           },
@@ -526,6 +513,7 @@ export default {
       }
       return res;
     },
+
     getColumns() {
       return [
         {
@@ -711,16 +699,14 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
 
     api
       .post('', {
         method: "dict/load",
-        params: [{dict: "FD_AccessLevel"}],
+        params: [{dict: "FD_AccessLevel", lang: lang}],
       })
       .then((response) => {
-        this.FD_AccessLevel = new Map();
         response.data.result.records.forEach((it) => {
           this.FD_AccessLevel.set(it["id"], it["text"]);
         });
@@ -729,11 +715,9 @@ export default {
     api
       .post('', {
         method: "database/loadDbForSelect",
-        params: [],
+        params: [lang],
       })
       .then((response) => {
-        //console.info("db", response.data.result.records)
-        this.dataBase = new Map();
         response.data.result.records.forEach((it) => {
           this.dataBase.set(it["id"], it["name"]);
         });

@@ -75,12 +75,11 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "mode", "lg", "dense"],
+  props: ["data", "mode", "dense"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
     };
   },
 
@@ -94,13 +93,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs["dialog"]["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs["dialog"]["hide"]();
     },
 
     onDialogHide() {
@@ -114,15 +113,12 @@ export default {
       // emit "ok" event (with optional payload)
       // before hiding the QDialog
 
-      //delete this.form.accessLevel_text
-      //console.log("al:", this.al)
-      //console.log("this.form:", this.form)
       let err = false
-      const method =
-          this.mode === "ins" ? "insertTypRoleLife" : "updateTypRoleLife";
+      const method = this.mode === "ins" ? "insertTypRoleLife" : "updateTypRoleLife";
+      this.form.lang = localStorage.getItem("curLang")
+
       api
           .post('', {
-            id: this.form.id,
             method: "typ/" + method,
             params: [{rec: this.form}],
           })
@@ -148,8 +144,7 @@ export default {
       this.hide();
     },
   },
-  created() {
-    return {};
-  },
+  created() {},
+
 };
 </script>
