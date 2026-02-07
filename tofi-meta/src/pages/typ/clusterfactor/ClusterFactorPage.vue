@@ -116,7 +116,7 @@
             :dense="dense"
             debounce="300"
             color="primary"
-            :model-value="filter.value"
+            :model-value="filter"
             v-model="filter"
             :label="$t('txt_filter')"
         >
@@ -134,19 +134,11 @@
 </template>
 
 <script>
-import {defineComponent, ref} from "vue";
+import {defineComponent} from "vue";
 import {api} from "boot/axios";
 import {hasTarget, notifyError, notifyInfo, notifySuccess} from "src/utils/jsutils";
 import UpdateClusterFactor from "pages/typ/clusterfactor/UpdateClusterFactor.vue";
 
-const requestParam = {
-  page: 1,
-  rowsPerPage: 20,
-  rowsNumber: 0,
-  filter: "",
-  descending: false,
-  sortBy: null,
-};
 
 export default defineComponent({
   methods: {
