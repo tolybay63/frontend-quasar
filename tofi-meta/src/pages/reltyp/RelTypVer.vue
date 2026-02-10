@@ -290,7 +290,7 @@ export default {
       api
           .post('', {
             method: "reltyp/loadVer",
-            params: [reltyp],
+            params: [reltyp, localStorage.getItem("curLang")],
           })
           .then((response) => {
             this.rows = response.data.result.records;

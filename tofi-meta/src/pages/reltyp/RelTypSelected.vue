@@ -89,7 +89,7 @@ export default {
           .post('', {
             id: "1",
             method: "reltyp/loadRec",
-            params: [{id: reltyp}],
+            params: [{id: reltyp, lang: localStorage.getItem("curLang")}],
           })
           .then((response) => {
             this.reltyp = response.data.result.records[0];

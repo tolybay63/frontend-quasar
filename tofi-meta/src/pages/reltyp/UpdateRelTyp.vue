@@ -205,6 +205,9 @@ export default {
       const method = this.mode === "ins" ? "insert" : "update";
       this.form.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
+
+      this.form.lang = localStorage.getItem("curLang")
+
       api
           .post('', {
             id: this.form.id,
@@ -238,7 +241,7 @@ export default {
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.optAL = response.data.result.records;

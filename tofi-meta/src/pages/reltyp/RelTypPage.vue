@@ -157,15 +157,10 @@ export default defineComponent({
 
     editRow(rec, mode) {
       let data = {
-        id: 0,
-        cod: "",
         accessLevel: 1,
         card: 1,
         isOpenness: true,
         lastVer: 1,
-        name: "",
-        fullName: "",
-        cmt: null,
       };
       if (mode === "upd") {
         data = {
@@ -219,6 +214,7 @@ export default defineComponent({
 
     fetchData(requestProps) {
       this.loading = ref(true);
+      let lang = localStorage.getItem("curLang");
 
       const page =
           requestProps.rowsPerPage === undefined ? 1 : requestProps.page;
@@ -238,6 +234,7 @@ export default defineComponent({
                 limit: rowsPerPage,
                 orderBy: orderBy,
                 filter: filter,
+                lang: lang,
               },
             ],
           })
@@ -417,6 +414,10 @@ export default defineComponent({
         },
       ];
     },
+
+    infoSelected(row) {
+      return " " + row.cod + " - " + row.name;
+    },
   },
 
   data: function () {
@@ -441,12 +442,11 @@ export default defineComponent({
   },
 
   created() {
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    let lang = localStorage.getItem("curLang");
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
           this.FD_AccessLevel = new Map();
@@ -464,13 +464,7 @@ export default defineComponent({
     this.reltypId = parseInt(this.$route["params"].reltyp, 10);
   },
 
-  setup() {
-    return {
-      infoSelected(row) {
-        return " " + row.cod + " - " + row.name;
-      },
-    }
-  }
+  setup() {}
 
 });
 </script>
