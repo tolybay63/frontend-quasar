@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import {api, baseURL} from "boot/axios";
+import {api} from "boot/axios";
 import {notifyError, notifySuccess, txt_lang} from "src/utils/jsutils";
 
 export default {
@@ -176,8 +176,7 @@ export default {
         typeof this.al === "object" ? this.al.id : this.al;
       this.myData.lang = localStorage.getItem("curLang")
       api
-        .post(baseURL, {
-          id: this.myData.id,
+        .post('', {
           method: this.act + "/" + method,
           params: [{rec: this.myData}],
         })
@@ -205,15 +204,13 @@ export default {
   },
   created() {
     api
-      .post(baseURL, {
+      .post('', {
         method: "dict/load",
         params: [{dict: "FD_AccessLevel", lang: localStorage.getItem("curLang")}],
       })
       .then((response) => {
         this.options = response.data.result.records;
       });
-
-    return {};
   },
 };
 </script>

@@ -231,14 +231,13 @@ export default defineComponent({
           cmt: rec.cmt,
         };
       }
-      const lg = {name: this.lang};
+
       this.$q
           .dialog({
             component: UpdateTyp,
             componentProps: {
               form: data,
               mode: mode,
-              lg: lg,
               action: "typ",
               dense: this.dense,
               // ...

@@ -152,7 +152,7 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["form", "mode", "lg", "action", "dense"],
+  props: ["form", "mode", "action", "dense"],
 
   data() {
     return {
@@ -241,7 +241,7 @@ export default {
           .post('', {
             id: this.myData.id,
             method: this.act + "/" + method,
-            params: [{rec: this.myData}],
+            params: [this.myData],
           })
           .then(
               (response) => {

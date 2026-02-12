@@ -61,11 +61,11 @@
         >
         </q-input>
 
-        <!-- cmtVer -->
+        <!-- cmt -->
         <q-input
             :dense="dense"
-            :model-value="myData.cmtVer"
-            v-model="myData.cmtVer"
+            :model-value="myData.cmt"
+            v-model="myData.cmt"
             type="textarea"
             :label="$t('fldCmt')"
         >
