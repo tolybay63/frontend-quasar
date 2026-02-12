@@ -68,12 +68,11 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "reltyp", "mode", "lg", "dense"],
+  props: ["data", "reltyp", "mode", "dense"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
       relroles: [],
       relrole: this.data.role,
     };
@@ -118,6 +117,7 @@ export default {
 
       const method =
           this.mode === "ins" ? "insertRelTypRole" : "updateRelTypRole";
+      this.form.lang = localStorage.getItem("curLang")
       api
           .post('', {
             method: "reltyp/" + method,
@@ -147,7 +147,7 @@ export default {
     api
         .post('', {
           method: "reltyp/selectRelTypRole",
-          params: [this.reltyp],
+          params: [this.reltyp, localStorage.getItem("curLang")],
         })
         .then((response) => {
           //this.measures = pack(response.data.result.records)

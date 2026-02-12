@@ -130,11 +130,10 @@
 <script>
 import {api} from "boot/axios";
 import {notifyError, notifySuccess,} from "src/utils/jsutils";
-import {ref} from "vue";
 
 
 export default {
-  props: ["data", "mode", "typ", "lg", "dense"],
+  props: ["data", "mode", "typ", "dense"],
 
   data() {
     //console.log("data", this.data)
@@ -142,8 +141,7 @@ export default {
       cols: [],
       rows: [],
       form: this.data,
-      loading: ref(false),
-      separator: ref("cell"),
+      loading: false,
       optionsLevel: [],
       al: this.data.accessLevel,
 
@@ -221,6 +219,8 @@ export default {
       });
       const method = this.mode === "ins" ? "insert" : "update";
       let err = false;
+      this.form.lang = localStorage.getItem("curLang");
+
       api
           .post('', {
             method: "relcls/" + method,
@@ -256,11 +256,12 @@ export default {
 
 
   created() {
+    const lang = localStorage.getItem("curLang");
 
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
           this.optionsLevel = response.data.result.records;
@@ -269,7 +270,7 @@ export default {
     api
         .post('', {
           method: "database/loadDbForSelect",
-          params: [],
+          params: [lang],
         })
         .then((response) => {
           this.optionsDB = response.data.result.records;

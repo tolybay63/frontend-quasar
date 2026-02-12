@@ -219,15 +219,12 @@ export default {
         };
       }
 
-      const lg = {name: this.lang};
-
       this.$q
           .dialog({
             component: UpdateRelClsVer,
             componentProps: {
               data: data,
               mode: mode,
-              lg: lg,
               dense: true,
               // ...
             },
@@ -281,10 +278,11 @@ export default {
 
     fetchData(relcls) {
       this.loading = false;
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "relcls/loadVer",
-            params: [relcls],
+            params: [relcls, lang],
           })
           .then((response) => {
             this.rows = response.data.result.records;
@@ -342,9 +340,6 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
-
     this.cols = this.getColumns();
   },
 

@@ -170,9 +170,9 @@ export default {
     return {
       cols: [],
       rows: [],
-      loading: ref(false),
+      loading: false,
       selected: ref([]),
-      FD_MemberType: null,
+      FD_MemberType: new Map(),
       dense: true,
       maxLen: 0,
       reltypId: 0,
@@ -367,11 +367,11 @@ export default {
 
     fetchData(reltyp) {
       this.loading = ref(true);
-
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "reltyp/loadRelTypMember",
-            params: [reltyp],
+            params: [reltyp, lang],
           })
           .then((response) => {
             this.rows = response.data.result.records;
@@ -405,7 +405,7 @@ export default {
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em",
-          style: "width: 20%",
+          style: "width: 25%",
         },
         {
           name: "fullName",
@@ -414,7 +414,7 @@ export default {
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em",
-          style: "width: 25%",
+          style: "width: 35%",
         },
         {
           name: "memberType",
@@ -423,18 +423,18 @@ export default {
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em",
-          style: "width: 10%",
+          style: "width: 15%",
           format: (val) =>
               this.FD_MemberType ? this.FD_MemberType.get(val) : null,
         },
-        {
+/*        {
           name: "memberName",
           label: this.$t("memberName"),
           field: "memberName",
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em; width: 25%",
-        },
+        },*/
 
         {
           name: "cmt",
@@ -443,7 +443,7 @@ export default {
           align: "left",
           classes: "bg-blue-grey-1",
           headerStyle: "font-size: 1.2em",
-          style: "width: 20%",
+          style: "width: 25%",
         },
       ];
     },
@@ -457,16 +457,14 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
 
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_MemberType"}],
+          params: [{dict: "FD_MemberType", lang: lang}],
         })
         .then((response) => {
-          this.FD_MemberType = new Map();
           response.data.result.records.forEach((it) => {
             this.FD_MemberType.set(it["id"], it["text"]);
           });

@@ -74,12 +74,11 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "mode", "lg", "dense"],
+  props: ["data", "mode", "dense"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
     };
   },
 
@@ -119,6 +118,7 @@ export default {
 
       const method =
           this.mode === "ins" ? "insertRelTypRoleLife" : "updateRelTypRoleLife";
+      this.form.lang = localStorage.getItem("curLang");
       api
           .post('', {
             id: this.form.id,

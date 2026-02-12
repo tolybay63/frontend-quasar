@@ -117,9 +117,9 @@ export default {
     return {
       cols: [],
       rows: [],
-      loading: ref(false),
+      loading: false,
       selected: ref([]),
-      FD_MemberType: null,
+      FD_MemberType: new Map(),
       dense: true,
 
     };
@@ -173,15 +173,12 @@ export default {
         cmt: rec.cmt,
       }
 
-      const lg = {name: this.lang};
-
       this.$q
           .dialog({
             component: UpdateRelClsMember,
             componentProps: {
               data: data,
               mode: "upd",
-              lg: lg,
               // ...
             },
           })
@@ -196,12 +193,12 @@ export default {
     },
 
     fetchData(relcls) {
-      this.loading = ref(true);
-
+      this.loading = true;
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "relcls/loadRelClsMember",
-            params: [relcls],
+            params: [relcls, lang],
           })
           .then((response) => {
             this.rows = response.data.result.records;
@@ -220,7 +217,7 @@ export default {
             notifyError(msg);
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 
@@ -275,13 +272,12 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
 
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_MemberType"}],
+          params: [{dict: "FD_MemberType", lang: lang}],
         })
         .then((response) => {
           this.FD_MemberType = new Map();

@@ -81,7 +81,7 @@ export default {
       api
           .post('', {
             method: "relcls/loadRec",
-            params: [relclsId],
+            params: [relclsId, localStorage.getItem("curLang")],
           })
           .then((response) => {
             //console.log("f", response.data.result.records)

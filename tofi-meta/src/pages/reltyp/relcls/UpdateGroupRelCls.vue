@@ -179,13 +179,12 @@ const collaps = (item) => {
 };
 
 export default {
-  props: ["data", "lg"],
+  props: ["data"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
-      loading: ref(false),
+      loading: false,
       cols: [],
       rows: [],
       isExpanded: false,
@@ -209,7 +208,7 @@ export default {
   methods: {
 
     fnSelectDB(val) {
-    console.info("dbType, val", this.dbType, val)
+    //console.info("dbType, val", this.dbType, val)
 
     },
 
@@ -329,7 +328,7 @@ export default {
       // emit "ok" event (with optional payload)
       // before hiding the QDialog
 
-      this.loading = ref(true);
+      this.loading =true;
       let err = false
       let rez = []
       for (let i = 0; i < this.sizeRTM; i++) {
@@ -337,8 +336,8 @@ export default {
         getCheckets(this.rows[i])
         rez.push(checkedMembers)
       }
-      console.info("rez", rez)
-      console.info("rows", this.rows)
+      //console.info("rez", rez)
+      //console.info("rows", this.rows)
 
       api
           .post('', {
@@ -358,7 +357,7 @@ export default {
               }
           )
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
             if (!err) this.hide();
           });
     },
@@ -396,9 +395,9 @@ export default {
   },
 
   created() {
+    this.loading = true;
     this.cols = this.getColumns();
-
-    this.loading = ref(true);
+    this.form.lang = localStorage.getItem("curLang");
     api
         .post('', {
           method: "relcls/loadAllMembers",
@@ -410,14 +409,14 @@ export default {
           //console.log("rows", this.rows)
         })
         .finally(() => {
-          this.loading = ref(false);
+          this.loading = false;
         });
 
-    this.loading = ref(true);
+    this.loading = true;
     api
       .post('', {
         method: "database/loadDbForSelect",
-        params: [],
+        params: [localStorage.getItem("curLang")],
       })
       .then((response) => {
         this.optionsDB = response.data.result.records
@@ -425,7 +424,7 @@ export default {
         //console.log("rows", this.rows)
       })
       .finally(() => {
-        this.loading = ref(false);
+        this.loading = false;
       });
 
   },

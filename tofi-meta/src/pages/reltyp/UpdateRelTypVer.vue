@@ -99,12 +99,11 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "mode", "lg", "dense"],
+  props: ["data", "mode", "dense"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
     };
   },
 
@@ -158,6 +157,7 @@ export default {
 
       let err = false;
       const method = this.mode === "ins" ? "insertVer" : "updateVer";
+      this.form.lang = localStorage.getItem("curLang");
       api
           .post('', {
             id: this.form.id,

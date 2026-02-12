@@ -88,13 +88,11 @@ import {api} from "boot/axios";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "mode", "lg"],
+  props: ["data", "mode"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
-
     };
   },
 
@@ -149,6 +147,8 @@ export default {
 
       let err = false;
 
+      this.form.lang = localStorage.getItem("curLang");
+
       api
           .post('', {
             id: this.form.id,
@@ -179,10 +179,11 @@ export default {
   },
 
   created() {
+    const lang = localStorage.getItem("curLang")
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_MemberType"}],
+          params: [{dict: "FD_MemberType", lang: lang}],
         })
         .then((response) => {
           this.optMT = response.data.result.records;
@@ -192,7 +193,7 @@ export default {
     api
         .post('', {
           method: "role/loadRoles",
-          params: [{}],
+          params: [lang],
         })
         .then((response) => {
           //this.measures = pack(response.data.result.records)
@@ -203,7 +204,7 @@ export default {
     api
         .post('', {
           method: "typ/loadTypForSelect",
-          params: [{}],
+          params: [lang],
         })
         .then((response) => {
           this.optTyp = response.data.result.records;
@@ -213,7 +214,7 @@ export default {
     api
         .post('', {
           method: "reltyp/loadRelTypForSelect",
-          params: [],
+          params: [lang],
         })
         .then((response) => {
           this.optRT = response.data.result.records;

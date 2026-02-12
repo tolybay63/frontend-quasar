@@ -178,15 +178,12 @@ export default defineComponent({
         };
       }
 
-      const lg = {name: this.lang};
-
       this.$q
           .dialog({
             component: UpdateRelTyp,
             componentProps: {
               data: data,
               mode: mode,
-              lg: lg,
               dense: this.dense,
               // ...
             },

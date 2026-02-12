@@ -133,7 +133,7 @@ export default {
       splitterModel: 30,
       cols: [],
       rows: [],
-      FD_AccessLevel: null,
+      FD_AccessLevel: new Map(),
       //filter: ref(""),
       loading: false,
       selected: [],
@@ -220,9 +220,6 @@ export default {
           cmtVer: rec.cmtVer,
         };
       }
-      //const upd = {isIns: ins};
-      const lg = {name: this.lang};
-
       //console.log("data",data)
 
       this.$q
@@ -231,7 +228,6 @@ export default {
             componentProps: {
               data: data,
               mode: mode,
-              lg: lg,
               dense: true,
               // ...
             },
@@ -350,9 +346,6 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
-
     this.cols = this.getColumns();
   },
 

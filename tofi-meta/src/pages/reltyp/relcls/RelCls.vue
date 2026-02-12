@@ -154,8 +154,8 @@ export default {
       loading: false,
       //separator: ref("cell"),
       selected: [],
-      FD_AccessLevel: null,
-      dataBase: null,
+      FD_AccessLevel: new Map(),
+      dataBase: new Map(),
       reltypId: 0,
       relclsId: 0,
     }
@@ -259,15 +259,12 @@ export default {
         };
       }
 
-      //const lg = { name: this.lang };
-
       this.$q
         .dialog({
           component: UpdateRelCls,
           componentProps: {
             data: data,
             mode: mode,
-            //lg: lg,
             dense: true,
             // ...
           },
@@ -333,7 +330,7 @@ export default {
       api
         .post('', {
           method: "relcls/load",
-          params: [reltyp],
+          params: [0, reltyp, localStorage.getItem("curLang")],
         })
         .then((response) => {
           this.rows = response.data.result.records;
@@ -423,16 +420,14 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
 
     api
       .post('', {
         method: "dict/load",
-        params: [{dict: "FD_AccessLevel"}],
+        params: [{dict: "FD_AccessLevel", lang: lang}],
       })
       .then((response) => {
-        this.FD_AccessLevel = new Map();
         response.data.result.records.forEach((it) => {
           this.FD_AccessLevel.set(it["id"], it["text"]);
         });
@@ -441,11 +436,10 @@ export default {
     api
       .post('', {
         method: "database/loadDbForSelect",
-        params: [],
+        params: [lang],
       })
       .then((response) => {
         //console.info("db", response.data.result.records)
-        this.dataBase = new Map();
         response.data.result.records.forEach((it) => {
           this.dataBase.set(it["id"], it["name"]);
         });

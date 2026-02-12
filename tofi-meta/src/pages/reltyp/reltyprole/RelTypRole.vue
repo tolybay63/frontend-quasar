@@ -94,7 +94,7 @@
             :wrap-cells="true"
             table-header-class="text-bold text-white bg-blue-grey-13"
             separator="cell"
-            :loading="loading2.value"
+            :loading="loading2"
             :dense="dense"
             selection="single"
             v-model:selected="selected2.value"
@@ -123,7 +123,7 @@
                 :dense="dense"
                 icon="post_add"
                 color="secondary"
-                :disable="loading && loading2.value"
+                :disable="loading && loading2"
                 @click="editRow2(null, 'ins')"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
@@ -136,7 +136,7 @@
                 icon="edit"
                 color="secondary"
                 class="q-ml-sm"
-                :disable="loading2.value || selected2.length === 0"
+                :disable="loading2 || selected2.length === 0"
                 @click="editRow2(selected2[0], 'upd')"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
@@ -149,7 +149,7 @@
                 icon="delete"
                 color="secondary"
                 class="q-ml-sm"
-                :disable="loading2.value || selected2.length === 0"
+                :disable="loading2 || selected2.length === 0"
                 @click="removeRow2(selected2[0])"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
@@ -159,7 +159,7 @@
           </template>
 
           <template #loading>
-            <q-inner-loading :showing="loading2.value" color="secondary"></q-inner-loading>
+            <q-inner-loading :showing="loading2" color="secondary"></q-inner-loading>
           </template>
         </q-table>
       </template>
@@ -259,7 +259,6 @@ export default {
         id: 0,
         relTyp: this.reltypId,
         role: 0,
-        cmtVer: null,
       };
       if (mode === "upd") {
         data = {
@@ -269,9 +268,6 @@ export default {
           cmt: rec.cmt,
         };
       }
-
-      const lg = {name: this.lang};
-
       //      console.log("data",data)
 
       this.$q
@@ -281,7 +277,6 @@ export default {
               data: data,
               reltyp: this.reltypId,
               mode: mode,
-              lg: lg,
               dense: true,
               // ...
             },
@@ -307,10 +302,11 @@ export default {
 
     fetchData(reltyp) {
       this.loading = true
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "reltyp/loadRelTypRole",
-            params: [reltyp],
+            params: [0, reltyp, lang],
           })
           .then((response) => {
             this.rows = response.data.result.records;
@@ -383,7 +379,6 @@ export default {
       let data = {
         id: 0,
         reltypRole: this.selected[0].id,
-        cmt: null,
       };
       if (mode === "upd") {
         data = {
@@ -394,9 +389,6 @@ export default {
           cmt: rec.cmt,
         };
       }
-      //const upd = {isIns: ins};
-      const lg = {name: this.lang};
-
       //console.log("data",data)
 
       this.$q
@@ -405,7 +397,6 @@ export default {
             componentProps: {
               data: data,
               mode: mode,
-              lg: lg,
               dense: true,
               // ...
             },
@@ -431,10 +422,11 @@ export default {
 
     fetchData2(reltyprole) {
       this.loading2 = true
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "reltyp/loadRelTypRoleLife",
-            params: [reltyprole],
+            params: [0, reltyprole, lang],
           })
           .then((response) => {
             this.rows2 = response.data.result.records;
@@ -540,8 +532,6 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
     this.cols = this.getColumns();
     this.cols2 = this.getColumns2();
   },
