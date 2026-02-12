@@ -504,7 +504,7 @@ export default {
             params: [typ, cls, lang],
           })
           .then((response) => {
-            //console.log("cfvList", response.data.result.records)
+            console.log("cfvList", response.data.result.records)
             this.rows = pack(response.data.result.records, "ord");
             this.fnExpand();
             //console.log("cfvTree", this.rows)
@@ -607,7 +607,11 @@ export default {
         })
         .then((response) => {
           this.optionsDB = response.data.result.records;
-        });
+        })
+      .finally(()=> {
+        let cls = this.data.id === null ? 0 : this.data.id;
+        this.fetchData(this.typ, cls);
+      })
 
     let cls = this.data.id === null ? 0 : this.data.id;
     this.fetchData(this.typ, cls);

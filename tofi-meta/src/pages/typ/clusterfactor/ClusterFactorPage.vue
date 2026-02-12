@@ -192,7 +192,7 @@ export default defineComponent({
             },
           })
           .onOk((r) => {
-            //console.log("Ok! updated", r);
+            console.log("Ok! updated", r);
             if (mode === "ins") {
               this.rows.push(r);
               this.selected = [];
