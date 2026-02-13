@@ -126,12 +126,11 @@ import "vue3-treeselect/dist/vue3-treeselect.css";
 export default {
   components: {treeselect},
 
-  props: ["data", "mode", "lg", "isChild", "parentName", "tableName", "dense"],
+  props: ["data", "mode", "isChild", "parentName", "tableName", "dense"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
       optAL: [],
       al: this.data.accessLevel,
       //

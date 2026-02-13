@@ -354,11 +354,11 @@ export default {
     fetchDataGr() {
       this.visible = true
       this.currentNode = null
-
+      const lang = localStorage.getItem("curLang");
       api
         .post('', {
           method: "group/loadGroup",
-          params: [{tableName: "PropGr"}],
+          params: [{tableName: "PropGr", lang: lang}],
         })
         .then(
           (response) => {
@@ -391,13 +391,8 @@ export default {
     fnInsGr(mode, isChild) {
       let data = {
         id: 0,
-        cod: "",
-        name: "",
-        fullName: "",
         accessLevel: 1,
-        cmt: null,
       };
-      const lg = this.lang;
       let parent = null;
       let parentName = null;
       if (isChild) {
@@ -434,7 +429,6 @@ export default {
             isChild: isChild,
             tableName: "PropGr",
             parentName: parentName,
-            lg: lg,
             dense: true,
           },
         })
@@ -707,13 +701,12 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
 
     api
       .post('', {
         method: "dict/load",
-        params: [{dict: "FD_PropType"}],
+        params: [{dict: "FD_PropType", lang: lang}],
       })
       .then((response) => {
         response.data.result.records.forEach((it) => {
