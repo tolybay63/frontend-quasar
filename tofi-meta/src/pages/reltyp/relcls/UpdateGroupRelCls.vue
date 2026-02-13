@@ -223,14 +223,12 @@ export default {
       }
     },
 
-
     getIconName(row) {
       if (row.isOwn === 1)
         return "brightness_1";
       else if (row.isOwn === -2)
         return "brightness_7"
     },
-
 
     getIconColor(row) {
       if (row.isOwn === 1)
@@ -336,13 +334,14 @@ export default {
         getCheckets(this.rows[i])
         rez.push(checkedMembers)
       }
+      const lang = localStorage.getItem("curLang")
       //console.info("rez", rez)
       //console.info("rows", this.rows)
 
       api
           .post('', {
             method: "relcls/createGroupRelCls",
-            params: [this.form.relTyp, rez, this.dbType.id],
+            params: [this.form.relTyp, rez, this.dbType.id, lang],
           })
           .then(
               () => {
@@ -406,7 +405,7 @@ export default {
         .then((response) => {
           this.rows = pack(response.data.result.records, "ord");
           this.sizeRTM = this.rows.length
-          //console.log("rows", this.rows)
+          console.log("rows", this.rows)
         })
         .finally(() => {
           this.loading = false;
@@ -421,7 +420,7 @@ export default {
       .then((response) => {
         this.optionsDB = response.data.result.records
         this.dbType = this.optionsDB[0]
-        //console.log("rows", this.rows)
+        console.log("rows db", this.rows)
       })
       .finally(() => {
         this.loading = false;

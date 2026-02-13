@@ -152,7 +152,6 @@ export default {
       cols: [],
       rows: [],
       loading: false,
-      //separator: ref("cell"),
       selected: [],
       FD_AccessLevel: new Map(),
       dataBase: new Map(),
@@ -187,13 +186,12 @@ export default {
     },
 
     createGroup() {
-      const lg = {name: this.lang}
+
       this.$q
         .dialog({
           component: UpdateGroupRelCls,
           componentProps: {
             data: {relTyp: this.reltypId},
-            lg: lg,
             //dense: this.dense,
             // ...
           },
@@ -208,13 +206,11 @@ export default {
     },
 
     deleteGroup() {
-      const lg = {name: this.lang}
       this.$q
         .dialog({
           component: DeleteGroupRelCls,
           componentProps: {
             relTyp: this.reltypId,
-            lg: lg,
             //dense: this.dense,
             // ...
           },
@@ -234,15 +230,9 @@ export default {
     editRow(rec, mode) {
       let data = {
         id: 0,
-        cod: null,
         accessLevel: FD_Consts.FD_AccessLevel.common,
-        name: "",
-        fullName: "",
         relTyp: this.reltypId,
         isOpenness: true,
-        dataBase: null,
-        ord: null,
-        cmt: null,
       };
       if (mode === "upd") {
         data = {
@@ -415,6 +405,9 @@ export default {
       ];
     },
 
+    infoSelected(row) {
+      return " " + row.cod + "-" + row.name;
+    },
 
   },
 
@@ -456,14 +449,7 @@ export default {
     //console.info("mounted RelCls", this.$route.params)
   },
 
-  setup() {
-    return {
-      infoSelected(row) {
-        return " " + row.cod + "-" + row.name;
-      },
-    }
-
-  },
+  setup() {},
 
 }
 </script>

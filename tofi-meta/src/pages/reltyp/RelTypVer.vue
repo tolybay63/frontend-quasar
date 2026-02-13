@@ -205,9 +205,6 @@ export default {
       let data = {
         id: 0,
         ownerVer: this.reltypId,
-        name: "",
-        fullName: "",
-        cmtVer: null,
       };
       if (mode === "upd") {
         data = {
@@ -217,7 +214,7 @@ export default {
           fullName: rec.fullName,
           dbeg: rec.dbeg > "1800-01-01" ? rec.dbeg : null,
           dend: rec.dend < "3333-12-31" ? rec.dend : null,
-          cmtVer: rec.cmtVer,
+          cmt: rec.cmt,
         };
       }
       //console.log("data",data)
@@ -262,7 +259,7 @@ export default {
     },
     getCmt() {
       if (this.selected.length > 0)
-        return this.selected[0].cmtVer ? this.selected[0].cmtVer : "-"
+        return this.selected[0].cmt ? this.selected[0].cmt : "-"
       else
         return "...";
     },

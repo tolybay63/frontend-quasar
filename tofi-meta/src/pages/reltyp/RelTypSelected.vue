@@ -87,7 +87,6 @@ export default {
       this.loading = ref(true);
       api
           .post('', {
-            id: "1",
             method: "reltyp/loadRec",
             params: [{id: reltyp, lang: localStorage.getItem("curLang")}],
           })

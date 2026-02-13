@@ -211,7 +211,7 @@ export default {
           .post('', {
             id: this.form.id,
             method: "reltyp/" + method,
-            params: [{rec: this.form}],
+            params: [this.form],
           })
           .then(
               (response) => {
@@ -245,9 +245,6 @@ export default {
         .then((response) => {
           this.optAL = response.data.result.records;
         });
-    //
-
-    return {};
   },
 };
 </script>

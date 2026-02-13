@@ -61,11 +61,11 @@
         >
         </q-input>
 
-        <!-- cmtVer -->
+        <!-- cmt -->
         <q-input
             :dense="dense"
-            :model-value="form.cmtVer"
-            v-model="form.cmtVer"
+            :model-value="form.cmt"
+            v-model="form.cmt"
             type="textarea"
             :label="$t('fldCmt')"
         >
@@ -160,7 +160,6 @@ export default {
       this.form.lang = localStorage.getItem("curLang");
       api
           .post('', {
-            id: this.form.id,
             method: "reltyp/" + method,
             params: [{rec: this.form}],
           })
@@ -187,7 +186,6 @@ export default {
     },
   },
   created() {
-    return {};
   },
 };
 </script>

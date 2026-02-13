@@ -421,7 +421,7 @@ export default defineComponent({
     return {
       cols: [],
       rows: [],
-      FD_AccessLevel: null,
+      FD_AccessLevel: new Map(),
       filter: "",
       loading: false,
       pagination: {
@@ -446,7 +446,6 @@ export default defineComponent({
           params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
-          this.FD_AccessLevel = new Map();
           response.data.result.records.forEach((it) => {
             this.FD_AccessLevel.set(it["id"], it["text"]);
           });

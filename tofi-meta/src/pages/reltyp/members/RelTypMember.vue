@@ -308,15 +308,12 @@ export default {
     editRow(rec, mode) {
       let data = {
         id: 0,
-        name: "",
-        fullName: "",
         relTyp: this.reltypId,
         memberType: FD_Consts.FD_MemberType.typ,
         card: 0,
         typ: 0,
         relTypMemb: 0,
         role: 0,
-        cmt: null,
       };
       if (mode === "upd") {
         data = {
@@ -333,9 +330,6 @@ export default {
           cmt: rec.cmt,
         };
       }
-      //const upd = {isIns: ins};
-      const lg = {name: this.lang};
-
       //console.log("data",data)
 
       this.$q
@@ -344,7 +338,6 @@ export default {
             componentProps: {
               data: data,
               mode: mode,
-              lg: lg,
               dense: true,
               // ...
             },

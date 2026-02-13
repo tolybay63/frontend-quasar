@@ -147,12 +147,11 @@ import allConsts from "pages/all-consts.js";
 import {notifyError, notifySuccess} from "src/utils/jsutils";
 
 export default {
-  props: ["data", "mode", "lg", "dense"],
+  props: ["data", "mode", "dense"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
       optMT: [],
       mt: this.data.memberType,
       relroles: [],
@@ -162,7 +161,9 @@ export default {
       optRT: [],
       relTypMemb: this.data.relTypMemb,
       //
-      typ_disabled: false
+      typ_disabled: false,
+      loading: false,
+
     };
   },
 
@@ -248,9 +249,10 @@ export default {
       const method =
           this.mode === "ins" ? "insertRelTypMember" : "updateRelTypMember";
 
+      this.form.lang = localStorage.getItem("curLang")
+
       api
           .post('', {
-            id: this.form.id,
             method: "reltyp/" + method,
             params: [{rec: this.form}],
           })
@@ -278,52 +280,66 @@ export default {
   },
 
   created() {
-    api
-        .post('', {
-          method: "dict/load",
-          params: [{dict: "FD_MemberType"}],
-        })
-        .then((response) => {
-          this.optMT = response.data.result.records;
-          this.optMT.splice(2, 2);
-        });
-    //
-    api
-        .post('', {
-          method: "role/loadRoles",
-          params: [{}],
-        })
-        .then((response) => {
-          //this.measures = pack(response.data.result.records)
-          this.relroles = response.data.result.records;
-          this.relroles.unshift({id: 0, name: this.$t("notChosen")});
-        });
-
-    api
-        .post('', {
-          method: "typ/loadTypForSelect",
-          params: [{}],
-        })
-        .then((response) => {
-          this.optTyp = response.data.result.records;
-          this.optTyp.unshift({id: 0, name: this.$t("notChosen")});
-        });
-
-    api
-        .post('', {
-          method: "reltyp/loadRelTypForSelect",
-          params: [],
-        })
-        .then((response) => {
-          this.optRT = response.data.result.records;
-          this.optRT.unshift({id: 0, name: this.$t("notChosen")});
-        });
+    this.loading = true;
 
     if (this.mode === "ins") {
       this.typ_disabled = false
     } else {
       this.typ_disabled = this.form.memberType !== allConsts.FD_MemberType.typ;
     }
+
+    const lang = localStorage.getItem("curLang");
+    api
+        .post('', {
+          method: "dict/load",
+          params: [{dict: "FD_MemberType", lang: lang}],
+        })
+        .then((response) => {
+          this.optMT = response.data.result.records;
+          this.optMT.splice(2, 2);
+        })
+      .finally(() => {
+        this.loading = false;
+      })
+    //
+    api
+        .post('', {
+          method: "role/loadRoles",
+          params: [lang],
+        })
+        .then((response) => {
+          this.relroles = response.data.result.records;
+          this.relroles.unshift({id: 0, name: this.$t("notChosen")});
+        })
+      .finally(() => {
+        this.loading = false;
+      })
+
+    api
+        .post('', {
+          method: "typ/loadTypForSelect",
+          params: [lang],
+        })
+        .then((response) => {
+          this.optTyp = response.data.result.records;
+          this.optTyp.unshift({id: 0, name: this.$t("notChosen")});
+        })
+      .finally(() => {
+        this.loading = false;
+      })
+
+    api
+        .post('', {
+          method: "reltyp/loadRelTypForSelect",
+          params: [lang],
+        })
+        .then((response) => {
+          this.optRT = response.data.result.records;
+          this.optRT.unshift({id: 0, name: this.$t("notChosen")});
+        })
+      .finally(() => {
+        this.loading = false;
+      })
 
   },
 };
