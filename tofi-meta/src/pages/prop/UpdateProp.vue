@@ -517,13 +517,12 @@ import allConsts from "pages/all-consts";
 
 export default {
   components: {treeselect},
-  props: ["rec", "mode", "lg", "isComplexProp"],
+  props: ["rec", "mode", "isComplexProp"],
 
   data() {
     //console.info("UpdateProp", this.rec)
     return {
       dense: true,  //???????????????????????????
-
 
       form: this.rec,
       visible: ref(false),
@@ -631,8 +630,8 @@ export default {
       this.visible = ref(true);
       api
         .post('', {
-          method: "attrib/loadForSelect",
-          params: [],
+          method: "attrib/loadAttrib",   //ForSelect,
+          params: [{lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.optionsAttribOrg = response.data.result.records;
@@ -1014,6 +1013,7 @@ export default {
       // before hiding the QDialog
 
       const method = this.mode === "ins" ? "insert" : "update";
+      this.form.lang = localStorage.getItem("curLang")
 
       let err = false;
       api
@@ -1059,7 +1059,7 @@ export default {
       api
         .post('', {
           method: "dict/load",
-          params: [{dict: dictName}],
+          params: [{dict: dictName, lang: localStorage.getItem("curLang")}],
         })
         .then(response => {
           if (dictName === "FD_AccessLevel")
@@ -1120,7 +1120,7 @@ export default {
     api
       .post('', {
         method: "prop/getParentName",
-        params: [this.rec.propGr, !this.rec.parent ? 0 : this.rec.parent],
+        params: [this.rec.propGr, !this.rec.parent ? 0 : this.rec.parent, localStorage.getItem("curLang")],
       })
       .then((response) => {
         this.parentName = response.data.result;

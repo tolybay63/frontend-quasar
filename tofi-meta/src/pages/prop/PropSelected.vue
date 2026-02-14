@@ -354,7 +354,7 @@ export default {
     api
         .post('', {
           method: "prop/loadRec",
-          params: [this.propId],
+          params: [this.propId, localStorage.getItem("curLang")],
         })
         .then((response) => {
           //console.log("prop info", response.data.result.records)

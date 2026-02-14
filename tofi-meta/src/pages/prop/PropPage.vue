@@ -257,7 +257,7 @@ export default {
         api
           .post('', {
             method: "prop/loadRec",
-            params: [this.currentNode2.id],
+            params: [this.currentNode2.id, localStorage.getItem("curLang")],
           })
           .then((response) => {
             this.currentNode2 = response.data.result.records[0]
@@ -497,14 +497,13 @@ export default {
         data.allItem = false;
         data.visualFormat = allConsts.FD_VisualFormat.shortt;
       }
-      const lg = this.lang;
+
       this.$q
         .dialog({
           component: UpdateProp,
           componentProps: {
             rec: data,
             mode: mode,
-            lg: lg,
             dense: true,
           },
         })
@@ -602,6 +601,7 @@ export default {
         })
         .then(
           (response) => {
+            console.info("rows", response.data.result.records)
             this.rows2 = pack(response.data.result.records, "ord");
             this.fnExpand2();
           },
@@ -674,6 +674,7 @@ export default {
           label: this.$t("propType"),
           field: "propType",
           headerStyle: "font-size: 1.2em; width: 15%",
+          format: (val) => val ? this.FD_PropType.get(val) : ""
         },
         {
           name: "cmt",
@@ -712,6 +713,7 @@ export default {
         response.data.result.records.forEach((it) => {
           this.FD_PropType.set(it["id"], it["text"]);
         });
+        console.info("PropType", this.FD_PropType)
       });
 
     this.cols = this.getColumns();
