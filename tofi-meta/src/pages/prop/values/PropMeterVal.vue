@@ -46,10 +46,11 @@ export default {
     hasTarget,
     loadPropMeter(prop) {
       this.loading = ref(true);
+      const lang = localStorage.getItem("curLang");
       api
           .post('', {
             method: "prop/loadPropMeter",
-            params: [prop],
+            params: [prop, lang],
           })
           .then((response) => {
             this.rows = pack(response.data.result.records, "ord");
@@ -145,8 +146,6 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
     this.cols = this.getColumns();
   },
 

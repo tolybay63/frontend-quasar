@@ -49,7 +49,7 @@ export default {
       api
           .post('', {
             method: "prop/loadPropVal",
-            params: [prop, "Measure"],
+            params: [prop, "Measure", localStorage.getItem("curLang")],
           })
           .then((response) => {
             this.rows = pack(response.data.result.records, "id");
