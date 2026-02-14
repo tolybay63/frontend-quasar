@@ -353,7 +353,6 @@ export default {
     this.loading = ref(true);
     api
         .post('', {
-          id: "1",
           method: "prop/loadRec",
           params: [this.propId],
         })

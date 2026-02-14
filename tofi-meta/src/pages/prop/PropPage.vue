@@ -233,7 +233,7 @@ export default {
         api
           .post('', {
             method: "group/loadRec",
-            params: [{id: this.currentNode.id, tableName: "PropGr"}],
+            params: [{id: this.currentNode.id, tableName: "PropGr", lang: localStorage.getItem("curLang")}],
           })
           .then((response) => {
             this.currentNode = response.data.result.records[0];
@@ -598,7 +598,7 @@ export default {
       api
         .post('', {
           method: "prop/loadPropTree",
-          params: [propGr],
+          params: [propGr, localStorage.getItem("curLang")],
         })
         .then(
           (response) => {

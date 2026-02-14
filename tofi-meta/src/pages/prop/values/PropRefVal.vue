@@ -47,7 +47,7 @@ export default {
       rows: [],
       cols: [],
 
-      loading: ref(false),
+      loading: false,
       propId: null,
 
       dense: true,
@@ -79,14 +79,17 @@ export default {
     },
 
     fetchData(prop) {
-      this.loading = ref(true);
+      this.loading = true;
       let ent = "Factor";
+      let lang = localStorage.getItem("curLang");
       if (this.propType === allConsts.FD_PropType.typ) ent = "Typ";
       else if (this.propType === allConsts.FD_PropType.reltyp) ent = "RelTyp";
+      else if (this.propType === allConsts.FD_PropType.measure) ent = "Measure";
+
       api
           .post('', {
             method: "prop/loadPropVal",
-            params: [prop, ent],
+            params: [prop, ent, lang],
           })
           .then((response) => {
             this.rows = response.data.result.records;
@@ -99,7 +102,7 @@ export default {
             notifyError(msg);
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 
@@ -139,8 +142,6 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
     this.cols = this.getColumns();
   },
 
