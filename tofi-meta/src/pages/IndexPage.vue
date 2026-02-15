@@ -65,7 +65,7 @@ export default defineComponent({
   position: absolute;
   color: rgba(25, 118, 210, 0.1); /* Цвет текста TOFI 0, 0, 0, 0.05 */
   font-weight: bold;
-  font-family: sans-serif;
+  font-family: 'Arial Black', sans-serif;
   user-select: none;
   animation: float 15s infinite linear;
   display: block; /* Гарантируем отображение */
