@@ -139,7 +139,7 @@
             <q-btn
               v-if="hasTarget('mdl:mn_ds:prop:val')"
               :dense="dense"
-              :disable="currentNode2 == null || this.currentNode2.propType===4"
+              :disable="currentNode2 == null || currentNode2.propType===4 && !currentNode2['isDependValueOnPeriod']"
               class="q-ml-lg"
               color="secondary"
               icon="pan_tool_alt"

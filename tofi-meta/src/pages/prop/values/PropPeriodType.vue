@@ -46,8 +46,8 @@ export default {
       rows: [],
       cols: [],
 
-      FD_PeriodType: null,
-      loading: ref(false),
+      FD_PeriodType: new Map(),
+      loading: false,
       propId: null,
 
       dense: true,
@@ -73,7 +73,7 @@ export default {
     },
 
     fetchData(prop) {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post('', {
             method: "prop/loadPropPeriodType",
@@ -90,7 +90,7 @@ export default {
             notifyError(msg);
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 
@@ -121,21 +121,18 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
     this.cols = this.getColumns();
 
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_PeriodType"}],
+          params: [{dict: "FD_PeriodType", lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
-          this.FD_PeriodType = new Map();
           response.data.result.records.forEach((it) => {
             this.FD_PeriodType.set(it["id"], it["text"]);
           });
-          console.info("this.FD_PeriodType", this.FD_PeriodType)
+          //console.info("this.FD_PeriodType", this.FD_PeriodType)
         });
   },
 
