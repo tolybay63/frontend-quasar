@@ -15,7 +15,7 @@
         <div>{{ $t("editRecord") }}</div>
       </q-bar>
 
-      <q-inner-loading :showing="visible" color="secondary"/>
+      <q-inner-loading :showing="loading" color="secondary"/>
 
       <q-card>
         <q-tabs v-model="tab" class="text-teal">
@@ -520,12 +520,12 @@ export default {
   props: ["rec", "mode", "isComplexProp"],
 
   data() {
-    //console.info("UpdateProp", this.rec)
+    console.info("UpdateProp", this.rec)
     return {
       dense: true,  //???????????????????????????
 
       form: this.rec,
-      visible: ref(false),
+      loading: false,
       parentName: null,
 
       optionsLevel: [],
@@ -627,7 +627,7 @@ export default {
     },
 
     loadAttrib() {
-      this.visible = ref(true);
+      this.loading = true;
       api
         .post('', {
           method: "attrib/loadAttrib",   //ForSelect,
@@ -638,39 +638,41 @@ export default {
           this.optionsAttrib = response.data.result.records;
         })
         .finally(() => {
-          this.visible = ref(false);
+          this.loading = false;
         });
     },
 
     loadRelTyp() {
-      this.visible = ref(true);
+      this.loading = true;
       api
         .post('', {
           method: "reltyp/loadRelTypForSelect",
-          params: [],
+          params: [localStorage.getItem("curLang")],
         })
         .then((response) => {
           this.optionsRelTypOrg = response.data.result.records;
           this.optionsRelTyp = response.data.result.records;
         })
         .finally(() => {
-          this.visible = ref(false);
+          this.loading = false;
         });
     },
 
     loadMeter() {
-      this.visible = ref(true);
+      this.loading = true;
       api
         .post('', {
           method: "meter/loadForSelect",
-          params: [],
+          params: [localStorage.getItem("curLang")],
         })
         .then((response) => {
           this.optionsMeterOrg = response.data.result.records;
           this.optionsMeter = response.data.result.records;
+
+          //console.log("optionsMeter", this.optionsMeter);
         })
         .finally(() => {
-          this.visible = ref(false);
+          this.loading = false;
         });
     },
 
@@ -683,7 +685,7 @@ export default {
         api
           .post('', {
             method: act,
-            params: [meter],
+            params: [meter, localStorage.getItem("curLang")],
           })
           .then((response) => {
             this.optRate = pack(response.data.result.records, "ord");
@@ -787,7 +789,6 @@ export default {
         this.form.typ = val.id;
       }
     },
-
 
     filterFnTyp(val, update) {
       if (val === null || val === "") {
@@ -911,7 +912,7 @@ export default {
           //this.form.complex = null
           this.form.isUniq = null;
           this.form.allItem = null;
-          this.visible = ref(true);
+          this.loading = true;
           this.loadMeter();
         } else if (this.form.propType === allConsts.FD_PropType.attr) {
           this.form.factor = null;
@@ -1129,7 +1130,7 @@ export default {
     api
       .post('', {
         method: "factor/loadForSelect",
-        params: [],
+        params: [localStorage.getItem("curLang")],
       })
       .then((response) => {
         this.optionsStatusOrg = response.data.result.records;
@@ -1137,11 +1138,11 @@ export default {
         //this.optionsStatus.unshift({id: 0, name: this.$t('notChosen')})
       });
 
-    this.visible = ref(true);
+    this.loading = true;
     api
       .post('', {
         method: "typ/loadTypForSelect",
-        params: [{}],
+        params: [localStorage.getItem("curLang")],
       })
       .then((response) => {
         this.optionsProviderOrg = response.data.result.records;
@@ -1149,8 +1150,9 @@ export default {
         //this.optionsProvider.unshift({id: 0, name: this.$t('notChosen')})
       })
       .finally(() => {
-        this.visible = ref(false)
+        this.loading = false
       });
+
     if (this.mode === "upd") {
       if (this.form.propType === allConsts.FD_PropType.attr) {
         this.loadAttrib();
@@ -1166,7 +1168,7 @@ export default {
         api
           .post('', {
             method: "meter/loadForSelect",
-            params: [],
+            params: [localStorage.getItem("curLang")],
           })
           .then((response) => {
             this.optionsMeterOrg = response.data.result.records;
@@ -1179,12 +1181,12 @@ export default {
           })
           .finally(() => {
             if (this.form.propType === allConsts.FD_PropType.rate) {
-              this.loadMeterRate(this.rec.meter);
+              this.loadMeterRate(this.rec.meter, localStorage.getItem("curLang"));
             }
             api
               .post('', {
                 method: "measure/load",
-                params: [{meter: this.form.meter}],
+                params: [{meter: this.form.meter, lang: localStorage.getItem("curLang")}],
               })
               .then((response) => {
                 this.measures = pack(response.data.result.records, "ord");
@@ -1195,12 +1197,6 @@ export default {
   },
 
   computed: {
-    /*
-        isValid() {
-          let vm = this;
-          return vm.form.name && vm.form.name.length > 2
-        },
-    */
   }
 
 };

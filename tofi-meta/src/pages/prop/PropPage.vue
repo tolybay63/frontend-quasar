@@ -290,7 +290,7 @@ export default {
               api
                 .post('', {
                   method: "meter/loadRec",
-                  params: [{id: this.currentNode2.meter}],
+                  params: [{id: this.currentNode2.meter, lang: localStorage.getItem("curLang")}],
                 })
                 .then((response) => {
                   this.meterStruct =
