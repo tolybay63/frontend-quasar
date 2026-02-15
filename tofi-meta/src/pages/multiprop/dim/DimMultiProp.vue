@@ -8,6 +8,7 @@
       after-class="overflow-hidden q-ml-sm"
       separator-class="bg-red"
       class="bg-amber-1 no-scroll"
+      style="height: calc(100vh - 150px); width: 100%"
     >
       <template v-slot:before>
         <div class="q-pa-sm-sm">
@@ -72,7 +73,7 @@
                 </q-tooltip>
               </q-btn>
 
-              <q-inner-loading :showing="visible" color="secondary"/>
+              <q-inner-loading :showing="loading1" color="secondary"/>
             </template>
           </q-banner>
 
@@ -165,6 +166,7 @@
                 </q-btn>
               </template>
             </q-banner>
+
             <q-table
               style="height: calc(100vh - 500px); width: 100%"
               color="primary"
@@ -185,13 +187,12 @@
               <template #bottom-row>
                 <q-td colspan="100%" v-if="selected2.length > 0">
                   <span class="text-blue"> {{ $t("selectedRow") }}: </span>
-                  <span class="text-bold"> {{ this.infoSelected(selected2[0]) }} </span>
+                  <span class="text-bold"> {{ infoSelected(selected2[0]) }} </span>
                 </q-td>
                 <q-td colspan="100%" v-else-if="this.rows2.length > 0" class="text-bold">
                   {{ $t("infoRow") }}
                 </q-td>
               </template>
-
 
             </q-table>
 
@@ -213,7 +214,6 @@
               v-model:selected="selected3"
               :rows-per-page-options="[0]"
             >
-
               <template v-slot:top>
                 <div style="font-size: 1.2em; font-weight: bold;">
                   {{ $t("titleDop") }}
@@ -280,14 +280,10 @@
                 </q-btn>
 
               </template>
-
               <template #loading>
                 <q-inner-loading :showing="loading3" color="secondary"></q-inner-loading>
               </template>
-
             </q-table>
-
-
           </template>
 
         </q-splitter>
@@ -322,28 +318,28 @@ export default {
 
   data() {
     return {
-      splitterModel: ref(30),
-      splitterModel2: ref(60),
+      splitterModel: 30,
+      splitterModel2: 60,
 
       cols: [],
       rows: [],
       currentNode: null,
-      visible: ref(false),
+      loading1: false,
       //
       cols2: [],
       rows2: [],
       FD_AccessLevel: null,
       FD_DimMultiPropType: null,
-      loading2: ref(false),
-      selected2: ref([]),
+      loading2: false,
+      selected2: [],
       dmpGr: 0,
       dmp: 0,
       //
 
       cols3: [],
       rows3: [],
-      loading3: ref(false),
-      selected3: ref([]),
+      loading3: false,
+      selected3: [],
       maxLen: 0,
     };
   },
@@ -382,12 +378,12 @@ export default {
     },
 
     fetchDataGr() {
-      this.visible = ref(true)
+      this.loading1 = true
       this.currentNode = null
       api
         .post('', {
           method: "group/loadGroup",
-          params: [{tableName: "DimMultiPropGr"}],
+          params: [{tableName: "DimMultiPropGr", lang: localStorage.getItem("curLang")}],
         })
         .then(
           (response) => {
@@ -412,7 +408,7 @@ export default {
           }
         })
         .finally(() => {
-          this.visible = ref(false);
+          this.loading1 = false;
         });
     },
 
@@ -605,7 +601,7 @@ export default {
     },
 
     fetchData(propGr) {
-      this.visible = ref(true)
+      this.loading1 = true
       this.selected2 = []
       api
         .post('', {
@@ -634,7 +630,7 @@ export default {
           }
         })
         .finally(() => {
-          this.visible = ref(false);
+          this.loading1 = false;
         })
     },
 
@@ -693,7 +689,7 @@ export default {
     },
 
     loadDimMultiPropMoreCols(dimMultiProp) {
-      this.loading3 = ref(true)
+      this.loading3 = true
       this.selected3 = []
       api
         .post('', {
@@ -712,7 +708,7 @@ export default {
           notifyError(msg);
         })
         .finally(() => {
-          this.loading3 = ref(false);
+          this.loading3 = false;
         })
 
     },
@@ -733,7 +729,7 @@ export default {
           focus: "cancel",
         })
         .onOk(() => {
-          this.loading3 = ref(true)
+          this.loading3 = true
           api
             .post('', {
               method: "dimMultiProp/deleteMoreCols",
@@ -749,7 +745,7 @@ export default {
               }
             )
             .finally(()=> {
-              this.loading3 = ref(false)
+              this.loading3 = false
             })
         })
 
@@ -881,13 +877,12 @@ export default {
 
   created() {
     console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
 
     api
       .post('', {
         method: "dict/load",
-        params: [{dict: "FD_AccessLevel"}],
+        params: [{dict: "FD_AccessLevel", lang: lang}],
       })
       .then((response) => {
         this.FD_AccessLevel = new Map();
@@ -899,7 +894,7 @@ export default {
     api
       .post('', {
         method: "dict/load",
-        params: [{dict: "FD_DimMultiPropType"}],
+        params: [{dict: "FD_DimMultiPropType", lang: lang}],
       })
       .then((response) => {
         this.FD_DimMultiPropType = new Map();

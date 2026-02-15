@@ -141,6 +141,7 @@ export default {
       // before hiding the QDialog
       let err = false;
       const method = this.mode === "ins" ? "insert" : "update";
+      this.form.lang = localStorage.getItem("curLang")
       api
           .post('', {
             id: this.form.id,

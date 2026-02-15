@@ -235,7 +235,7 @@ export default {
         api
           .post('', {
             method: "group/loadRec",
-            params: [{id: this.currentNode.id, tableName: "SourceStockGr"}],
+            params: [{id: this.currentNode.id, tableName: "SourceStockGr", lang: localStorage.getItem("curLang")}],
           })
           .then((response) => {
             this.currentNode = response.data.result.records[0];
@@ -255,7 +255,7 @@ export default {
       api
         .post('', {
           method: "group/loadGroup",
-          params: [{tableName: "SourceStockGr"}],
+          params: [{tableName: "SourceStockGr", lang: localStorage.getItem("curLang")}],
         })
         .then(
           (response) => {
@@ -444,7 +444,7 @@ export default {
       api
         .post('', {
           method: "stock/loadStocks",
-          params: [stockGr],
+          params: [stockGr, localStorage.getItem("curLang")],
         })
         .then(
           (response) => {

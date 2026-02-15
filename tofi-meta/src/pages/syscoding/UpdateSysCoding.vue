@@ -121,7 +121,7 @@ export default {
       ss: this.data.sourceStock,
     };
   },
-  //al: this.form.accessLevel===0 ? 1 : this.form.accessLevel
+
   emits: [
     // REQUIRED
     "ok",
@@ -175,7 +175,7 @@ export default {
       // on OK, it is REQUIRED to
       // emit "ok" event (with optional payload)
       // before hiding the QDialog
-      this.loading = ref(true)
+      this.loading = true
       let err = false
 
       const method = this.mode === "ins" ? "insert" : "update";
@@ -183,6 +183,8 @@ export default {
           typeof this.al === "object" ? this.al.id : this.al;
       this.form.sourceStock =
           typeof this.ss === "object" ? this.ss.id : this.ss;
+
+      this.form.lang = localStorage.getItem("curLang");
 
       api
           .post('', {
@@ -204,7 +206,7 @@ export default {
           )
           .finally(() => {
             if (!err) this.hide()
-            this.loading= ref(false)
+            this.loading= rfalse
           });
     },
 
@@ -217,7 +219,7 @@ export default {
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.optionsAL = response.data.result.records;
@@ -226,7 +228,7 @@ export default {
     api
         .post('', {
           method: "stock/loadStockForSelect",
-          params: [],
+          params: [localStorage.getItem("curLang")],
         })
         .then((response) => {
           this.optionsSS = response.data.result.records;

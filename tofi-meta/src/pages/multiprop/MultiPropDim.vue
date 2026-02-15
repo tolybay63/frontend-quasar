@@ -121,7 +121,7 @@ import {hasTarget, notifyError} from "src/utils/jsutils";
 import UpdaterMultiPropDim from "pages/multiprop/UpdaterMultiPropDim.vue";
 
 export default {
-  props: ["lg", "dense"],
+  props: ["dense"],
 
   data() {
     return {

@@ -71,7 +71,7 @@
                 </q-tooltip>
               </q-btn>
 
-              <q-inner-loading :showing="visible" color="secondary"/>
+              <q-inner-loading :showing="loading1" color="secondary"/>
             </template>
           </q-banner>
             <div style="height: calc(100vh - 220px); width: 100%">
@@ -154,7 +154,7 @@
             :rows="rows2"
             table-header-class="text-bold text-white bg-blue-grey-13"
             separator="cell"
-            :loading="loading2.value"
+            :loading="loading2"
             selection="single"
             @update:selected="onUpdateSelect2"
             v-model:selected="selected2"
@@ -181,7 +181,6 @@
 </template>
 
 <script>
-import {ref} from "vue";
 import {api} from "boot/axios";
 import {
   collapsAll,
@@ -204,18 +203,18 @@ export default {
 
   data() {
     return {
-      splitterModel: ref(30),
+      splitterModel: 30,
       cols: [],
       rows: [],
       currentNode: null,
-      visible: ref(false),
+      loading1: false,
       dense: true,
       //
       cols2: [],
       rows2: [],
-      FD_AccessLevel: null,
-      loading2: ref(false),
-      selected2: ref([]),
+      FD_AccessLevel: new Map(),
+      loading2: false,
+      selected2: [],
       //
       mpGr: 0,
       mp: 0,
@@ -313,13 +312,13 @@ export default {
     },
 
     fetchDataGr() {
-      this.visible = ref(true);
+      this.loading1 = true
       this.currentNode = null
 
       api
           .post('', {
             method: "group/loadGroup",
-            params: [{tableName: "MultiPropGr"}],
+            params: [{tableName: "MultiPropGr", lang: localStorage.getItem("curLang")}],
           })
           .then(
               (response) => {
@@ -346,20 +345,16 @@ export default {
             }
           })
           .finally(() => {
-            this.visible = ref(false);
+            this.loading1 = false
           });
     },
 
     fnInsGr(mode, isChild) {
       let data = {
         id: 0,
-        cod: "",
-        name: "",
-        fullName: "",
         accessLevel: 1,
-        cmt: null,
       };
-      const lg = this.lang;
+
       let parent = null;
       let parentName = null;
       if (isChild) {
@@ -396,7 +391,6 @@ export default {
               isChild: isChild,
               tableName: "MultiPropGr",
               parentName: parentName,
-              lg: lg,
               dense: true,
             },
           })
@@ -452,14 +446,13 @@ export default {
     /*---------------------------------*/
 
     edit(data, mode) {
-      const lg = this.lang;
+
       this.$q
           .dialog({
             component: UpdaterMultiProp,
             componentProps: {
               rec: data,
               mode: mode,
-              lg: lg,
               dense: true,
             },
           })
@@ -536,13 +529,13 @@ export default {
     },
 
     fetchData(propGr) {
-      this.visible = ref(true)
+      this.loading1 = true
       this.selected2 = []
 
       api
           .post('', {
             method: "multiProp/loadMultiProp",
-            params: [propGr],
+            params: [propGr, localStorage.getItem("curLang")],
           })
           .then((response) => {
             this.rows2 = response.data.result.records;
@@ -561,7 +554,7 @@ export default {
             }
           })
           .finally(() => {
-            this.visible = ref(false);
+            this.loading1 = false
           });
     },
 
@@ -645,16 +638,14 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
+    const lang = localStorage.getItem("curLang");
 
     api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: lang}],
         })
         .then((response) => {
-          this.FD_AccessLevel = new Map();
           response.data.result.records.forEach((it) => {
             this.FD_AccessLevel.set(it["id"], it["text"]);
           });

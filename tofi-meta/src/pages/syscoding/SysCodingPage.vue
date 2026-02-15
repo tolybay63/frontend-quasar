@@ -126,7 +126,7 @@
         api
           .post('', {
             method: "syscoding/load",
-            params: [],
+            params: [localStorage.getItem("curLang")],
           })
           .then(
             (response) => {
@@ -200,56 +200,6 @@
 
 
       },
-
-/*      editRow(rec, mode) {
-        let data = {
-          id: 0,
-          cod: "",
-          name: "",
-          fullName: "",
-          accessLevel: 1,
-          scaleType: 1,
-          cmt: null,
-        };
-        if (mode === "upd") {
-          data = {
-            id: rec.id,
-            cod: rec.cod,
-            name: rec.name,
-            fullName: rec.fullName,
-            accessLevel: rec.accessLevel,
-            scaleType: rec.scaleType,
-            cmt: rec.cmt,
-          };
-        }
-
-        this.$q
-          .dialog({
-            component: UpdateSysCoding,
-            componentProps: {
-              data: data,
-              mode: mode,
-              // ...
-            },
-          })
-          .onOk((r) => {
-            //console.log("Ok! updated", r);
-            if (mode === "ins") {
-              this.rows.push(r);
-              this.selected = [];
-              this.selected.push(r);
-              //this.updSelection(this.selected);
-            } else {
-              for (let key in r) {
-                if (r.hasOwnProperty(key)) {
-                  rec[key] = r[key];
-                }
-              }
-            }
-          });
-
-
-      },*/
 
       editRow(rec, mode) {
         let data = {};
@@ -383,7 +333,7 @@
       api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           response.data.result.records.forEach((it) => {
@@ -394,7 +344,7 @@
       api
         .post('', {
           method: "dict/load",
-          params: [{dict: "FD_SysCodingType"}],
+          params: [{dict: "FD_SysCodingType", lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           response.data.result.records.forEach((it) => {
@@ -408,8 +358,6 @@
 
     setup() {
     }
-
-
 
   }
   </script>
