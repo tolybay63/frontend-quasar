@@ -123,7 +123,7 @@ export default defineComponent({
   100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-/* Ваша анимация логотипа */
+/* Анимация логотипа */
 @keyframes sway {
   to { transform: rotate(30deg); }
 }
